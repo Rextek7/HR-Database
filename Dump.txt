@@ -1,0 +1,3585 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.3 (Debian 16.3-1.pgdg120+1)
+-- Dumped by pg_dump version 16.3 (Ubuntu 16.3-1.pgdg22.04+1)
+
+-- Started on 2024-06-22 00:36:10 MSK
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 5 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: main
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO main;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 238 (class 1259 OID 16483)
+-- Name: candidate; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.candidate (
+    id integer NOT NULL,
+    name character varying(45),
+    birth_date date,
+    past_work_id integer,
+    past_salary character varying(45),
+    cv character varying(400),
+    phone character varying(400),
+    mail character varying(400),
+    previous_position character varying(400),
+    relocation_status character varying(400),
+    recruit_agency_id integer,
+    source_id integer,
+    hr_id integer
+);
+
+
+ALTER TABLE public.candidate OWNER TO main;
+
+--
+-- TOC entry 237 (class 1259 OID 16482)
+-- Name: candidate_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.candidate_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.candidate_id_seq OWNER TO main;
+
+--
+-- TOC entry 3552 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: candidate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.candidate_id_seq OWNED BY public.candidate.id;
+
+
+--
+-- TOC entry 248 (class 1259 OID 16598)
+-- Name: comment; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.comment (
+    id integer NOT NULL,
+    vac_id integer,
+    user_name character varying(45),
+    comment character varying(400),
+    date date
+);
+
+
+ALTER TABLE public.comment OWNER TO main;
+
+--
+-- TOC entry 247 (class 1259 OID 16597)
+-- Name: comment_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.comment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.comment_id_seq OWNER TO main;
+
+--
+-- TOC entry 3553 (class 0 OID 0)
+-- Dependencies: 247
+-- Name: comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.comment_id_seq OWNED BY public.comment.id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16400)
+-- Name: customer; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.customer (
+    id integer NOT NULL,
+    customer_name character varying(100)
+);
+
+
+ALTER TABLE public.customer OWNER TO main;
+
+--
+-- TOC entry 215 (class 1259 OID 16399)
+-- Name: customer_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.customer_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.customer_id_seq OWNER TO main;
+
+--
+-- TOC entry 3554 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: customer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.customer_id_seq OWNED BY public.customer.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16407)
+-- Name: grade; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.grade (
+    id integer NOT NULL,
+    "position" character varying(45) NOT NULL,
+    value integer NOT NULL
+);
+
+
+ALTER TABLE public.grade OWNER TO main;
+
+--
+-- TOC entry 217 (class 1259 OID 16406)
+-- Name: grade_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.grade_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.grade_id_seq OWNER TO main;
+
+--
+-- TOC entry 3555 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: grade_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.grade_id_seq OWNED BY public.grade.id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16416)
+-- Name: hr_; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.hr_ (
+    id integer NOT NULL,
+    name character varying(45),
+    "position" character varying(300),
+    phone character varying(45),
+    mail character varying(300)
+);
+
+
+ALTER TABLE public.hr_ OWNER TO main;
+
+--
+-- TOC entry 219 (class 1259 OID 16415)
+-- Name: hr__id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.hr__id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.hr__id_seq OWNER TO main;
+
+--
+-- TOC entry 3556 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: hr__id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.hr__id_seq OWNED BY public.hr_.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 16425)
+-- Name: location; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.location (
+    id integer NOT NULL,
+    location character varying(45) NOT NULL
+);
+
+
+ALTER TABLE public.location OWNER TO main;
+
+--
+-- TOC entry 221 (class 1259 OID 16424)
+-- Name: location_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.location_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.location_id_seq OWNER TO main;
+
+--
+-- TOC entry 3557 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: location_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.location_id_seq OWNED BY public.location.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 16432)
+-- Name: mvz; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.mvz (
+    id integer NOT NULL,
+    mvz character varying(120) NOT NULL
+);
+
+
+ALTER TABLE public.mvz OWNER TO main;
+
+--
+-- TOC entry 223 (class 1259 OID 16431)
+-- Name: mvz_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.mvz_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.mvz_id_seq OWNER TO main;
+
+--
+-- TOC entry 3558 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: mvz_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.mvz_id_seq OWNED BY public.mvz.id;
+
+
+--
+-- TOC entry 246 (class 1259 OID 16581)
+-- Name: offer; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.offer (
+    id integer NOT NULL,
+    vacancy_id integer,
+    candidate_id integer,
+    comment character varying(45),
+    accept boolean,
+    decline_comment character varying(45),
+    align_date date,
+    approval_date date,
+    final_candid_date date
+);
+
+
+ALTER TABLE public.offer OWNER TO main;
+
+--
+-- TOC entry 245 (class 1259 OID 16580)
+-- Name: offer_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.offer_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.offer_id_seq OWNER TO main;
+
+--
+-- TOC entry 3559 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: offer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.offer_id_seq OWNED BY public.offer.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 16439)
+-- Name: past_work; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.past_work (
+    id integer NOT NULL,
+    name character varying(45),
+    contributor boolean
+);
+
+
+ALTER TABLE public.past_work OWNER TO main;
+
+--
+-- TOC entry 225 (class 1259 OID 16438)
+-- Name: past_work_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.past_work_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.past_work_id_seq OWNER TO main;
+
+--
+-- TOC entry 3560 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: past_work_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.past_work_id_seq OWNED BY public.past_work.id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 16446)
+-- Name: project; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.project (
+    id integer NOT NULL,
+    project_name character varying(100),
+    project_desc text
+);
+
+
+ALTER TABLE public.project OWNER TO main;
+
+--
+-- TOC entry 227 (class 1259 OID 16445)
+-- Name: project_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.project_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.project_id_seq OWNER TO main;
+
+--
+-- TOC entry 3561 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: project_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.project_id_seq OWNED BY public.project.id;
+
+
+--
+-- TOC entry 230 (class 1259 OID 16455)
+-- Name: recruit_agency; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.recruit_agency (
+    id integer NOT NULL,
+    name character varying(45)
+);
+
+
+ALTER TABLE public.recruit_agency OWNER TO main;
+
+--
+-- TOC entry 229 (class 1259 OID 16454)
+-- Name: recruit_agency_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.recruit_agency_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.recruit_agency_id_seq OWNER TO main;
+
+--
+-- TOC entry 3562 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: recruit_agency_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.recruit_agency_id_seq OWNED BY public.recruit_agency.id;
+
+
+--
+-- TOC entry 250 (class 1259 OID 16610)
+-- Name: rejection; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.rejection (
+    id integer NOT NULL,
+    vacancy_id integer,
+    candidate_id integer,
+    initiator character varying(45),
+    reason character varying(45)
+);
+
+
+ALTER TABLE public.rejection OWNER TO main;
+
+--
+-- TOC entry 249 (class 1259 OID 16609)
+-- Name: rejection_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.rejection_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.rejection_id_seq OWNER TO main;
+
+--
+-- TOC entry 3563 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: rejection_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.rejection_id_seq OWNED BY public.rejection.id;
+
+
+--
+-- TOC entry 232 (class 1259 OID 16462)
+-- Name: role; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.role (
+    id integer NOT NULL,
+    role_name character varying(45),
+    role_desc character varying(100)
+);
+
+
+ALTER TABLE public.role OWNER TO main;
+
+--
+-- TOC entry 231 (class 1259 OID 16461)
+-- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.role_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.role_id_seq OWNER TO main;
+
+--
+-- TOC entry 3564 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.role_id_seq OWNED BY public.role.id;
+
+
+--
+-- TOC entry 244 (class 1259 OID 16569)
+-- Name: security_check; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.security_check (
+    id integer NOT NULL,
+    candidate_id integer,
+    form character varying(45),
+    send_date date,
+    result_date date,
+    status character varying(45)
+);
+
+
+ALTER TABLE public.security_check OWNER TO main;
+
+--
+-- TOC entry 243 (class 1259 OID 16568)
+-- Name: security_check_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.security_check_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.security_check_id_seq OWNER TO main;
+
+--
+-- TOC entry 3565 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: security_check_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.security_check_id_seq OWNED BY public.security_check.id;
+
+
+--
+-- TOC entry 234 (class 1259 OID 16469)
+-- Name: source; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.source (
+    id integer NOT NULL,
+    name character varying(45)
+);
+
+
+ALTER TABLE public.source OWNER TO main;
+
+--
+-- TOC entry 233 (class 1259 OID 16468)
+-- Name: source_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.source_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.source_id_seq OWNER TO main;
+
+--
+-- TOC entry 3566 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: source_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.source_id_seq OWNED BY public.source.id;
+
+
+--
+-- TOC entry 242 (class 1259 OID 16556)
+-- Name: talentq_check; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.talentq_check (
+    id integer NOT NULL,
+    candidate_id integer,
+    verbal_test integer,
+    numeric_test integer,
+    prof_test integer,
+    send_date date,
+    res_date date,
+    status character varying(45)
+);
+
+
+ALTER TABLE public.talentq_check OWNER TO main;
+
+--
+-- TOC entry 241 (class 1259 OID 16555)
+-- Name: talentq_check_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.talentq_check_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.talentq_check_id_seq OWNER TO main;
+
+--
+-- TOC entry 3567 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: talentq_check_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.talentq_check_id_seq OWNED BY public.talentq_check.id;
+
+
+--
+-- TOC entry 236 (class 1259 OID 16476)
+-- Name: vac_candid; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.vac_candid (
+    id integer NOT NULL,
+    vacancy_id integer,
+    candidate_id integer,
+    interview smallint,
+    cv smallint,
+    accept smallint,
+    customer_date date
+);
+
+
+ALTER TABLE public.vac_candid OWNER TO main;
+
+--
+-- TOC entry 235 (class 1259 OID 16475)
+-- Name: vac_candid_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.vac_candid_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.vac_candid_id_seq OWNER TO main;
+
+--
+-- TOC entry 3568 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: vac_candid_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.vac_candid_id_seq OWNED BY public.vac_candid.id;
+
+
+--
+-- TOC entry 240 (class 1259 OID 16512)
+-- Name: vacancy; Type: TABLE; Schema: public; Owner: main
+--
+
+CREATE TABLE public.vacancy (
+    id integer NOT NULL,
+    location_id integer,
+    project_id integer,
+    division_1 character varying(300),
+    division_2 character varying(300),
+    division_3 character varying(300),
+    division_4 character varying(300),
+    "position" character varying(300),
+    role_id integer,
+    description character varying(300),
+    grade_id integer,
+    mvz_id integer,
+    customer_id integer,
+    start_date date,
+    finish_date date,
+    salary integer,
+    pause boolean,
+    pause_start date,
+    pause_finish date,
+    candidate character varying(300),
+    hr_id integer,
+    status character varying(300)
+);
+
+
+ALTER TABLE public.vacancy OWNER TO main;
+
+--
+-- TOC entry 239 (class 1259 OID 16511)
+-- Name: vacancy_id_seq; Type: SEQUENCE; Schema: public; Owner: main
+--
+
+CREATE SEQUENCE public.vacancy_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.vacancy_id_seq OWNER TO main;
+
+--
+-- TOC entry 3569 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: vacancy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: main
+--
+
+ALTER SEQUENCE public.vacancy_id_seq OWNED BY public.vacancy.id;
+
+
+--
+-- TOC entry 3303 (class 2604 OID 16486)
+-- Name: candidate id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.candidate ALTER COLUMN id SET DEFAULT nextval('public.candidate_id_seq'::regclass);
+
+
+--
+-- TOC entry 3308 (class 2604 OID 16601)
+-- Name: comment id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.comment ALTER COLUMN id SET DEFAULT nextval('public.comment_id_seq'::regclass);
+
+
+--
+-- TOC entry 3292 (class 2604 OID 16403)
+-- Name: customer id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.customer ALTER COLUMN id SET DEFAULT nextval('public.customer_id_seq'::regclass);
+
+
+--
+-- TOC entry 3293 (class 2604 OID 16410)
+-- Name: grade id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.grade ALTER COLUMN id SET DEFAULT nextval('public.grade_id_seq'::regclass);
+
+
+--
+-- TOC entry 3294 (class 2604 OID 16419)
+-- Name: hr_ id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.hr_ ALTER COLUMN id SET DEFAULT nextval('public.hr__id_seq'::regclass);
+
+
+--
+-- TOC entry 3295 (class 2604 OID 16428)
+-- Name: location id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.location ALTER COLUMN id SET DEFAULT nextval('public.location_id_seq'::regclass);
+
+
+--
+-- TOC entry 3296 (class 2604 OID 16435)
+-- Name: mvz id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.mvz ALTER COLUMN id SET DEFAULT nextval('public.mvz_id_seq'::regclass);
+
+
+--
+-- TOC entry 3307 (class 2604 OID 16584)
+-- Name: offer id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.offer ALTER COLUMN id SET DEFAULT nextval('public.offer_id_seq'::regclass);
+
+
+--
+-- TOC entry 3297 (class 2604 OID 16442)
+-- Name: past_work id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.past_work ALTER COLUMN id SET DEFAULT nextval('public.past_work_id_seq'::regclass);
+
+
+--
+-- TOC entry 3298 (class 2604 OID 16449)
+-- Name: project id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.project ALTER COLUMN id SET DEFAULT nextval('public.project_id_seq'::regclass);
+
+
+--
+-- TOC entry 3299 (class 2604 OID 16458)
+-- Name: recruit_agency id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.recruit_agency ALTER COLUMN id SET DEFAULT nextval('public.recruit_agency_id_seq'::regclass);
+
+
+--
+-- TOC entry 3309 (class 2604 OID 16613)
+-- Name: rejection id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.rejection ALTER COLUMN id SET DEFAULT nextval('public.rejection_id_seq'::regclass);
+
+
+--
+-- TOC entry 3300 (class 2604 OID 16465)
+-- Name: role id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.role ALTER COLUMN id SET DEFAULT nextval('public.role_id_seq'::regclass);
+
+
+--
+-- TOC entry 3306 (class 2604 OID 16572)
+-- Name: security_check id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.security_check ALTER COLUMN id SET DEFAULT nextval('public.security_check_id_seq'::regclass);
+
+
+--
+-- TOC entry 3301 (class 2604 OID 16472)
+-- Name: source id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.source ALTER COLUMN id SET DEFAULT nextval('public.source_id_seq'::regclass);
+
+
+--
+-- TOC entry 3305 (class 2604 OID 16559)
+-- Name: talentq_check id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.talentq_check ALTER COLUMN id SET DEFAULT nextval('public.talentq_check_id_seq'::regclass);
+
+
+--
+-- TOC entry 3302 (class 2604 OID 16479)
+-- Name: vac_candid id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vac_candid ALTER COLUMN id SET DEFAULT nextval('public.vac_candid_id_seq'::regclass);
+
+
+--
+-- TOC entry 3304 (class 2604 OID 16515)
+-- Name: vacancy id; Type: DEFAULT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy ALTER COLUMN id SET DEFAULT nextval('public.vacancy_id_seq'::regclass);
+
+
+--
+-- TOC entry 3534 (class 0 OID 16483)
+-- Dependencies: 238
+-- Data for Name: candidate; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.candidate VALUES (1, 'Иванов Иван Иванович', '2001-01-20', 1, '20000', 'Опытный специалист по продажам с высокими результатами', '+7 (999) 999-99-99', 'ivanov@example.com', 'Менеджер по продажам', 'нужен', 1, 1, 1);
+INSERT INTO public.candidate VALUES (2, 'Петров Петр Петрович', '2002-02-20', 2, '40000', 'Специалист по маркетингу с опытом работы в крупных компаниях', '+7 (999) 999-99-98', 'petrov@example.com', 'Маркетолог', 'нужен', 2, 2, 2);
+INSERT INTO public.candidate VALUES (3, 'Сидоров Сидор Сидорович', '2003-03-20', 3, '60000', 'Опытный программист с навыками разработки на Java и Python', '+7 (999) 999-99-97', 'sidorov@example.com', 'Программист', 'нужен', 3, 3, 3);
+INSERT INTO public.candidate VALUES (4, 'Николаев Николай Николаевич', '2004-04-20', 4, '80000', 'Эксперт по финансам с опытом работы в банковской сфере', '+7 (999) 999-99-96', 'nikolaev@example.com', 'Финансовый аналитик', 'нужен', 4, 4, 4);
+INSERT INTO public.candidate VALUES (5, 'Сергеев Сергей Сергеевич', '2005-05-20', 5, '100000', 'Опытный менеджер по персоналу с навыками подбора и обучения персонала', '+7 (999) 999-99-95', 'sergeev@example.com', 'Менеджер по персоналу', 'нужен', 5, 5, 5);
+INSERT INTO public.candidate VALUES (6, 'Александров Александр Александрович', '2006-06-20', 6, '120000', 'Эксперт по логистике с опытом работы в крупных компаниях и знанием международных стандартов доставки товаров и услуг', '+7 (999) 999-99-94', 'aleksandrov@example.com', 'Логистический менеджер', 'нужен', 6, 6, 6);
+INSERT INTO public.candidate VALUES (7, 'Алексеев Алексей Алексеевич', '2007-07-20', 7, '140000', 'Опытный юрист с навыками защиты прав клиентов и представления интересов компаний в судебных органах', '+7 (999) 999-99-93', 'alekseev@example.com', 'Юрист', 'нужен', 7, 1, 7);
+INSERT INTO public.candidate VALUES (8, 'Андреев Андрей Андреевич', '2008-08-20', 8, '160000', 'Эксперт по продажам с опытом работы в крупных компаниях и знанием техник продаж и управления отношениями с клиентами', '+7 (999) 999-99-92', 'andreev@example.com', 'Менеджер по продажам', 'нужен', 8, 2, 8);
+INSERT INTO public.candidate VALUES (9, 'Антонов Антон Антонович', '2009-09-20', 9, '180000', 'Опытный специалист по маркетингу с навыками проведения маркетинговых исследований и разработки стратегий продвижения товаров и услуг', '+7 (999) 999-99-91', 'antonov@example.com', 'Маркетолог', 'нужен', 9, 3, 9);
+INSERT INTO public.candidate VALUES (10, 'Артемьев Артем Артемьевич', '2010-10-20', 10, '200000', 'Эксперт по финансам с опытом работы в банковской сфере и знанием финансовых инструментов и рынков.', '+7 (999) 999-99-90', 'artemiev@example.com', 'Финансовый аналитик', 'нужен', 10, 4, 10);
+INSERT INTO public.candidate VALUES (11, 'Борисов Борис Борисович', '2011-11-20', 11, '20000', 'Опытный программист с навыками разработки на Java и Python и знанием алгоритмов и структур данных', '+7 (999) 999-99-89', 'borisov@example.com', 'Программист', 'нужен', 11, 5, 11);
+INSERT INTO public.candidate VALUES (12, 'Васильев Василий Васильевич', '2012-12-20', 12, '40000', 'Эксперт по логистике с опытом работы в крупных компаниях и знанием международных стандартов доставки товаров и услуг', '+7 (999) 999-99-88', 'vasiliev@example.com', 'Логистический менеджер', 'нужен', 12, 6, 12);
+INSERT INTO public.candidate VALUES (13, 'Викторов Виктор Викторович', '2013-01-20', 13, '60000', 'Опытный юрист с навыками защиты прав клиентов и представления интересов компаний в судебных органах', '+7 (999) 999-99-87', 'viktorov@example.com', 'Юрист', 'нужен', 13, 1, 13);
+INSERT INTO public.candidate VALUES (14, 'Владимиров Владимир Владимирович', '2014-02-20', 14, '80000', 'Эксперт по продажам с опытом работы в крупных компаниях и знанием техник продаж и управления отношениями с клиентами', '+7 (999) 999-99-86', 'vladimirov@example.com', 'Менеджер по продажам', 'нужен', 14, 2, 14);
+INSERT INTO public.candidate VALUES (15, 'Георгиев Георгий Георгиевич', '2015-03-20', 15, '100000', 'Опытный специалист по маркетингу с навыками проведения маркетинговых исследований и разработки стратегий продвижения товаров и услуг', '+7 (999) 999-99-85', 'georgiev@example.com', 'Маркетолог', 'нужен', 15, 3, 15);
+INSERT INTO public.candidate VALUES (16, 'Григорьев Григорий Григорьевич', '2016-04-20', 16, '120000', 'Эксперт по финансам с опытом работы в банковской сфере и знанием финансовых инструментов и рынков', '+7 (999) 999-99-84', 'grigoriev@example.com', 'Финансовый аналитик', 'нужен', 16, 4, 16);
+INSERT INTO public.candidate VALUES (17, 'Денисов Денис Денисович', '2017-05-20', 17, '140000', 'Опытный программист с навыками разработки на Java и Python и знанием алгоритмов и структур данных', '+7 (999) 999-99-83', 'denisov@example.com', 'Программист', 'нужен', 17, 5, 17);
+INSERT INTO public.candidate VALUES (18, 'Дмитриев Дмитрий Дмитриевич', '2018-06-20', 18, '160000', 'Эксперт по логистике с опытом работы в крупных компаниях и знанием международных стандартов доставки товаров и услуг', '+7 (999) 999-99-82', 'dmitriev@example.com', 'Логистический менеджер', 'нужен', 18, 6, 18);
+INSERT INTO public.candidate VALUES (19, 'Евгеньев Евгений Евгеньевич', '2019-07-20', 19, '180000', 'Опытный юрист с навыками защиты прав клиентов и представления интересов компаний в судебных органах.', '+7 (999) 999-99-81', 'evgeniev@example.com', 'Юрист', 'нужен', 19, 1, 19);
+INSERT INTO public.candidate VALUES (20, 'Егоров Егор Егорович', '2020-08-20', 20, '200000', 'Эксперт по продажам с опытом работы в крупных компаниях и знанием техник продаж и управления отношениями с клиентами.', '+7 (999) 999-99-80', 'egorov@example.com', 'Менеджер по продажам', 'нужен', 20, 2, 20);
+INSERT INTO public.candidate VALUES (21, 'Жуков Жук Жукович', '2021-09-20', 1, '20000', 'Опытный специалист по маркетингу с навыками проведения маркетинговых исследований и разработки стратегий продвижения товаров и услуг.', '+7 (999) 999-99-79', 'zhukov@example.com', 'Маркетолог', 'нужен', 1, 3, 21);
+INSERT INTO public.candidate VALUES (22, 'Зайцев Заяц Зайцевич', '2022-10-20', 2, '40000', 'Эксперт по финансам с опытом работы в банковской сфере и знанием финансовых инструментов и рынков.', '+7 (999) 999-99-78', 'zaytsev@example.com', 'Финансовый аналитик', 'нужен', 2, 4, 22);
+INSERT INTO public.candidate VALUES (23, 'Иванов Иван Иванович', '2023-11-20', 3, '60000', 'Опытный программист с навыками разработки на Java и Python и знанием алгоритмов и структур данных.', '+7 (999) 999-99-77', 'ivanov@example.com', 'Программист', 'нужен', 3, 5, 23);
+INSERT INTO public.candidate VALUES (24, 'Козлов Козел Козлович', '2024-12-20', 4, '80000', 'Эксперт по логистике с опытом работы в крупных компаниях и знанием международных стандартов доставки товаров и услуг.', '+7 (999) 999-99-76', 'kozlov@example.com', 'Логистический менеджер', 'нужен', 4, 6, 24);
+INSERT INTO public.candidate VALUES (25, 'Константинов Константин Константинович', '2025-01-20', 5, '100000', 'Опытный юрист с навыками защиты прав клиентов и представления интересов компаний в судебных органах.', '+7 (999) 999-99-75', 'konstantinov@example.com', 'Юрист', 'нужен', 5, 1, 25);
+INSERT INTO public.candidate VALUES (26, 'Кузнецов Кузнец Кузнецович', '2026-02-20', 6, '120000', 'Эксперт по продажам с опытом работы в крупных компаниях и знанием техник продаж и управления отношениями с клиентами.', '+7 (999) 999-99-74', 'kuznetsov@example.com', 'Менеджер по продажам', 'нужен', 6, 2, 26);
+INSERT INTO public.candidate VALUES (27, 'Леонтьев Леонтий Леонтьевич', '2027-03-20', 7, '140000', 'Опытный специалист по маркетингу с навыками проведения маркетинговых исследований и разработки стратегий продвижения товаров и услуг.', '+7 (999) 999-99-73', 'leontiev@example.com', 'Маркетолог', 'нужен', 7, 3, 27);
+INSERT INTO public.candidate VALUES (28, 'Макаров Макар Макарович', '2028-04-20', 8, '160000', 'Эксперт по финансам с опытом работы в банковской сфере и знанием финансовых инструментов и рынков.', '+7 (999) 999-99-72', 'makarov@example.com', 'Финансовый аналитик', 'нужен', 8, 4, 28);
+INSERT INTO public.candidate VALUES (29, 'Максимов Максим Максимович', '2029-05-20', 9, '180000', 'Опытный программист с навыками разработки на Java и Python и знанием алгоритмов и структур данных.', '+7 (999) 999-99-71', 'maksimov@example.com', 'Программист', 'нужен', 9, 5, 29);
+INSERT INTO public.candidate VALUES (30, 'Михайлов Михаил Михайлович', '2030-06-20', 10, '200000', 'Эксперт по логистике с опытом работы в крупных компаниях и знанием международных стандартов доставки товаров и услуг.', '+7 (999) 999-99-70', 'mikhailov@example.com', 'Логистический менеджер', 'нужен', 10, 6, 30);
+INSERT INTO public.candidate VALUES (31, 'Никитин Никита Никитинич', '2031-07-20', 11, '20000', 'Опытный юрист с навыками защиты прав клиентов и представления интересов компаний в судебных органах.', '+7 (999) 999-99-69', 'nikitin@example.com', 'Юрист', 'нужен', 11, 1, 31);
+INSERT INTO public.candidate VALUES (32, 'Олегов Олег Олегович', '2001-08-20', 12, '40000', 'Эксперт по продажам с опытом работы в крупных компаниях и знанием техник продаж и управления отношениями с клиентами.', '+7 (999) 999-99-68', 'olegov@example.com', 'Менеджер по продажам', 'нужен', 12, 2, 32);
+INSERT INTO public.candidate VALUES (33, 'Павлов Павел Павлович', '2002-09-20', 13, '60000', 'Опытный специалист по маркетингу с навыками проведения маркетинговых исследований и разработки стратегий продвижения товаров и услуг.', '+7 (999) 999-99-67', 'pavlov@example.com', 'Маркетолог', 'нужен', 13, 3, 33);
+INSERT INTO public.candidate VALUES (34, 'Романов Роман Романович', '2003-10-20', 14, '80000', 'Эксперт по финансам с опытом работы в банковской сфере и знанием финансовых инструментов и рынков.', '+7 (999) 999-99-66', 'romanov@example.com', 'Финансовый аналитик', 'нужен', 14, 4, 34);
+
+
+--
+-- TOC entry 3544 (class 0 OID 16598)
+-- Dependencies: 248
+-- Data for Name: comment; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.comment VALUES (1, 218, 'Главный бухгалтер', 'Требуется опытный бухгалтер для работы в нашей компании', '2023-07-22');
+INSERT INTO public.comment VALUES (2, 219, 'Директор по маркетингу', 'Ищем сотрудника по маркетингу с опытом работы в продвижении товаров на рынке', '2023-05-22');
+INSERT INTO public.comment VALUES (3, 220, 'Менеджер по продажам', 'Требуется менеджер по продажам для работы с клиентами', '2023-08-22');
+INSERT INTO public.comment VALUES (4, 221, 'Руководитель отдела кадров', 'Ищем сотрудника для отдела кадров с опытом работы в подборе персонала', '2023-04-22');
+INSERT INTO public.comment VALUES (5, 222, 'IT-специалист', 'Требуется IT-специалист для работы с компьютерами и программным обеспечением', '2023-08-22');
+INSERT INTO public.comment VALUES (6, 223, 'Директор по развитию бизнеса', 'Ищем сотрудника с опытом работы в управлении проектами', '2023-03-22');
+INSERT INTO public.comment VALUES (7, 224, 'Менеджер по закупкам', 'Требуется менеджер по закупкам для работы с поставщиками', '2023-08-22');
+INSERT INTO public.comment VALUES (8, 225, 'Руководитель отдела продаж', 'Ищем сотрудника с опытом работы в продажах товаров и услуг', '2023-02-22');
+INSERT INTO public.comment VALUES (9, 226, 'Главный инженер-конструктор', 'Требуется инженер-конструктор для разработки новых изделий', '2023-08-22');
+INSERT INTO public.comment VALUES (10, 227, 'Директор по персоналу', 'Ищем сотрудника с опытом работы в управлении персоналом компании', '2023-08-03');
+INSERT INTO public.comment VALUES (11, 228, 'Менеджер по маркетингу', 'Требуется менеджер по маркетингу для разработки рекламных кампаний и продвижения товаров на рынке', '2023-01-22');
+INSERT INTO public.comment VALUES (12, 229, 'Руководитель отдела закупок', 'Ищем сотрудника с опытом работы в закупках товаров и услуг для компании', '2023-08-11');
+INSERT INTO public.comment VALUES (13, 230, 'IT-специалист', 'Требуется IT-специалист для поддержки компьютерной инфраструктуры компании и программного обеспечения', '2023-08-10');
+INSERT INTO public.comment VALUES (14, 231, 'Директор по финансам', 'Ищем сотрудника с опытом работы в управлении финансами компании и бюджетировании проектов', '2023-08-12');
+INSERT INTO public.comment VALUES (15, 232, 'Менеджер по продажам', 'Требуется менеджер по продажам для работы с клиентами и увеличения объёма продаж', '2023-08-08');
+INSERT INTO public.comment VALUES (16, 233, 'Руководитель отдела маркетинга', 'руковожу', '2022-07-05');
+INSERT INTO public.comment VALUES (17, 234, 'Главный бухгалтер', 'Требуется опытный бухгалтер для работы в нашей компании', '2023-08-05');
+INSERT INTO public.comment VALUES (18, 235, 'Директор по маркетингу', 'Ищем директора по маркетингу с опытом работы в продвижении товаров на рынке', '2023-08-04');
+INSERT INTO public.comment VALUES (19, 236, 'Менеджер по продажам', 'Требуется менеджер по продажам для работы с клиентами', '2023-08-03');
+INSERT INTO public.comment VALUES (20, 237, 'Руководитель отдела кадров', 'Ищем руководителя отдела кадров с опытом работы в подборе персонала', '2023-08-02');
+INSERT INTO public.comment VALUES (21, 238, 'IT-специалист', 'Требуется IT-специалист для работы с компьютерами и программным обеспечением', '2023-08-01');
+INSERT INTO public.comment VALUES (22, 239, 'Директор по развитию бизнеса', 'Ищем директора по развитию бизнеса с опытом работы в управлении проектами', '2023-08-22');
+INSERT INTO public.comment VALUES (23, 240, 'Менеджер по закупкам', 'Требуется менеджер по закупкам для работы с поставщиками', '2023-08-23');
+INSERT INTO public.comment VALUES (24, 241, 'Руководитель отдела продаж', 'Ищем руководителя отдела продаж с опытом работы в продажах товаров и услуг', '2023-08-24');
+INSERT INTO public.comment VALUES (25, 242, 'Главный инженер-конструктор', 'Требуется главный инженер-конструктор для разработки новых изделий', '2023-08-12');
+INSERT INTO public.comment VALUES (26, 243, 'Директор по персоналу', 'Ищем директора по персоналу с опытом работы в управлении персоналом компании', '2023-08-22');
+INSERT INTO public.comment VALUES (27, 244, 'Менеджер по маркетингу', 'Требуется менеджер по маркетингу для разработки рекламных кампаний и продвижения товаров на рынке', '2023-08-10');
+INSERT INTO public.comment VALUES (28, 245, 'Руководитель отдела закупок', 'Ищем руководителя отдела закупок с опытом работы в закупках товаров и услуг для компании', '2023-08-09');
+INSERT INTO public.comment VALUES (29, 246, 'IT-специалист', 'Требуется IT-специалист для поддержки компьютерной инфраструктуры компании и программного обеспечения', '2023-08-08');
+INSERT INTO public.comment VALUES (30, 247, 'Директор по финансам', 'Ищем директора по финансам с опытом работы в управлении финансами компании и бюджетировании проектов', '2023-08-07');
+INSERT INTO public.comment VALUES (31, 248, 'Менеджер по продажам', 'Требуется менеджер по продажам для работы с клиентами и увеличения объёма продаж', '2023-08-06');
+
+
+--
+-- TOC entry 3512 (class 0 OID 16400)
+-- Dependencies: 216
+-- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.customer VALUES (1, 'ЯНДЕКС');
+INSERT INTO public.customer VALUES (2, 'СИБУР');
+INSERT INTO public.customer VALUES (3, 'Группа «Эталон»');
+INSERT INTO public.customer VALUES (4, 'ГК «Самолет»');
+INSERT INTO public.customer VALUES (5, 'А101');
+INSERT INTO public.customer VALUES (6, 'ГК «Главстрой»');
+INSERT INTO public.customer VALUES (7, 'Setl Group');
+INSERT INTO public.customer VALUES (8, 'РГ-Девелопмент');
+INSERT INTO public.customer VALUES (9, 'ГК ФСК');
+INSERT INTO public.customer VALUES (10, 'ГК ЛСР');
+INSERT INTO public.customer VALUES (11, 'Отдел информационных технологий');
+INSERT INTO public.customer VALUES (12, 'Отдел закупок');
+INSERT INTO public.customer VALUES (13, 'Отдел юридический');
+INSERT INTO public.customer VALUES (14, 'Отдел финансов');
+INSERT INTO public.customer VALUES (15, 'Инжинерный отдел');
+INSERT INTO public.customer VALUES (16, 'Проектный отдел');
+INSERT INTO public.customer VALUES (17, 'Отдел продаж');
+INSERT INTO public.customer VALUES (18, 'Отдел логистики');
+INSERT INTO public.customer VALUES (19, 'Отдел административный');
+INSERT INTO public.customer VALUES (20, 'Отдел ничего не делания');
+INSERT INTO public.customer VALUES (120, 'Gray Inc');
+INSERT INTO public.customer VALUES (22, 'Something');
+INSERT INTO public.customer VALUES (23, 'Something');
+INSERT INTO public.customer VALUES (24, 'Something');
+INSERT INTO public.customer VALUES (25, 'Webb Ltd');
+INSERT INTO public.customer VALUES (26, 'Browning LLC');
+INSERT INTO public.customer VALUES (27, 'Turner-Moreno');
+INSERT INTO public.customer VALUES (28, 'Hernandez Group');
+INSERT INTO public.customer VALUES (29, 'Jenkins PLC');
+INSERT INTO public.customer VALUES (30, 'Dominguez-Willis');
+INSERT INTO public.customer VALUES (31, 'Brown Group');
+INSERT INTO public.customer VALUES (32, 'Patel Ltd');
+INSERT INTO public.customer VALUES (33, 'Thompson Group');
+INSERT INTO public.customer VALUES (34, 'Martin, Smith and Waller');
+INSERT INTO public.customer VALUES (35, 'Smith-Scott');
+INSERT INTO public.customer VALUES (36, 'Newton, Garza and Nguyen');
+INSERT INTO public.customer VALUES (37, 'Simmons LLC');
+INSERT INTO public.customer VALUES (38, 'Anderson PLC');
+INSERT INTO public.customer VALUES (39, 'Pacheco-Ortega');
+INSERT INTO public.customer VALUES (40, 'Lopez, Romero and Gonzales');
+INSERT INTO public.customer VALUES (41, 'Beck PLC');
+INSERT INTO public.customer VALUES (42, 'Wolf-Hale');
+INSERT INTO public.customer VALUES (43, 'Jones, Boyer and Cain');
+INSERT INTO public.customer VALUES (44, 'Black, Snyder and Campbell');
+INSERT INTO public.customer VALUES (45, 'Rollins-Moon');
+INSERT INTO public.customer VALUES (46, 'Fitzpatrick-Powell');
+INSERT INTO public.customer VALUES (47, 'Collins, Johnson and Fernandez');
+INSERT INTO public.customer VALUES (48, 'Long Inc');
+INSERT INTO public.customer VALUES (49, 'Hubbard LLC');
+INSERT INTO public.customer VALUES (50, 'Bright-Murray');
+INSERT INTO public.customer VALUES (51, 'Richard-Green');
+INSERT INTO public.customer VALUES (52, 'Wagner LLC');
+INSERT INTO public.customer VALUES (53, 'Jackson, Reyes and Chen');
+INSERT INTO public.customer VALUES (54, 'Melton LLC');
+INSERT INTO public.customer VALUES (55, 'Arroyo-Nguyen');
+INSERT INTO public.customer VALUES (56, 'Hendricks, Foster and Valdez');
+INSERT INTO public.customer VALUES (57, 'Perez, Morris and Vaughan');
+INSERT INTO public.customer VALUES (58, 'Ibarra, Jones and Torres');
+INSERT INTO public.customer VALUES (59, 'Wolfe Ltd');
+INSERT INTO public.customer VALUES (60, 'Lee PLC');
+INSERT INTO public.customer VALUES (61, 'Branch-Webb');
+INSERT INTO public.customer VALUES (62, 'Williams PLC');
+INSERT INTO public.customer VALUES (63, 'Morales-Jones');
+INSERT INTO public.customer VALUES (64, 'Wilkerson, Elliott and Mullins');
+INSERT INTO public.customer VALUES (65, 'Ellis Inc');
+INSERT INTO public.customer VALUES (66, 'Cook, Barnes and Brown');
+INSERT INTO public.customer VALUES (67, 'Stevens-Harris');
+INSERT INTO public.customer VALUES (68, 'Ellis Ltd');
+INSERT INTO public.customer VALUES (69, 'Jones Ltd');
+INSERT INTO public.customer VALUES (70, 'Mcfarland Ltd');
+INSERT INTO public.customer VALUES (71, 'Flowers-Howe');
+INSERT INTO public.customer VALUES (72, 'Nelson Ltd');
+INSERT INTO public.customer VALUES (73, 'Barr, Campbell and Hines');
+INSERT INTO public.customer VALUES (74, 'Mccarthy PLC');
+INSERT INTO public.customer VALUES (75, 'Ellis Group');
+INSERT INTO public.customer VALUES (76, 'Matthews, Bennett and Clark');
+INSERT INTO public.customer VALUES (77, 'Key, Thompson and Rodriguez');
+INSERT INTO public.customer VALUES (78, 'Moore-Williams');
+INSERT INTO public.customer VALUES (79, 'Garcia, Cooper and Green');
+INSERT INTO public.customer VALUES (80, 'Rivera-Martin');
+INSERT INTO public.customer VALUES (81, 'Robinson-Johnson');
+INSERT INTO public.customer VALUES (82, 'Jensen, Brown and Marsh');
+INSERT INTO public.customer VALUES (83, 'Tyler-Kelley');
+INSERT INTO public.customer VALUES (84, 'Hall, Schneider and Hernandez');
+INSERT INTO public.customer VALUES (85, 'Wood-Lane');
+INSERT INTO public.customer VALUES (86, 'Fisher-Arias');
+INSERT INTO public.customer VALUES (87, 'Collins Inc');
+INSERT INTO public.customer VALUES (88, 'Brown, Perez and Larson');
+INSERT INTO public.customer VALUES (89, 'Cervantes, Briggs and Small');
+INSERT INTO public.customer VALUES (90, 'Mueller-Olson');
+INSERT INTO public.customer VALUES (91, 'Greer Ltd');
+INSERT INTO public.customer VALUES (92, 'Smith, Boyd and Macdonald');
+INSERT INTO public.customer VALUES (93, 'Marsh, Ibarra and Freeman');
+INSERT INTO public.customer VALUES (94, 'Kennedy PLC');
+INSERT INTO public.customer VALUES (95, 'Harris-Golden');
+INSERT INTO public.customer VALUES (96, 'Gomez and Sons');
+INSERT INTO public.customer VALUES (97, 'Ramirez PLC');
+INSERT INTO public.customer VALUES (98, 'Thomas-Haynes');
+INSERT INTO public.customer VALUES (99, 'Nichols Inc');
+INSERT INTO public.customer VALUES (100, 'Johnson, Morgan and Brown');
+INSERT INTO public.customer VALUES (101, 'Martin, Wright and Mcfarland');
+INSERT INTO public.customer VALUES (102, 'White, Davis and Johns');
+INSERT INTO public.customer VALUES (103, 'Mcgee, Farmer and Rose');
+INSERT INTO public.customer VALUES (104, 'Hendrix-Lopez');
+INSERT INTO public.customer VALUES (105, 'Wilson, Howard and Mcdaniel');
+INSERT INTO public.customer VALUES (106, 'Steele PLC');
+INSERT INTO public.customer VALUES (107, 'Barrera, Williams and Clay');
+INSERT INTO public.customer VALUES (108, 'Ellis and Sons');
+INSERT INTO public.customer VALUES (109, 'Hall, Andrews and Alvarez');
+INSERT INTO public.customer VALUES (110, 'Barnes Ltd');
+INSERT INTO public.customer VALUES (111, 'Franklin PLC');
+INSERT INTO public.customer VALUES (112, 'Cox, Lewis and Miller');
+INSERT INTO public.customer VALUES (113, 'Boyer, Gonzalez and Perry');
+INSERT INTO public.customer VALUES (114, 'Little, Watkins and Williamson');
+INSERT INTO public.customer VALUES (115, 'Underwood Inc');
+INSERT INTO public.customer VALUES (116, 'Taylor Inc');
+INSERT INTO public.customer VALUES (117, 'Collins, Kennedy and Green');
+INSERT INTO public.customer VALUES (118, 'Compton, Hays and Adkins');
+INSERT INTO public.customer VALUES (119, 'Hamilton, Smith and Hanson');
+INSERT INTO public.customer VALUES (121, 'Hernandez-Lopez');
+INSERT INTO public.customer VALUES (122, 'Brown-Murphy');
+INSERT INTO public.customer VALUES (123, 'Pearson, Mccann and Duran');
+INSERT INTO public.customer VALUES (124, 'Long-Murphy');
+INSERT INTO public.customer VALUES (125, 'Finley and Sons');
+INSERT INTO public.customer VALUES (126, 'Hoover, Meyer and Mejia');
+INSERT INTO public.customer VALUES (127, 'Marshall, Garcia and Clark');
+INSERT INTO public.customer VALUES (128, 'Payne, Willis and Obrien');
+INSERT INTO public.customer VALUES (129, 'Lowery, Ward and Nelson');
+INSERT INTO public.customer VALUES (130, 'Ford, Bradley and Sullivan');
+INSERT INTO public.customer VALUES (131, 'Hester-Olson');
+INSERT INTO public.customer VALUES (132, 'Woods-Willis');
+INSERT INTO public.customer VALUES (133, 'Caldwell-Hubbard');
+INSERT INTO public.customer VALUES (134, 'Johnson-Cruz');
+INSERT INTO public.customer VALUES (135, 'Thompson-King');
+INSERT INTO public.customer VALUES (136, 'Jones-Abbott');
+INSERT INTO public.customer VALUES (137, 'Cohen-Berger');
+INSERT INTO public.customer VALUES (138, 'White-Brown');
+INSERT INTO public.customer VALUES (139, 'Price-Freeman');
+INSERT INTO public.customer VALUES (140, 'Smith, King and Kennedy');
+INSERT INTO public.customer VALUES (141, 'Atkinson, Smith and Mejia');
+INSERT INTO public.customer VALUES (142, 'Fischer Ltd');
+INSERT INTO public.customer VALUES (143, 'Rodriguez, Haynes and Griffith');
+INSERT INTO public.customer VALUES (144, 'Brown-Trujillo');
+INSERT INTO public.customer VALUES (145, 'Deleon-Warren');
+INSERT INTO public.customer VALUES (146, 'Wheeler, Reese and Castillo');
+INSERT INTO public.customer VALUES (147, 'Price LLC');
+INSERT INTO public.customer VALUES (148, 'Martinez, Wilkins and Barnett');
+INSERT INTO public.customer VALUES (149, 'Gutierrez-Chambers');
+INSERT INTO public.customer VALUES (150, 'Wade LLC');
+INSERT INTO public.customer VALUES (151, 'Johnson LLC');
+INSERT INTO public.customer VALUES (152, 'Brooks-Thomas');
+INSERT INTO public.customer VALUES (153, 'Rice and Sons');
+INSERT INTO public.customer VALUES (154, 'Ramirez, Berry and Barnes');
+INSERT INTO public.customer VALUES (155, 'Collins-Johnson');
+INSERT INTO public.customer VALUES (156, 'Chen-Potter');
+INSERT INTO public.customer VALUES (157, 'Oneill Inc');
+INSERT INTO public.customer VALUES (158, 'Hernandez-Mckinney');
+INSERT INTO public.customer VALUES (159, 'Brown-Perez');
+INSERT INTO public.customer VALUES (160, 'Padilla Ltd');
+INSERT INTO public.customer VALUES (161, 'Gray, Mendoza and Moore');
+INSERT INTO public.customer VALUES (162, 'Reyes-Mcclain');
+INSERT INTO public.customer VALUES (163, 'Osborne, Castaneda and Aguilar');
+INSERT INTO public.customer VALUES (164, 'Ruiz, Vaughn and Stewart');
+INSERT INTO public.customer VALUES (165, 'Garcia, Gallegos and Jordan');
+INSERT INTO public.customer VALUES (166, 'Whitaker LLC');
+INSERT INTO public.customer VALUES (167, 'Mejia, Ryan and Mercado');
+INSERT INTO public.customer VALUES (168, 'Young-Ortiz');
+INSERT INTO public.customer VALUES (169, 'Harrison, Ray and Edwards');
+INSERT INTO public.customer VALUES (170, 'Allen-Leonard');
+INSERT INTO public.customer VALUES (171, 'Soto, Davis and Brown');
+INSERT INTO public.customer VALUES (172, 'Carter, Reed and Russell');
+INSERT INTO public.customer VALUES (173, 'Hall-Griffin');
+INSERT INTO public.customer VALUES (174, 'Contreras Ltd');
+INSERT INTO public.customer VALUES (175, 'Delgado Ltd');
+INSERT INTO public.customer VALUES (176, 'Flores, Kelly and Figueroa');
+INSERT INTO public.customer VALUES (177, 'Keith and Sons');
+INSERT INTO public.customer VALUES (178, 'Paul-Mendez');
+INSERT INTO public.customer VALUES (179, 'Hall-Stevens');
+INSERT INTO public.customer VALUES (180, 'Farmer-Tate');
+INSERT INTO public.customer VALUES (181, 'Rasmussen-Mcdonald');
+INSERT INTO public.customer VALUES (182, 'Wright, Jones and Garrett');
+INSERT INTO public.customer VALUES (183, 'Perry, Wallace and Wood');
+INSERT INTO public.customer VALUES (184, 'Brown, Bell and Hill');
+INSERT INTO public.customer VALUES (185, 'Hanson-Thompson');
+INSERT INTO public.customer VALUES (186, 'Smith-Powell');
+INSERT INTO public.customer VALUES (187, 'Hampton-Thompson');
+INSERT INTO public.customer VALUES (188, 'Harvey-Martin');
+INSERT INTO public.customer VALUES (189, 'Goodwin-Jackson');
+INSERT INTO public.customer VALUES (190, 'Rodriguez, Morgan and Duncan');
+INSERT INTO public.customer VALUES (191, 'Dawson PLC');
+INSERT INTO public.customer VALUES (192, 'Rose Inc');
+INSERT INTO public.customer VALUES (193, 'Galvan-Jackson');
+INSERT INTO public.customer VALUES (194, 'Haynes-Long');
+INSERT INTO public.customer VALUES (195, 'Valencia-Benitez');
+INSERT INTO public.customer VALUES (196, 'West-Oliver');
+INSERT INTO public.customer VALUES (197, 'Phillips, Davis and Powell');
+INSERT INTO public.customer VALUES (198, 'Brown, Rogers and Vargas');
+INSERT INTO public.customer VALUES (199, 'Miller-Jacobs');
+INSERT INTO public.customer VALUES (200, 'Powell-King');
+INSERT INTO public.customer VALUES (201, 'Cameron, Beck and Buck');
+INSERT INTO public.customer VALUES (202, 'Young, Bird and Thomas');
+INSERT INTO public.customer VALUES (203, 'Cox PLC');
+INSERT INTO public.customer VALUES (204, 'Gilmore, Gilbert and Snow');
+INSERT INTO public.customer VALUES (205, 'Brown-Brown');
+INSERT INTO public.customer VALUES (206, 'Lawrence, Cobb and Blanchard');
+INSERT INTO public.customer VALUES (207, 'Roberts-Hudson');
+INSERT INTO public.customer VALUES (208, 'Pierce, Morris and Berry');
+INSERT INTO public.customer VALUES (209, 'Sparks-Proctor');
+INSERT INTO public.customer VALUES (210, 'Hardy PLC');
+INSERT INTO public.customer VALUES (211, 'Macias, Smith and Simpson');
+INSERT INTO public.customer VALUES (212, 'Cox, Ferrell and Sloan');
+INSERT INTO public.customer VALUES (213, 'Russo PLC');
+INSERT INTO public.customer VALUES (214, 'Odonnell-Price');
+INSERT INTO public.customer VALUES (215, 'Martinez-Burke');
+INSERT INTO public.customer VALUES (216, 'Davis Ltd');
+INSERT INTO public.customer VALUES (217, 'Mcgee, Garcia and Powell');
+INSERT INTO public.customer VALUES (218, 'Cuevas, Goodwin and Smith');
+INSERT INTO public.customer VALUES (219, 'Brown, Meadows and Ryan');
+INSERT INTO public.customer VALUES (220, 'Wilson, Cunningham and Robinson');
+INSERT INTO public.customer VALUES (221, 'Rodriguez, Jackson and Willis');
+INSERT INTO public.customer VALUES (222, 'Jackson-Brown');
+INSERT INTO public.customer VALUES (223, 'Townsend-Ochoa');
+INSERT INTO public.customer VALUES (224, 'Adams Ltd');
+INSERT INTO public.customer VALUES (225, 'Escobar-Raymond');
+INSERT INTO public.customer VALUES (226, 'Shaw-Baldwin');
+INSERT INTO public.customer VALUES (227, 'Barnett Group');
+INSERT INTO public.customer VALUES (228, 'Scott-Morrison');
+INSERT INTO public.customer VALUES (229, 'Strickland PLC');
+INSERT INTO public.customer VALUES (230, 'Peters, Smith and Melton');
+INSERT INTO public.customer VALUES (231, 'Moss, Decker and Patterson');
+INSERT INTO public.customer VALUES (232, 'Franklin, French and James');
+INSERT INTO public.customer VALUES (233, 'Long, Johnson and Allen');
+INSERT INTO public.customer VALUES (234, 'George-Evans');
+INSERT INTO public.customer VALUES (235, 'Diaz, Ballard and Sweeney');
+INSERT INTO public.customer VALUES (236, 'Velez-Jackson');
+INSERT INTO public.customer VALUES (237, 'Owens LLC');
+INSERT INTO public.customer VALUES (238, 'Roberts LLC');
+INSERT INTO public.customer VALUES (239, 'Wong-Rodgers');
+INSERT INTO public.customer VALUES (240, 'Becker-Anderson');
+INSERT INTO public.customer VALUES (241, 'Ross, Harrell and Fisher');
+INSERT INTO public.customer VALUES (242, 'Leonard LLC');
+INSERT INTO public.customer VALUES (243, 'Ruiz PLC');
+INSERT INTO public.customer VALUES (244, 'Jones, Howell and Smith');
+INSERT INTO public.customer VALUES (245, 'Price, Scott and Walker');
+INSERT INTO public.customer VALUES (246, 'Johnson, Jackson and Perez');
+INSERT INTO public.customer VALUES (247, 'Hickman Inc');
+INSERT INTO public.customer VALUES (248, 'Warner-Owens');
+INSERT INTO public.customer VALUES (249, 'Adams-Baker');
+INSERT INTO public.customer VALUES (250, 'Newman Inc');
+INSERT INTO public.customer VALUES (251, 'Moody Group');
+INSERT INTO public.customer VALUES (252, 'Bell-Simmons');
+INSERT INTO public.customer VALUES (253, 'Larson-Gonzales');
+INSERT INTO public.customer VALUES (254, 'Robinson Inc');
+INSERT INTO public.customer VALUES (255, 'Smith-Black');
+INSERT INTO public.customer VALUES (256, 'Conway, Higgins and Harris');
+INSERT INTO public.customer VALUES (257, 'Moore and Sons');
+INSERT INTO public.customer VALUES (258, 'Henry, Jones and Williams');
+INSERT INTO public.customer VALUES (259, 'Miller PLC');
+INSERT INTO public.customer VALUES (260, 'Jenkins, Wong and Watkins');
+INSERT INTO public.customer VALUES (261, 'Parrish-Martinez');
+INSERT INTO public.customer VALUES (262, 'Cline Ltd');
+INSERT INTO public.customer VALUES (263, 'Cooper Ltd');
+INSERT INTO public.customer VALUES (264, 'Huffman, Riley and Davis');
+INSERT INTO public.customer VALUES (265, 'Perez, Deleon and Stone');
+INSERT INTO public.customer VALUES (266, 'Lindsey-Turner');
+INSERT INTO public.customer VALUES (267, 'Morales, Turner and Moore');
+INSERT INTO public.customer VALUES (268, 'Becker-Arias');
+INSERT INTO public.customer VALUES (269, 'Smith Ltd');
+INSERT INTO public.customer VALUES (270, 'Daugherty Inc');
+INSERT INTO public.customer VALUES (271, 'Wyatt and Sons');
+INSERT INTO public.customer VALUES (272, 'Parrish PLC');
+INSERT INTO public.customer VALUES (273, 'Callahan-Ward');
+INSERT INTO public.customer VALUES (274, 'Lopez-Powell');
+INSERT INTO public.customer VALUES (275, 'Cruz PLC');
+INSERT INTO public.customer VALUES (276, 'Dixon Inc');
+INSERT INTO public.customer VALUES (277, 'Daugherty and Sons');
+INSERT INTO public.customer VALUES (278, 'Walsh, Short and Miles');
+INSERT INTO public.customer VALUES (279, 'Serrano, Ayers and Parrish');
+INSERT INTO public.customer VALUES (280, 'Peterson Ltd');
+INSERT INTO public.customer VALUES (281, 'Jacobs and Sons');
+INSERT INTO public.customer VALUES (282, 'Watson, Smith and Ferguson');
+INSERT INTO public.customer VALUES (283, 'Garrett, Williams and Rodriguez');
+INSERT INTO public.customer VALUES (284, 'Vazquez, Brock and Jones');
+INSERT INTO public.customer VALUES (285, 'Murray, Villarreal and Jones');
+INSERT INTO public.customer VALUES (286, 'Rodriguez-Campbell');
+INSERT INTO public.customer VALUES (287, 'Fuller and Sons');
+INSERT INTO public.customer VALUES (288, 'Molina-Odom');
+INSERT INTO public.customer VALUES (289, 'Huber Ltd');
+INSERT INTO public.customer VALUES (290, 'Burgess PLC');
+INSERT INTO public.customer VALUES (291, 'Sweeney-Holden');
+INSERT INTO public.customer VALUES (292, 'Lucero-Harris');
+INSERT INTO public.customer VALUES (293, 'Myers-Myers');
+INSERT INTO public.customer VALUES (294, 'Hood-Martinez');
+INSERT INTO public.customer VALUES (295, 'King-Brown');
+INSERT INTO public.customer VALUES (296, 'Rice, Edwards and Hill');
+INSERT INTO public.customer VALUES (297, 'Zhang and Sons');
+INSERT INTO public.customer VALUES (298, 'Murphy-Small');
+INSERT INTO public.customer VALUES (299, 'Novak, Ho and Harris');
+INSERT INTO public.customer VALUES (300, 'Flores-Gonzalez');
+INSERT INTO public.customer VALUES (301, 'Castillo-Duran');
+INSERT INTO public.customer VALUES (302, 'Petty PLC');
+INSERT INTO public.customer VALUES (303, 'Martinez, Farmer and Gonzalez');
+INSERT INTO public.customer VALUES (304, 'Taylor, Scott and Wilson');
+INSERT INTO public.customer VALUES (305, 'Rivera, Horne and Cruz');
+INSERT INTO public.customer VALUES (306, 'Peck Group');
+INSERT INTO public.customer VALUES (307, 'Roberts, Miller and Chapman');
+INSERT INTO public.customer VALUES (308, 'Scott PLC');
+INSERT INTO public.customer VALUES (309, 'Little, Miller and Tyler');
+INSERT INTO public.customer VALUES (310, 'Jordan PLC');
+INSERT INTO public.customer VALUES (311, 'Roth Group');
+INSERT INTO public.customer VALUES (312, 'Baker-Larson');
+INSERT INTO public.customer VALUES (313, 'Pacheco, Estrada and Brooks');
+INSERT INTO public.customer VALUES (314, 'Johnson-Johnson');
+INSERT INTO public.customer VALUES (315, 'Lewis, Juarez and Collins');
+INSERT INTO public.customer VALUES (316, 'Howard Inc');
+INSERT INTO public.customer VALUES (317, 'Arnold PLC');
+INSERT INTO public.customer VALUES (318, 'Gibson PLC');
+INSERT INTO public.customer VALUES (319, 'Santos PLC');
+INSERT INTO public.customer VALUES (320, 'Wilson-Stevenson');
+INSERT INTO public.customer VALUES (321, 'Bell-Miller');
+INSERT INTO public.customer VALUES (322, 'Ramirez Group');
+INSERT INTO public.customer VALUES (323, 'Foster, Garrett and Payne');
+INSERT INTO public.customer VALUES (324, 'Jones-Williams');
+INSERT INTO public.customer VALUES (325, 'Hess-Burke');
+INSERT INTO public.customer VALUES (326, 'Graham-Diaz');
+INSERT INTO public.customer VALUES (327, 'Carey, Hamilton and Mccarthy');
+INSERT INTO public.customer VALUES (328, 'Hickman, Macdonald and Jackson');
+INSERT INTO public.customer VALUES (329, 'Blanchard, Clark and Franklin');
+INSERT INTO public.customer VALUES (330, 'Weeks and Sons');
+INSERT INTO public.customer VALUES (331, 'Manning-James');
+INSERT INTO public.customer VALUES (332, 'Nguyen Inc');
+INSERT INTO public.customer VALUES (333, 'Allen Ltd');
+INSERT INTO public.customer VALUES (334, 'Hansen Group');
+INSERT INTO public.customer VALUES (335, 'Moore-Campbell');
+INSERT INTO public.customer VALUES (336, 'Burns, Lewis and Cooper');
+INSERT INTO public.customer VALUES (337, 'Wilson, Mitchell and Johnson');
+INSERT INTO public.customer VALUES (338, 'Baker Inc');
+INSERT INTO public.customer VALUES (339, 'Campbell, Reeves and Martin');
+INSERT INTO public.customer VALUES (340, 'Butler, Buchanan and Carter');
+INSERT INTO public.customer VALUES (341, 'Mayer, Nelson and Perez');
+INSERT INTO public.customer VALUES (342, 'James Ltd');
+INSERT INTO public.customer VALUES (343, 'Rivera LLC');
+INSERT INTO public.customer VALUES (344, 'Smith, Taylor and Waller');
+INSERT INTO public.customer VALUES (345, 'Stewart-Wolfe');
+INSERT INTO public.customer VALUES (346, 'Rodriguez, Williams and York');
+INSERT INTO public.customer VALUES (347, 'Mccarthy-Shah');
+INSERT INTO public.customer VALUES (348, 'Benson, Tyler and Bishop');
+INSERT INTO public.customer VALUES (349, 'Long-Robinson');
+INSERT INTO public.customer VALUES (350, 'Swanson PLC');
+INSERT INTO public.customer VALUES (351, 'Hooper, Castro and Smith');
+INSERT INTO public.customer VALUES (352, 'Joseph, Lewis and Harvey');
+INSERT INTO public.customer VALUES (353, 'Miller PLC');
+INSERT INTO public.customer VALUES (354, 'Carr-Hudson');
+INSERT INTO public.customer VALUES (355, 'Russell-Hernandez');
+INSERT INTO public.customer VALUES (356, 'Chen Group');
+INSERT INTO public.customer VALUES (357, 'Nguyen, Davis and Calderon');
+INSERT INTO public.customer VALUES (358, 'Coleman, Hawkins and Davis');
+INSERT INTO public.customer VALUES (359, 'George, Mendez and Roberts');
+INSERT INTO public.customer VALUES (360, 'Torres Inc');
+INSERT INTO public.customer VALUES (361, 'Contreras and Sons');
+INSERT INTO public.customer VALUES (362, 'Mcgrath and Sons');
+INSERT INTO public.customer VALUES (363, 'Lopez-Johnson');
+INSERT INTO public.customer VALUES (364, 'Hughes, Bean and Valenzuela');
+INSERT INTO public.customer VALUES (365, 'Morris, Knight and Scott');
+INSERT INTO public.customer VALUES (366, 'Jones-Harris');
+INSERT INTO public.customer VALUES (367, 'Wang PLC');
+INSERT INTO public.customer VALUES (368, 'Lee-Byrd');
+INSERT INTO public.customer VALUES (369, 'Alvarez, Johnson and Johns');
+INSERT INTO public.customer VALUES (370, 'Young, Shea and Terry');
+INSERT INTO public.customer VALUES (371, 'Johnson Group');
+INSERT INTO public.customer VALUES (372, 'Odom, Peterson and Barajas');
+INSERT INTO public.customer VALUES (373, 'Christensen LLC');
+INSERT INTO public.customer VALUES (374, 'White Ltd');
+INSERT INTO public.customer VALUES (375, 'Shelton, Simon and Reese');
+INSERT INTO public.customer VALUES (376, 'Wilson Group');
+INSERT INTO public.customer VALUES (377, 'Johnson, Bean and Murray');
+INSERT INTO public.customer VALUES (378, 'Gonzalez-King');
+INSERT INTO public.customer VALUES (379, 'Clarke-Chavez');
+INSERT INTO public.customer VALUES (380, 'French and Sons');
+INSERT INTO public.customer VALUES (381, 'Arias Ltd');
+INSERT INTO public.customer VALUES (382, 'Blake LLC');
+INSERT INTO public.customer VALUES (383, 'Beard Inc');
+INSERT INTO public.customer VALUES (384, 'Serrano, Jones and Foster');
+INSERT INTO public.customer VALUES (385, 'Johnson, Ewing and Downs');
+INSERT INTO public.customer VALUES (386, 'Acevedo, Olson and Castillo');
+INSERT INTO public.customer VALUES (387, 'Jones Inc');
+INSERT INTO public.customer VALUES (388, 'Gibson-Caldwell');
+INSERT INTO public.customer VALUES (389, 'Hill, Weaver and Acosta');
+INSERT INTO public.customer VALUES (390, 'Castro-Kennedy');
+INSERT INTO public.customer VALUES (391, 'Smith PLC');
+INSERT INTO public.customer VALUES (392, 'Jacobson Inc');
+INSERT INTO public.customer VALUES (393, 'Cross Inc');
+INSERT INTO public.customer VALUES (394, 'Wright Inc');
+INSERT INTO public.customer VALUES (395, 'Sanchez Ltd');
+INSERT INTO public.customer VALUES (396, 'Peterson-Owens');
+INSERT INTO public.customer VALUES (397, 'Fernandez Ltd');
+INSERT INTO public.customer VALUES (398, 'Cook PLC');
+INSERT INTO public.customer VALUES (399, 'Franklin-Wright');
+INSERT INTO public.customer VALUES (400, 'Prince Ltd');
+INSERT INTO public.customer VALUES (401, 'Ramos PLC');
+INSERT INTO public.customer VALUES (402, 'Johnson-Newman');
+INSERT INTO public.customer VALUES (403, 'Clark, Patton and Werner');
+INSERT INTO public.customer VALUES (404, 'Hart, Valenzuela and Pearson');
+INSERT INTO public.customer VALUES (405, 'Gray-Little');
+INSERT INTO public.customer VALUES (406, 'Shannon Group');
+INSERT INTO public.customer VALUES (407, 'Copeland and Sons');
+INSERT INTO public.customer VALUES (408, 'Whitehead Group');
+INSERT INTO public.customer VALUES (409, 'Brown, Maxwell and Lee');
+INSERT INTO public.customer VALUES (410, 'Obrien, Campbell and Turner');
+INSERT INTO public.customer VALUES (411, 'Smith, Johnson and Bridges');
+INSERT INTO public.customer VALUES (412, 'Hahn PLC');
+INSERT INTO public.customer VALUES (413, 'Allen-Cox');
+INSERT INTO public.customer VALUES (414, 'Jones-Moreno');
+INSERT INTO public.customer VALUES (415, 'Peters-Weber');
+INSERT INTO public.customer VALUES (416, 'Martin Inc');
+INSERT INTO public.customer VALUES (417, 'Miller, Lee and Mckay');
+INSERT INTO public.customer VALUES (418, 'Leonard, Edwards and Horton');
+INSERT INTO public.customer VALUES (419, 'Palmer, Tucker and Roman');
+INSERT INTO public.customer VALUES (420, 'Parker LLC');
+INSERT INTO public.customer VALUES (421, 'Hernandez Group');
+INSERT INTO public.customer VALUES (422, 'Roberts, Moore and Bishop');
+INSERT INTO public.customer VALUES (423, 'Martinez-Neal');
+INSERT INTO public.customer VALUES (424, 'Poole, Snow and Smith');
+INSERT INTO public.customer VALUES (425, 'Bailey and Sons');
+INSERT INTO public.customer VALUES (426, 'Crawford, Lewis and Vargas');
+INSERT INTO public.customer VALUES (427, 'Mcmahon Group');
+INSERT INTO public.customer VALUES (428, 'Horton, Young and King');
+INSERT INTO public.customer VALUES (429, 'Duran, Williams and Moore');
+INSERT INTO public.customer VALUES (430, 'Brennan, Valentine and Stewart');
+INSERT INTO public.customer VALUES (431, 'Fowler Group');
+INSERT INTO public.customer VALUES (432, 'Lee and Sons');
+INSERT INTO public.customer VALUES (433, 'Gregory Inc');
+INSERT INTO public.customer VALUES (434, 'Middleton and Sons');
+INSERT INTO public.customer VALUES (435, 'Huff-Smith');
+INSERT INTO public.customer VALUES (436, 'Mendez Ltd');
+INSERT INTO public.customer VALUES (437, 'Wilson PLC');
+INSERT INTO public.customer VALUES (438, 'Kaufman, Hutchinson and Edwards');
+INSERT INTO public.customer VALUES (439, 'Brown Group');
+INSERT INTO public.customer VALUES (440, 'Davis-Wolf');
+INSERT INTO public.customer VALUES (441, 'Vasquez, Cordova and Hernandez');
+INSERT INTO public.customer VALUES (442, 'Barrett-Thomas');
+INSERT INTO public.customer VALUES (443, 'Johnson Ltd');
+INSERT INTO public.customer VALUES (444, 'Rodriguez, Johnson and Moore');
+INSERT INTO public.customer VALUES (445, 'Brown Inc');
+INSERT INTO public.customer VALUES (446, 'Carlson, Lang and Jones');
+INSERT INTO public.customer VALUES (447, 'Garcia-Allen');
+INSERT INTO public.customer VALUES (448, 'Aguilar-Burton');
+INSERT INTO public.customer VALUES (449, 'Gonzalez Inc');
+INSERT INTO public.customer VALUES (450, 'Sanchez-Klein');
+INSERT INTO public.customer VALUES (451, 'Ibarra-Stewart');
+INSERT INTO public.customer VALUES (452, 'Stevens-Smith');
+INSERT INTO public.customer VALUES (453, 'Snyder and Sons');
+INSERT INTO public.customer VALUES (454, 'Hansen, Williams and Chandler');
+INSERT INTO public.customer VALUES (455, 'Logan, Hogan and Gonzalez');
+INSERT INTO public.customer VALUES (456, 'Bennett, George and Williams');
+INSERT INTO public.customer VALUES (457, 'Thomas-Jones');
+INSERT INTO public.customer VALUES (458, 'Carr-Zavala');
+INSERT INTO public.customer VALUES (459, 'Robbins, Wells and Ross');
+INSERT INTO public.customer VALUES (460, 'Powers LLC');
+INSERT INTO public.customer VALUES (461, 'Hampton-Kim');
+INSERT INTO public.customer VALUES (462, 'Baker LLC');
+INSERT INTO public.customer VALUES (463, 'Deleon Inc');
+INSERT INTO public.customer VALUES (464, 'Elliott Group');
+INSERT INTO public.customer VALUES (465, 'Kerr-Wyatt');
+INSERT INTO public.customer VALUES (466, 'Meyers PLC');
+INSERT INTO public.customer VALUES (467, 'Tapia-Garcia');
+INSERT INTO public.customer VALUES (468, 'Brown-Lopez');
+INSERT INTO public.customer VALUES (469, 'Ho, Wilson and Davis');
+INSERT INTO public.customer VALUES (470, 'Butler, Smith and Howard');
+INSERT INTO public.customer VALUES (471, 'Mcbride, Harris and Powers');
+INSERT INTO public.customer VALUES (472, 'Watson-Shaffer');
+INSERT INTO public.customer VALUES (473, 'Hall-Forbes');
+INSERT INTO public.customer VALUES (474, 'Galvan, Bass and Bass');
+INSERT INTO public.customer VALUES (475, 'Todd-Chavez');
+INSERT INTO public.customer VALUES (476, 'Mcfarland-Norris');
+INSERT INTO public.customer VALUES (477, 'White, Harper and Rodriguez');
+INSERT INTO public.customer VALUES (478, 'Archer, Mitchell and Delgado');
+INSERT INTO public.customer VALUES (479, 'Doyle-Strickland');
+INSERT INTO public.customer VALUES (480, 'Schwartz Inc');
+INSERT INTO public.customer VALUES (481, 'Sexton-Hunt');
+INSERT INTO public.customer VALUES (482, 'Hicks-Miller');
+INSERT INTO public.customer VALUES (483, 'Rogers LLC');
+INSERT INTO public.customer VALUES (484, 'Duran-Vaughan');
+INSERT INTO public.customer VALUES (485, 'Santos Group');
+INSERT INTO public.customer VALUES (486, 'Hughes Group');
+INSERT INTO public.customer VALUES (487, 'Hayes-Ashley');
+INSERT INTO public.customer VALUES (488, 'Wallace-Stephens');
+INSERT INTO public.customer VALUES (489, 'Garcia-Case');
+INSERT INTO public.customer VALUES (490, 'Anderson-Cooper');
+INSERT INTO public.customer VALUES (491, 'Simmons Group');
+INSERT INTO public.customer VALUES (492, 'Callahan-Taylor');
+INSERT INTO public.customer VALUES (493, 'Johnson-Mendoza');
+INSERT INTO public.customer VALUES (494, 'Morrison-Phillips');
+INSERT INTO public.customer VALUES (495, 'Schneider LLC');
+INSERT INTO public.customer VALUES (496, 'Smith-Robinson');
+INSERT INTO public.customer VALUES (497, 'Daniels-Hahn');
+INSERT INTO public.customer VALUES (498, 'Smith, James and Nguyen');
+INSERT INTO public.customer VALUES (499, 'Arroyo PLC');
+INSERT INTO public.customer VALUES (500, 'Elliott, Garcia and Gutierrez');
+INSERT INTO public.customer VALUES (501, 'Cantu, Rodriguez and Kelly');
+INSERT INTO public.customer VALUES (502, 'Nichols, Best and Smith');
+INSERT INTO public.customer VALUES (503, 'Murphy Inc');
+INSERT INTO public.customer VALUES (504, 'Kelley, Woods and Robinson');
+INSERT INTO public.customer VALUES (505, 'Bell-Green');
+INSERT INTO public.customer VALUES (506, 'Hendrix, Brown and May');
+INSERT INTO public.customer VALUES (507, 'Lynch-Smith');
+INSERT INTO public.customer VALUES (508, 'Singh, Diaz and Williams');
+INSERT INTO public.customer VALUES (509, 'Watkins Group');
+INSERT INTO public.customer VALUES (510, 'Booker, Wells and Novak');
+INSERT INTO public.customer VALUES (511, 'Collins-Mccarty');
+INSERT INTO public.customer VALUES (512, 'Elliott-Burton');
+INSERT INTO public.customer VALUES (513, 'Thomas-Wilson');
+INSERT INTO public.customer VALUES (514, 'Brewer, Gonzalez and Pennington');
+INSERT INTO public.customer VALUES (515, 'Lewis LLC');
+INSERT INTO public.customer VALUES (516, 'Coleman, Chapman and Koch');
+INSERT INTO public.customer VALUES (517, 'Barnes and Sons');
+INSERT INTO public.customer VALUES (518, 'Garcia PLC');
+INSERT INTO public.customer VALUES (519, 'Rowe-Wilkerson');
+INSERT INTO public.customer VALUES (520, 'Chavez, Hawkins and Lee');
+INSERT INTO public.customer VALUES (521, 'Hartman Inc');
+INSERT INTO public.customer VALUES (522, 'Parrish Inc');
+INSERT INTO public.customer VALUES (523, 'Morris LLC');
+INSERT INTO public.customer VALUES (524, 'Kim-Bowman');
+INSERT INTO public.customer VALUES (525, 'Palmer, Watson and Madden');
+INSERT INTO public.customer VALUES (526, 'Matthews Inc');
+INSERT INTO public.customer VALUES (527, 'Hale-Green');
+INSERT INTO public.customer VALUES (528, 'Conley and Sons');
+INSERT INTO public.customer VALUES (529, 'Ward Group');
+INSERT INTO public.customer VALUES (530, 'Whitaker-Alvarez');
+INSERT INTO public.customer VALUES (531, 'Burgess-Mccann');
+INSERT INTO public.customer VALUES (532, 'Taylor LLC');
+INSERT INTO public.customer VALUES (533, 'Mitchell PLC');
+INSERT INTO public.customer VALUES (534, 'Davenport-Ewing');
+INSERT INTO public.customer VALUES (535, 'Dominguez, Alexander and Valenzuela');
+INSERT INTO public.customer VALUES (536, 'Murphy-Nichols');
+INSERT INTO public.customer VALUES (537, 'Rodriguez, Miranda and Bean');
+INSERT INTO public.customer VALUES (538, 'Miranda-Hood');
+INSERT INTO public.customer VALUES (539, 'Wheeler, Hendrix and Nichols');
+INSERT INTO public.customer VALUES (540, 'Brandt, Kelly and Marsh');
+INSERT INTO public.customer VALUES (541, 'Garcia-Payne');
+INSERT INTO public.customer VALUES (542, 'Savage-Walker');
+INSERT INTO public.customer VALUES (543, 'Scott, Jones and Miller');
+INSERT INTO public.customer VALUES (544, 'Meadows-Gonzalez');
+INSERT INTO public.customer VALUES (545, 'Ashley LLC');
+INSERT INTO public.customer VALUES (546, 'Brown, Crane and Jones');
+INSERT INTO public.customer VALUES (547, 'Perez-Paul');
+INSERT INTO public.customer VALUES (548, 'Cunningham Group');
+INSERT INTO public.customer VALUES (549, 'Perkins, Johnston and Anderson');
+INSERT INTO public.customer VALUES (550, 'Long-Thomas');
+INSERT INTO public.customer VALUES (551, 'Flores, Burgess and Davis');
+INSERT INTO public.customer VALUES (552, 'Adams, Garrison and Miller');
+INSERT INTO public.customer VALUES (553, 'Santiago, Stone and Hayes');
+INSERT INTO public.customer VALUES (554, 'Wilson Inc');
+INSERT INTO public.customer VALUES (555, 'Anderson LLC');
+INSERT INTO public.customer VALUES (556, 'Donovan-Hernandez');
+INSERT INTO public.customer VALUES (557, 'Hartman, Welch and Williams');
+INSERT INTO public.customer VALUES (558, 'Burgess and Sons');
+INSERT INTO public.customer VALUES (559, 'Pena, West and Russell');
+INSERT INTO public.customer VALUES (560, 'Thompson-Tucker');
+INSERT INTO public.customer VALUES (561, 'Allen-Martin');
+INSERT INTO public.customer VALUES (562, 'Reed, Schultz and Rodriguez');
+INSERT INTO public.customer VALUES (563, 'Glenn Inc');
+INSERT INTO public.customer VALUES (564, 'Duncan, Lewis and Singh');
+INSERT INTO public.customer VALUES (565, 'Flores, Cohen and Smith');
+INSERT INTO public.customer VALUES (566, 'Mendoza Group');
+INSERT INTO public.customer VALUES (567, 'Smith-Hart');
+INSERT INTO public.customer VALUES (568, 'Diaz LLC');
+INSERT INTO public.customer VALUES (569, 'Adams, Brown and Williamson');
+INSERT INTO public.customer VALUES (570, 'Castillo, Mclean and Bridges');
+INSERT INTO public.customer VALUES (571, 'Marquez Inc');
+INSERT INTO public.customer VALUES (572, 'Henderson PLC');
+INSERT INTO public.customer VALUES (573, 'Williams Inc');
+INSERT INTO public.customer VALUES (574, 'Mitchell, Garrett and Martin');
+INSERT INTO public.customer VALUES (575, 'Haney-Robinson');
+INSERT INTO public.customer VALUES (576, 'Smith, Manning and Farrell');
+INSERT INTO public.customer VALUES (577, 'Conner Group');
+INSERT INTO public.customer VALUES (578, 'Roberson-Brown');
+INSERT INTO public.customer VALUES (579, 'Hawkins, Hunt and Evans');
+INSERT INTO public.customer VALUES (580, 'Graham, Norris and Hunt');
+INSERT INTO public.customer VALUES (581, 'Franklin, Johnson and Hancock');
+INSERT INTO public.customer VALUES (582, 'Miller LLC');
+INSERT INTO public.customer VALUES (583, 'Jackson-Mcclain');
+INSERT INTO public.customer VALUES (584, 'Williams, Hernandez and Spears');
+INSERT INTO public.customer VALUES (585, 'Ballard, Watkins and Rich');
+INSERT INTO public.customer VALUES (586, 'Diaz, Walker and Brooks');
+INSERT INTO public.customer VALUES (587, 'Davis LLC');
+INSERT INTO public.customer VALUES (588, 'Hayes Group');
+INSERT INTO public.customer VALUES (589, 'Choi Ltd');
+INSERT INTO public.customer VALUES (590, 'Daniel-Harris');
+INSERT INTO public.customer VALUES (591, 'Torres, Russell and Watson');
+INSERT INTO public.customer VALUES (592, 'Boone PLC');
+INSERT INTO public.customer VALUES (593, 'Scott, Johnson and Fletcher');
+INSERT INTO public.customer VALUES (594, 'Hayes LLC');
+INSERT INTO public.customer VALUES (595, 'Smith, Willis and Wilson');
+INSERT INTO public.customer VALUES (596, 'Garcia-Fuller');
+INSERT INTO public.customer VALUES (597, 'Bell PLC');
+INSERT INTO public.customer VALUES (598, 'Orozco, Hampton and Williams');
+INSERT INTO public.customer VALUES (599, 'Norris Inc');
+INSERT INTO public.customer VALUES (600, 'Morse Inc');
+INSERT INTO public.customer VALUES (601, 'Hendrix-Rivera');
+INSERT INTO public.customer VALUES (602, 'Garza-Anderson');
+INSERT INTO public.customer VALUES (603, 'Chan, Harper and Huff');
+INSERT INTO public.customer VALUES (604, 'Davis, Calhoun and Johnston');
+INSERT INTO public.customer VALUES (605, 'Lewis-Robinson');
+INSERT INTO public.customer VALUES (606, 'Lyons Group');
+INSERT INTO public.customer VALUES (607, 'Henry-Webb');
+INSERT INTO public.customer VALUES (608, 'Webb Inc');
+INSERT INTO public.customer VALUES (609, 'Callahan-Ball');
+INSERT INTO public.customer VALUES (610, 'Jones, Garza and Kline');
+INSERT INTO public.customer VALUES (611, 'Perry, Williams and Williams');
+INSERT INTO public.customer VALUES (612, 'Turner Ltd');
+INSERT INTO public.customer VALUES (613, 'Gardner, Stewart and Russell');
+INSERT INTO public.customer VALUES (614, 'Morris-Pearson');
+INSERT INTO public.customer VALUES (615, 'Smith, Chandler and Levy');
+INSERT INTO public.customer VALUES (616, 'Simmons-Gonzalez');
+INSERT INTO public.customer VALUES (617, 'Anderson-Flores');
+INSERT INTO public.customer VALUES (618, 'Mcguire Ltd');
+INSERT INTO public.customer VALUES (619, 'Owens Inc');
+INSERT INTO public.customer VALUES (620, 'Mullins-Stokes');
+INSERT INTO public.customer VALUES (621, 'Kelly, Nelson and Brooks');
+INSERT INTO public.customer VALUES (622, 'Holmes Inc');
+INSERT INTO public.customer VALUES (623, 'Green-Melton');
+INSERT INTO public.customer VALUES (624, 'Franklin Group');
+INSERT INTO public.customer VALUES (625, 'Allen-Phelps');
+INSERT INTO public.customer VALUES (626, 'Wright-Kane');
+INSERT INTO public.customer VALUES (627, 'Manning-Rivas');
+INSERT INTO public.customer VALUES (628, 'Figueroa, Moody and Grant');
+INSERT INTO public.customer VALUES (629, 'Jackson, Walker and Mcdonald');
+INSERT INTO public.customer VALUES (630, 'Benton Group');
+INSERT INTO public.customer VALUES (631, 'Patterson and Sons');
+INSERT INTO public.customer VALUES (632, 'Powell, Mclean and Bird');
+INSERT INTO public.customer VALUES (633, 'Perkins, Lewis and Woodward');
+INSERT INTO public.customer VALUES (634, 'Burns, Brown and Hernandez');
+INSERT INTO public.customer VALUES (635, 'Mason-Gaines');
+INSERT INTO public.customer VALUES (636, 'Hammond Group');
+INSERT INTO public.customer VALUES (637, 'Miller-Smith');
+INSERT INTO public.customer VALUES (638, 'Ford LLC');
+INSERT INTO public.customer VALUES (639, 'Mosley LLC');
+INSERT INTO public.customer VALUES (640, 'Cunningham-Reyes');
+INSERT INTO public.customer VALUES (641, 'Ellis and Sons');
+INSERT INTO public.customer VALUES (642, 'Nelson-Mathis');
+INSERT INTO public.customer VALUES (643, 'Lucas, Simmons and Jones');
+INSERT INTO public.customer VALUES (644, 'Barber-Higgins');
+INSERT INTO public.customer VALUES (645, 'Sutton, Joseph and Bailey');
+INSERT INTO public.customer VALUES (646, 'Jackson LLC');
+INSERT INTO public.customer VALUES (647, 'Murray-Brown');
+INSERT INTO public.customer VALUES (648, 'Cherry, Smith and Hopkins');
+INSERT INTO public.customer VALUES (649, 'Nelson and Sons');
+INSERT INTO public.customer VALUES (650, 'White-Stevenson');
+INSERT INTO public.customer VALUES (651, 'Johnson, Smith and Underwood');
+INSERT INTO public.customer VALUES (652, 'Casey, Martin and Valentine');
+INSERT INTO public.customer VALUES (653, 'Giles, Morgan and Jones');
+INSERT INTO public.customer VALUES (654, 'Baker-Green');
+INSERT INTO public.customer VALUES (655, 'Rhodes-Jones');
+INSERT INTO public.customer VALUES (656, 'Brooks, Davis and Molina');
+INSERT INTO public.customer VALUES (657, 'Young Group');
+INSERT INTO public.customer VALUES (658, 'Martinez, Johnson and Jones');
+INSERT INTO public.customer VALUES (659, 'Dorsey, Riggs and Austin');
+INSERT INTO public.customer VALUES (660, 'Lam-Owen');
+INSERT INTO public.customer VALUES (661, 'Garza, Gonzalez and Lee');
+INSERT INTO public.customer VALUES (662, 'Freeman PLC');
+INSERT INTO public.customer VALUES (663, 'Owens-Farrell');
+INSERT INTO public.customer VALUES (664, 'Carlson Inc');
+INSERT INTO public.customer VALUES (665, 'Smith-Griffin');
+INSERT INTO public.customer VALUES (666, 'Reynolds, Mann and Green');
+INSERT INTO public.customer VALUES (667, 'Allen-Spencer');
+INSERT INTO public.customer VALUES (668, 'Bean PLC');
+INSERT INTO public.customer VALUES (669, 'Clark-Joseph');
+INSERT INTO public.customer VALUES (670, 'Anderson-Gibson');
+INSERT INTO public.customer VALUES (671, 'Holloway LLC');
+INSERT INTO public.customer VALUES (672, 'Fowler-Golden');
+INSERT INTO public.customer VALUES (673, 'Galvan, Bryant and Zimmerman');
+INSERT INTO public.customer VALUES (674, 'Carter-Brooks');
+INSERT INTO public.customer VALUES (675, 'Russell-Ashley');
+INSERT INTO public.customer VALUES (676, 'Taylor, Johnson and Hammond');
+INSERT INTO public.customer VALUES (677, 'Scott-Hudson');
+INSERT INTO public.customer VALUES (678, 'Riley Ltd');
+INSERT INTO public.customer VALUES (679, 'Klein Group');
+INSERT INTO public.customer VALUES (680, 'Horn and Sons');
+INSERT INTO public.customer VALUES (681, 'Murphy, Ashley and Stafford');
+INSERT INTO public.customer VALUES (682, 'Baker, Lewis and Knight');
+INSERT INTO public.customer VALUES (683, 'Tapia-Howard');
+INSERT INTO public.customer VALUES (684, 'Perkins, Johnson and Sanchez');
+INSERT INTO public.customer VALUES (685, 'Henderson-Lawrence');
+INSERT INTO public.customer VALUES (686, 'Berg-Graham');
+INSERT INTO public.customer VALUES (687, 'Becker, Chavez and Grant');
+INSERT INTO public.customer VALUES (688, 'Mendoza Ltd');
+INSERT INTO public.customer VALUES (689, 'Figueroa, Tate and Freeman');
+INSERT INTO public.customer VALUES (690, 'Robinson, Anderson and Evans');
+INSERT INTO public.customer VALUES (691, 'Armstrong Ltd');
+INSERT INTO public.customer VALUES (692, 'Marquez, Fry and Hicks');
+INSERT INTO public.customer VALUES (693, 'Anderson and Sons');
+INSERT INTO public.customer VALUES (694, 'Snyder-Harrison');
+INSERT INTO public.customer VALUES (695, 'Hawkins-James');
+INSERT INTO public.customer VALUES (696, 'Thompson, Martinez and Michael');
+INSERT INTO public.customer VALUES (697, 'Jones, Serrano and Silva');
+INSERT INTO public.customer VALUES (698, 'Ross Inc');
+INSERT INTO public.customer VALUES (699, 'James-Rubio');
+INSERT INTO public.customer VALUES (700, 'Jackson, Singleton and Diaz');
+INSERT INTO public.customer VALUES (701, 'Alvarez, Mcdonald and Jordan');
+INSERT INTO public.customer VALUES (702, 'Chambers-Pratt');
+INSERT INTO public.customer VALUES (703, 'Richardson-Gardner');
+INSERT INTO public.customer VALUES (704, 'Smith-Adams');
+INSERT INTO public.customer VALUES (705, 'Watson-Fields');
+INSERT INTO public.customer VALUES (706, 'Hudson PLC');
+INSERT INTO public.customer VALUES (707, 'James Ltd');
+INSERT INTO public.customer VALUES (708, 'Johnson, Thompson and Mercado');
+INSERT INTO public.customer VALUES (709, 'Arroyo Inc');
+INSERT INTO public.customer VALUES (710, 'Salinas-Lee');
+INSERT INTO public.customer VALUES (711, 'Burns, Davis and Beck');
+INSERT INTO public.customer VALUES (712, 'Perkins-Carpenter');
+INSERT INTO public.customer VALUES (713, 'Hill-Harris');
+INSERT INTO public.customer VALUES (714, 'Burnett-Campbell');
+INSERT INTO public.customer VALUES (715, 'Daniels, Sutton and Green');
+INSERT INTO public.customer VALUES (716, 'Bates LLC');
+INSERT INTO public.customer VALUES (717, 'Johnson, Delgado and Haney');
+INSERT INTO public.customer VALUES (718, 'Brown, Prince and Stafford');
+INSERT INTO public.customer VALUES (719, 'Delgado Ltd');
+INSERT INTO public.customer VALUES (720, 'Miller-Erickson');
+INSERT INTO public.customer VALUES (721, 'Phillips LLC');
+INSERT INTO public.customer VALUES (722, 'James-George');
+INSERT INTO public.customer VALUES (723, 'Park-Wells');
+INSERT INTO public.customer VALUES (724, 'Ramirez-Guzman');
+INSERT INTO public.customer VALUES (725, 'Johnson, Bradley and Smith');
+INSERT INTO public.customer VALUES (726, 'Rodriguez-Johnson');
+INSERT INTO public.customer VALUES (727, 'Harper, Harris and Rice');
+INSERT INTO public.customer VALUES (728, 'Wilson-Benson');
+INSERT INTO public.customer VALUES (729, 'Miller-Carter');
+INSERT INTO public.customer VALUES (730, 'Taylor LLC');
+INSERT INTO public.customer VALUES (731, 'Nielsen-Velasquez');
+INSERT INTO public.customer VALUES (732, 'Trujillo Ltd');
+INSERT INTO public.customer VALUES (733, 'Davis-Clark');
+INSERT INTO public.customer VALUES (734, 'Allen-Butler');
+INSERT INTO public.customer VALUES (735, 'Campbell, Decker and Lopez');
+INSERT INTO public.customer VALUES (736, 'Short, Campbell and Henry');
+INSERT INTO public.customer VALUES (737, 'Gonzalez LLC');
+INSERT INTO public.customer VALUES (738, 'Cain-Wang');
+INSERT INTO public.customer VALUES (739, 'Mueller Inc');
+INSERT INTO public.customer VALUES (740, 'Johnson, Harvey and Waller');
+INSERT INTO public.customer VALUES (741, 'Cooley-Morris');
+INSERT INTO public.customer VALUES (742, 'Johnson Inc');
+INSERT INTO public.customer VALUES (743, 'Martin-Flynn');
+INSERT INTO public.customer VALUES (744, 'Sanders, Rodriguez and Daniel');
+INSERT INTO public.customer VALUES (745, 'Thomas PLC');
+INSERT INTO public.customer VALUES (746, 'Peterson-Wilson');
+INSERT INTO public.customer VALUES (747, 'Hutchinson-Oneal');
+INSERT INTO public.customer VALUES (748, 'Mcdaniel PLC');
+INSERT INTO public.customer VALUES (749, 'Jackson Inc');
+INSERT INTO public.customer VALUES (750, 'Anderson, Downs and Hunter');
+INSERT INTO public.customer VALUES (751, 'Norris, Bush and Hardy');
+INSERT INTO public.customer VALUES (752, 'Parsons-Skinner');
+INSERT INTO public.customer VALUES (753, 'Douglas-Hines');
+INSERT INTO public.customer VALUES (754, 'Reynolds-Kelley');
+INSERT INTO public.customer VALUES (755, 'Fox-Conrad');
+INSERT INTO public.customer VALUES (756, 'Woods, Newman and Sanchez');
+INSERT INTO public.customer VALUES (757, 'Mclaughlin Inc');
+INSERT INTO public.customer VALUES (758, 'Flores PLC');
+INSERT INTO public.customer VALUES (759, 'Gonzalez Ltd');
+INSERT INTO public.customer VALUES (760, 'Rodriguez-Burke');
+INSERT INTO public.customer VALUES (761, 'Harrison Inc');
+INSERT INTO public.customer VALUES (762, 'Huynh and Sons');
+INSERT INTO public.customer VALUES (763, 'Ward, May and Morales');
+INSERT INTO public.customer VALUES (764, 'Cooper, Henderson and Bartlett');
+INSERT INTO public.customer VALUES (765, 'Martin-Stewart');
+INSERT INTO public.customer VALUES (766, 'Dennis, Massey and Williamson');
+INSERT INTO public.customer VALUES (767, 'Cuevas-Burke');
+INSERT INTO public.customer VALUES (768, 'Short Inc');
+INSERT INTO public.customer VALUES (769, 'White, Barber and Lyons');
+INSERT INTO public.customer VALUES (770, 'Escobar-Morales');
+INSERT INTO public.customer VALUES (771, 'Kent Group');
+INSERT INTO public.customer VALUES (772, 'Maldonado Ltd');
+INSERT INTO public.customer VALUES (773, 'Key, Jenkins and Harris');
+INSERT INTO public.customer VALUES (774, 'Moreno-Roach');
+INSERT INTO public.customer VALUES (775, 'Carrillo Inc');
+INSERT INTO public.customer VALUES (776, 'Ramsey-Oliver');
+INSERT INTO public.customer VALUES (777, 'Richardson, Craig and Powell');
+INSERT INTO public.customer VALUES (778, 'Mitchell-Wallace');
+INSERT INTO public.customer VALUES (779, 'Lee, Pierce and Calhoun');
+INSERT INTO public.customer VALUES (780, 'Strickland, Ford and Newton');
+INSERT INTO public.customer VALUES (781, 'Scott, Wallace and Hayes');
+INSERT INTO public.customer VALUES (782, 'Bennett-Young');
+INSERT INTO public.customer VALUES (783, 'Kim, Thomas and Anderson');
+INSERT INTO public.customer VALUES (784, 'Galvan Inc');
+INSERT INTO public.customer VALUES (785, 'Scott, Atkinson and Miller');
+INSERT INTO public.customer VALUES (786, 'Brown LLC');
+INSERT INTO public.customer VALUES (787, 'Cooper Inc');
+INSERT INTO public.customer VALUES (788, 'Waters-Lawrence');
+INSERT INTO public.customer VALUES (789, 'Gilbert-Hall');
+INSERT INTO public.customer VALUES (790, 'Hansen, Thomas and Weaver');
+INSERT INTO public.customer VALUES (791, 'Phillips-Jones');
+INSERT INTO public.customer VALUES (792, 'Bernard LLC');
+INSERT INTO public.customer VALUES (793, 'Snyder-Howard');
+INSERT INTO public.customer VALUES (794, 'Gray-Bennett');
+INSERT INTO public.customer VALUES (795, 'Harrison, Reynolds and Bush');
+INSERT INTO public.customer VALUES (796, 'Harris Group');
+INSERT INTO public.customer VALUES (797, 'Grant Group');
+INSERT INTO public.customer VALUES (798, 'Williams, Campbell and Patrick');
+INSERT INTO public.customer VALUES (799, 'Porter PLC');
+INSERT INTO public.customer VALUES (800, 'Edwards, Leon and Smith');
+INSERT INTO public.customer VALUES (801, 'Lawrence, Cabrera and Barnes');
+INSERT INTO public.customer VALUES (802, 'Vaughan LLC');
+INSERT INTO public.customer VALUES (803, 'Woods, Lopez and Lewis');
+INSERT INTO public.customer VALUES (804, 'Cooper PLC');
+INSERT INTO public.customer VALUES (805, 'Williams-Frye');
+INSERT INTO public.customer VALUES (806, 'Schaefer-Weaver');
+INSERT INTO public.customer VALUES (807, 'Madden-Harrell');
+INSERT INTO public.customer VALUES (808, 'Guzman-Butler');
+INSERT INTO public.customer VALUES (809, 'Hill LLC');
+INSERT INTO public.customer VALUES (810, 'Armstrong PLC');
+INSERT INTO public.customer VALUES (811, 'Kelly, Hodge and Frederick');
+INSERT INTO public.customer VALUES (812, 'Dillon LLC');
+INSERT INTO public.customer VALUES (813, 'Harris Group');
+INSERT INTO public.customer VALUES (814, 'Porter-Hill');
+INSERT INTO public.customer VALUES (815, 'Hale-Sanchez');
+INSERT INTO public.customer VALUES (816, 'Jenkins-Krause');
+INSERT INTO public.customer VALUES (817, 'White-Evans');
+INSERT INTO public.customer VALUES (818, 'Jackson, Villa and Kirby');
+INSERT INTO public.customer VALUES (819, 'Phillips-Romero');
+INSERT INTO public.customer VALUES (820, 'Rangel, Brown and Baird');
+INSERT INTO public.customer VALUES (821, 'Sims Inc');
+INSERT INTO public.customer VALUES (822, 'Watkins-Mccoy');
+INSERT INTO public.customer VALUES (823, 'Curtis, Singh and Martin');
+INSERT INTO public.customer VALUES (824, 'Castaneda LLC');
+INSERT INTO public.customer VALUES (825, 'Dickerson, Garcia and Diaz');
+INSERT INTO public.customer VALUES (826, 'Khan-Jacobs');
+INSERT INTO public.customer VALUES (827, 'Walker Ltd');
+INSERT INTO public.customer VALUES (828, 'Martinez-Johnson');
+INSERT INTO public.customer VALUES (829, 'Thompson-Mckinney');
+INSERT INTO public.customer VALUES (830, 'Little-Andrews');
+INSERT INTO public.customer VALUES (831, 'Brown, Jenkins and Weber');
+INSERT INTO public.customer VALUES (832, 'Buchanan, Butler and Larson');
+INSERT INTO public.customer VALUES (833, 'Garcia, Cannon and Foster');
+INSERT INTO public.customer VALUES (834, 'Little, Casey and Lawson');
+INSERT INTO public.customer VALUES (835, 'Chambers Group');
+INSERT INTO public.customer VALUES (836, 'Carter, Burns and Clark');
+INSERT INTO public.customer VALUES (837, 'Barr Inc');
+INSERT INTO public.customer VALUES (838, 'Andrews-Stone');
+INSERT INTO public.customer VALUES (839, 'Nguyen-Smith');
+INSERT INTO public.customer VALUES (840, 'Kim Inc');
+INSERT INTO public.customer VALUES (841, 'Morrison-Love');
+INSERT INTO public.customer VALUES (842, 'Miller-Torres');
+INSERT INTO public.customer VALUES (843, 'Greene, Gutierrez and Smith');
+INSERT INTO public.customer VALUES (844, 'Edwards-Ross');
+INSERT INTO public.customer VALUES (845, 'Hill Ltd');
+INSERT INTO public.customer VALUES (846, 'Becker LLC');
+INSERT INTO public.customer VALUES (847, 'Morales-Hanson');
+INSERT INTO public.customer VALUES (848, 'Vargas-Pacheco');
+INSERT INTO public.customer VALUES (849, 'Moore LLC');
+INSERT INTO public.customer VALUES (850, 'Brown-Johnson');
+INSERT INTO public.customer VALUES (851, 'Forbes, Jackson and Klein');
+INSERT INTO public.customer VALUES (852, 'Chung, Pope and Cummings');
+INSERT INTO public.customer VALUES (853, 'Mcguire-Mccarty');
+INSERT INTO public.customer VALUES (854, 'Parks-Thomas');
+INSERT INTO public.customer VALUES (855, 'Thomas, Waters and Waller');
+INSERT INTO public.customer VALUES (856, 'Erickson-Tate');
+INSERT INTO public.customer VALUES (857, 'Brown, Turner and Clements');
+INSERT INTO public.customer VALUES (858, 'Blake-Patrick');
+INSERT INTO public.customer VALUES (859, 'Herrera PLC');
+INSERT INTO public.customer VALUES (860, 'Martin-Butler');
+INSERT INTO public.customer VALUES (861, 'Pacheco, Turner and Anderson');
+INSERT INTO public.customer VALUES (862, 'Jackson-Gregory');
+INSERT INTO public.customer VALUES (863, 'Stone-Lopez');
+INSERT INTO public.customer VALUES (864, 'Alvarez-Collins');
+INSERT INTO public.customer VALUES (865, 'Campbell PLC');
+INSERT INTO public.customer VALUES (866, 'Fisher LLC');
+INSERT INTO public.customer VALUES (867, 'Boyer-Weaver');
+INSERT INTO public.customer VALUES (868, 'Hart, Woods and Griffin');
+INSERT INTO public.customer VALUES (869, 'Fletcher, Wagner and Andrade');
+INSERT INTO public.customer VALUES (870, 'Nelson-Phillips');
+INSERT INTO public.customer VALUES (871, 'Martin PLC');
+INSERT INTO public.customer VALUES (872, 'Wood, Greene and Riley');
+INSERT INTO public.customer VALUES (873, 'Pollard, Butler and Jones');
+INSERT INTO public.customer VALUES (874, 'Huffman, Frederick and Conway');
+INSERT INTO public.customer VALUES (875, 'Holmes, Bennett and Frank');
+INSERT INTO public.customer VALUES (876, 'Palmer, Howard and Murray');
+INSERT INTO public.customer VALUES (877, 'Sanchez, James and Jones');
+INSERT INTO public.customer VALUES (878, 'Nelson, Guzman and Guzman');
+INSERT INTO public.customer VALUES (879, 'May, Burgess and Shepherd');
+INSERT INTO public.customer VALUES (880, 'Jones-Harris');
+INSERT INTO public.customer VALUES (881, 'Brown LLC');
+INSERT INTO public.customer VALUES (882, 'Long, Jackson and Mclaughlin');
+INSERT INTO public.customer VALUES (883, 'Davis LLC');
+INSERT INTO public.customer VALUES (884, 'Long LLC');
+INSERT INTO public.customer VALUES (885, 'Morris, Rhodes and Lin');
+INSERT INTO public.customer VALUES (886, 'Austin, Frost and White');
+INSERT INTO public.customer VALUES (887, 'Moss and Sons');
+INSERT INTO public.customer VALUES (888, 'Gibson, Reynolds and Dunn');
+INSERT INTO public.customer VALUES (889, 'Floyd PLC');
+INSERT INTO public.customer VALUES (890, 'Wilson-Lopez');
+INSERT INTO public.customer VALUES (891, 'Mathis PLC');
+INSERT INTO public.customer VALUES (892, 'Wyatt LLC');
+INSERT INTO public.customer VALUES (893, 'Kelley, Shaffer and Munoz');
+INSERT INTO public.customer VALUES (894, 'Bonilla Inc');
+INSERT INTO public.customer VALUES (895, 'Smith, Burch and Douglas');
+INSERT INTO public.customer VALUES (896, 'Floyd-Johnson');
+INSERT INTO public.customer VALUES (897, 'Lee-Hill');
+INSERT INTO public.customer VALUES (898, 'Keller Inc');
+INSERT INTO public.customer VALUES (899, 'Lambert, Delgado and Fernandez');
+INSERT INTO public.customer VALUES (900, 'Obrien, Yang and Turner');
+INSERT INTO public.customer VALUES (901, 'Chang-Walters');
+INSERT INTO public.customer VALUES (902, 'Kerr LLC');
+INSERT INTO public.customer VALUES (903, 'Richard and Sons');
+INSERT INTO public.customer VALUES (904, 'Bright-Nichols');
+INSERT INTO public.customer VALUES (905, 'Smith and Sons');
+INSERT INTO public.customer VALUES (906, 'Bernard-Rivera');
+INSERT INTO public.customer VALUES (907, 'Rivera Inc');
+INSERT INTO public.customer VALUES (908, 'Young Ltd');
+INSERT INTO public.customer VALUES (909, 'Elliott, Austin and Brown');
+INSERT INTO public.customer VALUES (910, 'Murphy-Vaughn');
+INSERT INTO public.customer VALUES (911, 'Smith Group');
+INSERT INTO public.customer VALUES (912, 'Christian-Hampton');
+INSERT INTO public.customer VALUES (913, 'Munoz, Kelly and Taylor');
+INSERT INTO public.customer VALUES (914, 'Watson-Peters');
+INSERT INTO public.customer VALUES (915, 'Zamora, Miller and Calderon');
+INSERT INTO public.customer VALUES (916, 'Lin Ltd');
+INSERT INTO public.customer VALUES (917, 'Berry Ltd');
+INSERT INTO public.customer VALUES (918, 'Williams Ltd');
+INSERT INTO public.customer VALUES (919, 'Price-Jackson');
+INSERT INTO public.customer VALUES (920, 'Daniel, Knight and Ramirez');
+INSERT INTO public.customer VALUES (921, 'Howard-Hunter');
+INSERT INTO public.customer VALUES (922, 'Russell, Rodriguez and Williams');
+INSERT INTO public.customer VALUES (923, 'Farrell-Anderson');
+INSERT INTO public.customer VALUES (924, 'Gordon Ltd');
+INSERT INTO public.customer VALUES (925, 'Moore, Ward and Guzman');
+INSERT INTO public.customer VALUES (926, 'Rasmussen, Miller and Orr');
+INSERT INTO public.customer VALUES (927, 'Pearson-Fox');
+INSERT INTO public.customer VALUES (928, 'Moore PLC');
+INSERT INTO public.customer VALUES (929, 'Ramirez-Grant');
+INSERT INTO public.customer VALUES (930, 'Reed, Fisher and Campos');
+INSERT INTO public.customer VALUES (931, 'May, Perez and Mills');
+INSERT INTO public.customer VALUES (932, 'Bernard, Clark and Burns');
+INSERT INTO public.customer VALUES (933, 'Mendoza Ltd');
+INSERT INTO public.customer VALUES (934, 'Williams Ltd');
+INSERT INTO public.customer VALUES (935, 'Melendez Group');
+INSERT INTO public.customer VALUES (936, 'Cook, Barnett and Jones');
+INSERT INTO public.customer VALUES (937, 'Ramirez-Green');
+INSERT INTO public.customer VALUES (938, 'Meadows-Williams');
+INSERT INTO public.customer VALUES (939, 'Snyder-Anderson');
+INSERT INTO public.customer VALUES (940, 'Johnson-Francis');
+INSERT INTO public.customer VALUES (941, 'Mendez, Owens and Taylor');
+INSERT INTO public.customer VALUES (942, 'Munoz-Bell');
+INSERT INTO public.customer VALUES (943, 'Bennett, Barajas and Campbell');
+INSERT INTO public.customer VALUES (944, 'Bowman-Jones');
+INSERT INTO public.customer VALUES (945, 'Cox, Collins and Berry');
+INSERT INTO public.customer VALUES (946, 'Medina-Schmidt');
+INSERT INTO public.customer VALUES (947, 'Reyes, Booth and Robinson');
+INSERT INTO public.customer VALUES (948, 'Shields-Sosa');
+INSERT INTO public.customer VALUES (949, 'Santos, Fuller and Schmidt');
+INSERT INTO public.customer VALUES (950, 'Howell Ltd');
+INSERT INTO public.customer VALUES (951, 'Baxter, Gordon and Parker');
+INSERT INTO public.customer VALUES (952, 'Fisher Ltd');
+INSERT INTO public.customer VALUES (953, 'Wright, Preston and Boone');
+INSERT INTO public.customer VALUES (954, 'Avery, Donaldson and Morales');
+INSERT INTO public.customer VALUES (955, 'Johnson-Ruiz');
+INSERT INTO public.customer VALUES (956, 'Richards Inc');
+INSERT INTO public.customer VALUES (957, 'Rodriguez-Davis');
+INSERT INTO public.customer VALUES (958, 'George-Ortega');
+INSERT INTO public.customer VALUES (959, 'Christensen, Santiago and Hunt');
+INSERT INTO public.customer VALUES (960, 'Myers-Flynn');
+INSERT INTO public.customer VALUES (961, 'Garcia Group');
+INSERT INTO public.customer VALUES (962, 'Cooper Inc');
+INSERT INTO public.customer VALUES (963, 'Wade and Sons');
+INSERT INTO public.customer VALUES (964, 'Gomez LLC');
+INSERT INTO public.customer VALUES (965, 'Wallace-Bird');
+INSERT INTO public.customer VALUES (966, 'Benjamin-Harris');
+INSERT INTO public.customer VALUES (967, 'Padilla, Willis and Coleman');
+INSERT INTO public.customer VALUES (968, 'Perez PLC');
+INSERT INTO public.customer VALUES (969, 'Booker-Soto');
+INSERT INTO public.customer VALUES (970, 'Lopez-Hall');
+INSERT INTO public.customer VALUES (971, 'Allen-Goodman');
+INSERT INTO public.customer VALUES (972, 'Best Ltd');
+INSERT INTO public.customer VALUES (973, 'Buchanan-Curtis');
+INSERT INTO public.customer VALUES (974, 'Baldwin, Johnson and Crawford');
+INSERT INTO public.customer VALUES (975, 'Ward LLC');
+INSERT INTO public.customer VALUES (976, 'Perez, Downs and Strickland');
+INSERT INTO public.customer VALUES (977, 'Shepherd Group');
+INSERT INTO public.customer VALUES (978, 'Jimenez, Mccarthy and Wood');
+INSERT INTO public.customer VALUES (979, 'Berry and Sons');
+INSERT INTO public.customer VALUES (980, 'Marsh, Carlson and Hudson');
+INSERT INTO public.customer VALUES (981, 'Greene-Townsend');
+INSERT INTO public.customer VALUES (982, 'Nichols, Woods and Hill');
+INSERT INTO public.customer VALUES (983, 'Garcia, Wilson and Stewart');
+INSERT INTO public.customer VALUES (984, 'Williams, Munoz and Burgess');
+INSERT INTO public.customer VALUES (985, 'Williams PLC');
+INSERT INTO public.customer VALUES (986, 'Johnson-Smith');
+INSERT INTO public.customer VALUES (987, 'Lee, Arnold and Knight');
+INSERT INTO public.customer VALUES (988, 'Castaneda-Rivera');
+INSERT INTO public.customer VALUES (989, 'Smith-Snyder');
+INSERT INTO public.customer VALUES (990, 'Hudson-Fritz');
+INSERT INTO public.customer VALUES (991, 'Bradley, Bowman and Orr');
+INSERT INTO public.customer VALUES (992, 'Colon-Baker');
+INSERT INTO public.customer VALUES (993, 'Pitts-Smith');
+INSERT INTO public.customer VALUES (994, 'Francis LLC');
+INSERT INTO public.customer VALUES (995, 'Mclean-Grimes');
+INSERT INTO public.customer VALUES (996, 'Martin-Francis');
+INSERT INTO public.customer VALUES (997, 'Gomez, Browning and Wood');
+INSERT INTO public.customer VALUES (998, 'Hess Inc');
+INSERT INTO public.customer VALUES (999, 'Hodges-Moore');
+INSERT INTO public.customer VALUES (1000, 'Hood and Sons');
+INSERT INTO public.customer VALUES (1001, 'Escobar Group');
+INSERT INTO public.customer VALUES (1002, 'Phillips Ltd');
+INSERT INTO public.customer VALUES (1003, 'Newton, Orr and Nelson');
+INSERT INTO public.customer VALUES (1004, 'Lynch-Dunn');
+INSERT INTO public.customer VALUES (1005, 'Williams LLC');
+INSERT INTO public.customer VALUES (1006, 'Hawkins Group');
+INSERT INTO public.customer VALUES (1007, 'Bailey, Ramirez and Carter');
+INSERT INTO public.customer VALUES (1008, 'Burns Ltd');
+INSERT INTO public.customer VALUES (1009, 'Galvan, Peterson and Davis');
+INSERT INTO public.customer VALUES (1010, 'Boyer, Henderson and Smith');
+INSERT INTO public.customer VALUES (1011, 'Mendoza, Mckinney and Wilcox');
+INSERT INTO public.customer VALUES (1012, 'Ryan Inc');
+INSERT INTO public.customer VALUES (1013, 'Whitehead-Barnett');
+INSERT INTO public.customer VALUES (1014, 'Short, Simpson and Zimmerman');
+INSERT INTO public.customer VALUES (1015, 'Rivera, Livingston and Chang');
+INSERT INTO public.customer VALUES (1016, 'Roberts-Calderon');
+INSERT INTO public.customer VALUES (1017, 'Black, Howe and Williams');
+INSERT INTO public.customer VALUES (1018, 'Kirk LLC');
+INSERT INTO public.customer VALUES (1019, 'Stephens Group');
+INSERT INTO public.customer VALUES (1020, 'Doyle-Johnson');
+INSERT INTO public.customer VALUES (1021, 'Munoz LLC');
+INSERT INTO public.customer VALUES (1022, 'Hale Group');
+INSERT INTO public.customer VALUES (1023, 'Williamson LLC');
+INSERT INTO public.customer VALUES (1024, 'Ray-Little');
+INSERT INTO public.customer VALUES (1025, 'Smith-Walker');
+INSERT INTO public.customer VALUES (1026, 'Cook, Thompson and Smith');
+INSERT INTO public.customer VALUES (1027, 'Ortiz-Carney');
+INSERT INTO public.customer VALUES (1028, 'Moore, Evans and Lee');
+INSERT INTO public.customer VALUES (1029, 'Yang, Rivers and Martinez');
+INSERT INTO public.customer VALUES (1030, 'Smith, Rodriguez and Woods');
+INSERT INTO public.customer VALUES (1031, 'Alvarado-Rodriguez');
+INSERT INTO public.customer VALUES (1032, 'Perkins, Kirby and Simpson');
+INSERT INTO public.customer VALUES (1033, 'Wilkins-Smith');
+INSERT INTO public.customer VALUES (1034, 'Phillips-Bennett');
+INSERT INTO public.customer VALUES (1035, 'Miller Group');
+INSERT INTO public.customer VALUES (1036, 'Gill LLC');
+INSERT INTO public.customer VALUES (1037, 'Jones-Dillon');
+INSERT INTO public.customer VALUES (1038, 'Trujillo, Gates and Gibson');
+INSERT INTO public.customer VALUES (1039, 'Allen-Jackson');
+INSERT INTO public.customer VALUES (1040, 'Nichols, Beck and Miller');
+INSERT INTO public.customer VALUES (1041, 'Good, Thompson and Carlson');
+INSERT INTO public.customer VALUES (1042, 'Garrison, Jones and Bartlett');
+INSERT INTO public.customer VALUES (1043, 'Patel-Carter');
+INSERT INTO public.customer VALUES (1044, 'Briggs-Martinez');
+INSERT INTO public.customer VALUES (1045, 'Reilly, Smith and Nelson');
+INSERT INTO public.customer VALUES (1046, 'Conner, Griffith and Stewart');
+INSERT INTO public.customer VALUES (1047, 'Klein, Williamson and Jones');
+INSERT INTO public.customer VALUES (1048, 'Rogers Inc');
+INSERT INTO public.customer VALUES (1049, 'Aguilar-Hunt');
+INSERT INTO public.customer VALUES (1050, 'Boyd, Gonzalez and Young');
+INSERT INTO public.customer VALUES (1051, 'Silva Group');
+INSERT INTO public.customer VALUES (1052, 'Gordon and Sons');
+INSERT INTO public.customer VALUES (1053, 'Bell Group');
+INSERT INTO public.customer VALUES (1054, 'English-Bryant');
+INSERT INTO public.customer VALUES (1055, 'Williams Group');
+INSERT INTO public.customer VALUES (1056, 'Lopez PLC');
+INSERT INTO public.customer VALUES (1057, 'Lee PLC');
+INSERT INTO public.customer VALUES (1058, 'Martin-Adams');
+INSERT INTO public.customer VALUES (1059, 'Wright and Sons');
+INSERT INTO public.customer VALUES (1060, 'Watkins Ltd');
+INSERT INTO public.customer VALUES (1061, 'Barber-Murphy');
+INSERT INTO public.customer VALUES (1062, 'Hinton Group');
+INSERT INTO public.customer VALUES (1063, 'Pugh-Suarez');
+INSERT INTO public.customer VALUES (1064, 'Barnes-Heath');
+INSERT INTO public.customer VALUES (1065, 'Lewis, Powell and Harris');
+INSERT INTO public.customer VALUES (1066, 'Warren, Cummings and Parks');
+INSERT INTO public.customer VALUES (1067, 'Morris and Sons');
+INSERT INTO public.customer VALUES (1068, 'Freeman Ltd');
+INSERT INTO public.customer VALUES (1069, 'Hudson-Short');
+INSERT INTO public.customer VALUES (1070, 'Edwards-Murphy');
+INSERT INTO public.customer VALUES (1071, 'Bell LLC');
+INSERT INTO public.customer VALUES (1072, 'Miller PLC');
+INSERT INTO public.customer VALUES (1073, 'Ayala-Simmons');
+INSERT INTO public.customer VALUES (1074, 'Bernard-Stephenson');
+INSERT INTO public.customer VALUES (1075, 'Mcintyre PLC');
+INSERT INTO public.customer VALUES (1076, 'Khan-Williams');
+INSERT INTO public.customer VALUES (1077, 'Keith-White');
+INSERT INTO public.customer VALUES (1078, 'Wells-Rivera');
+INSERT INTO public.customer VALUES (1079, 'Calderon, Jones and Hunt');
+INSERT INTO public.customer VALUES (1080, 'Lewis LLC');
+INSERT INTO public.customer VALUES (1081, 'Jones-Moon');
+INSERT INTO public.customer VALUES (1082, 'Wagner and Sons');
+INSERT INTO public.customer VALUES (1083, 'Palmer-Butler');
+INSERT INTO public.customer VALUES (1084, 'Powell-Acevedo');
+INSERT INTO public.customer VALUES (1085, 'Dillon and Sons');
+INSERT INTO public.customer VALUES (1086, 'Shaffer-Wilcox');
+INSERT INTO public.customer VALUES (1087, 'Valentine-Thomas');
+INSERT INTO public.customer VALUES (1088, 'Larson, Smith and Medina');
+INSERT INTO public.customer VALUES (1089, 'Sexton PLC');
+INSERT INTO public.customer VALUES (1090, 'Perez-Sexton');
+INSERT INTO public.customer VALUES (1091, 'Thompson, Obrien and Moore');
+INSERT INTO public.customer VALUES (1092, 'Todd-Stone');
+INSERT INTO public.customer VALUES (1093, 'Hodge, Green and Jones');
+INSERT INTO public.customer VALUES (1094, 'Jones, Reese and Bush');
+INSERT INTO public.customer VALUES (1095, 'Espinoza-Vega');
+INSERT INTO public.customer VALUES (1096, 'Davis, Harrison and Hansen');
+INSERT INTO public.customer VALUES (1097, 'Reyes, Drake and Anderson');
+INSERT INTO public.customer VALUES (1098, 'Cortez-Jones');
+INSERT INTO public.customer VALUES (1099, 'Sherman-Montgomery');
+INSERT INTO public.customer VALUES (1100, 'Nelson-Johnson');
+INSERT INTO public.customer VALUES (1101, 'Townsend Group');
+INSERT INTO public.customer VALUES (1102, 'Campbell, Hicks and Moran');
+INSERT INTO public.customer VALUES (1103, 'Clark-Roberts');
+INSERT INTO public.customer VALUES (1104, 'Jackson, Flores and Stevenson');
+INSERT INTO public.customer VALUES (1105, 'Ray-Morrison');
+INSERT INTO public.customer VALUES (1106, 'Long, King and Small');
+INSERT INTO public.customer VALUES (1107, 'Jones, Mcgee and Miller');
+INSERT INTO public.customer VALUES (1108, 'Webb, Morris and Hall');
+INSERT INTO public.customer VALUES (1109, 'Mcdonald, Allison and Bridges');
+INSERT INTO public.customer VALUES (1110, 'Griffin LLC');
+INSERT INTO public.customer VALUES (1111, 'Dunn, Kelly and Jones');
+INSERT INTO public.customer VALUES (1112, 'Shannon-Quinn');
+INSERT INTO public.customer VALUES (1113, 'Sampson Group');
+INSERT INTO public.customer VALUES (1114, 'Delgado, Bentley and Powell');
+INSERT INTO public.customer VALUES (1115, 'Lee and Sons');
+INSERT INTO public.customer VALUES (1116, 'Garza-Brown');
+INSERT INTO public.customer VALUES (1117, 'Thomas and Sons');
+INSERT INTO public.customer VALUES (1118, 'Bridges Inc');
+INSERT INTO public.customer VALUES (1119, 'Diaz Group');
+INSERT INTO public.customer VALUES (1120, 'Armstrong and Sons');
+INSERT INTO public.customer VALUES (1121, 'Jennings, Boyd and Jackson');
+INSERT INTO public.customer VALUES (1122, 'Pace Group');
+INSERT INTO public.customer VALUES (1123, 'Robinson Ltd');
+INSERT INTO public.customer VALUES (1124, 'Tucker, Harris and Sanders');
+INSERT INTO public.customer VALUES (1125, 'Freeman Inc');
+INSERT INTO public.customer VALUES (1126, 'Hubbard, Castillo and Brooks');
+INSERT INTO public.customer VALUES (1127, 'Blackburn, Lynn and Rice');
+INSERT INTO public.customer VALUES (1128, 'Shaw, Bailey and Miller');
+INSERT INTO public.customer VALUES (1129, 'Smith Inc');
+INSERT INTO public.customer VALUES (1130, 'Anderson and Sons');
+INSERT INTO public.customer VALUES (1131, 'Livingston, Stewart and Stephens');
+INSERT INTO public.customer VALUES (1132, 'Palmer-Reynolds');
+INSERT INTO public.customer VALUES (1133, 'Spencer PLC');
+INSERT INTO public.customer VALUES (1134, 'Brock, Patterson and Stewart');
+INSERT INTO public.customer VALUES (1135, 'Little PLC');
+INSERT INTO public.customer VALUES (1136, 'Scott-Kelley');
+INSERT INTO public.customer VALUES (1137, 'Baker, Camacho and Roman');
+INSERT INTO public.customer VALUES (1138, 'Patton, Williams and Griffin');
+INSERT INTO public.customer VALUES (1139, 'Strong Ltd');
+INSERT INTO public.customer VALUES (1140, 'Jackson, Rodriguez and Bailey');
+INSERT INTO public.customer VALUES (1141, 'Smith, Adams and Neal');
+INSERT INTO public.customer VALUES (1142, 'Lam-Fields');
+INSERT INTO public.customer VALUES (1143, 'Robertson-Foster');
+INSERT INTO public.customer VALUES (1144, 'Harris-Smith');
+INSERT INTO public.customer VALUES (1145, 'Gonzalez LLC');
+INSERT INTO public.customer VALUES (1146, 'Ramirez, Hayes and Gay');
+INSERT INTO public.customer VALUES (1147, 'Hamilton, Williams and Hurst');
+INSERT INTO public.customer VALUES (1148, 'Gonzalez-Harvey');
+INSERT INTO public.customer VALUES (1149, 'Eaton-Walls');
+INSERT INTO public.customer VALUES (1150, 'Williams-Gillespie');
+INSERT INTO public.customer VALUES (1151, 'Smith, Carroll and Barnett');
+INSERT INTO public.customer VALUES (1152, 'Riley-Thomas');
+INSERT INTO public.customer VALUES (1153, 'Garcia-King');
+INSERT INTO public.customer VALUES (1154, 'Adams, Morris and Edwards');
+INSERT INTO public.customer VALUES (1155, 'Lowery-Arroyo');
+INSERT INTO public.customer VALUES (1156, 'Hawkins and Sons');
+INSERT INTO public.customer VALUES (1157, 'Miller-Valentine');
+INSERT INTO public.customer VALUES (1158, 'Herrera LLC');
+INSERT INTO public.customer VALUES (1159, 'Lee-White');
+INSERT INTO public.customer VALUES (1160, 'Mckenzie LLC');
+INSERT INTO public.customer VALUES (1161, 'Baker, Boyd and Johnson');
+INSERT INTO public.customer VALUES (1162, 'Lopez, Reed and Hill');
+INSERT INTO public.customer VALUES (1163, 'Bennett, Clay and Dominguez');
+INSERT INTO public.customer VALUES (1164, 'Roy-Myers');
+INSERT INTO public.customer VALUES (1165, 'Bennett-Campbell');
+INSERT INTO public.customer VALUES (1166, 'Lewis, Brown and Boyd');
+INSERT INTO public.customer VALUES (1167, 'Lawrence-Watkins');
+INSERT INTO public.customer VALUES (1168, 'Edwards Ltd');
+INSERT INTO public.customer VALUES (1169, 'Brown-Parker');
+INSERT INTO public.customer VALUES (1170, 'Rosales-Whitaker');
+INSERT INTO public.customer VALUES (1171, 'Williams, Webb and Garner');
+INSERT INTO public.customer VALUES (1172, 'Whitaker, Cook and Gonzalez');
+INSERT INTO public.customer VALUES (1173, 'Bailey-Neal');
+INSERT INTO public.customer VALUES (1174, 'Jenkins-Hernandez');
+INSERT INTO public.customer VALUES (1175, 'Nunez Ltd');
+INSERT INTO public.customer VALUES (1176, 'Smith Ltd');
+INSERT INTO public.customer VALUES (1177, 'Pena, Mitchell and Campbell');
+INSERT INTO public.customer VALUES (1178, 'Jenkins LLC');
+INSERT INTO public.customer VALUES (1179, 'Baker-Payne');
+INSERT INTO public.customer VALUES (1180, 'Chavez-Dickerson');
+INSERT INTO public.customer VALUES (1181, 'Smith PLC');
+INSERT INTO public.customer VALUES (1182, 'Campbell, Thomas and Livingston');
+INSERT INTO public.customer VALUES (1183, 'Choi-Mccormick');
+INSERT INTO public.customer VALUES (1184, 'Myers, Escobar and Stevens');
+INSERT INTO public.customer VALUES (1185, 'Jarvis-Walsh');
+INSERT INTO public.customer VALUES (1186, 'Jones Ltd');
+INSERT INTO public.customer VALUES (1187, 'Hoffman-Oliver');
+INSERT INTO public.customer VALUES (1188, 'Peck Group');
+INSERT INTO public.customer VALUES (1189, 'Mann Group');
+INSERT INTO public.customer VALUES (1190, 'Moore LLC');
+INSERT INTO public.customer VALUES (1191, 'Wilson Inc');
+INSERT INTO public.customer VALUES (1192, 'Wells PLC');
+INSERT INTO public.customer VALUES (1193, 'Harris-Gomez');
+INSERT INTO public.customer VALUES (1194, 'Lowery-Huynh');
+INSERT INTO public.customer VALUES (1195, 'Tucker-Ortiz');
+INSERT INTO public.customer VALUES (1196, 'Crawford and Sons');
+INSERT INTO public.customer VALUES (1197, 'Lee-Francis');
+INSERT INTO public.customer VALUES (1198, 'Newman, Mejia and Williams');
+INSERT INTO public.customer VALUES (1199, 'Jones and Sons');
+INSERT INTO public.customer VALUES (1200, 'Johnson-Miller');
+INSERT INTO public.customer VALUES (1201, 'Blanchard PLC');
+INSERT INTO public.customer VALUES (1202, 'Santiago-Wheeler');
+INSERT INTO public.customer VALUES (1203, 'Watkins, Munoz and Ross');
+INSERT INTO public.customer VALUES (1204, 'Carpenter, Garrett and Mcmahon');
+INSERT INTO public.customer VALUES (1205, 'Moore, Leonard and Sloan');
+INSERT INTO public.customer VALUES (1206, 'George, Rodriguez and Payne');
+INSERT INTO public.customer VALUES (1207, 'Marshall-Smith');
+INSERT INTO public.customer VALUES (1208, 'Ward-Hall');
+INSERT INTO public.customer VALUES (1209, 'Weiss, Kennedy and Kelly');
+INSERT INTO public.customer VALUES (1210, 'Miller Inc');
+INSERT INTO public.customer VALUES (1211, 'Adkins Group');
+INSERT INTO public.customer VALUES (1212, 'Burns, Ortega and Sanchez');
+INSERT INTO public.customer VALUES (1213, 'Cunningham LLC');
+INSERT INTO public.customer VALUES (1214, 'Sims LLC');
+INSERT INTO public.customer VALUES (1215, 'Jones Ltd');
+INSERT INTO public.customer VALUES (1216, 'Mcintyre-Robinson');
+INSERT INTO public.customer VALUES (1217, 'Krueger-Swanson');
+INSERT INTO public.customer VALUES (1218, 'Young-Cook');
+INSERT INTO public.customer VALUES (1219, 'Cole-Rogers');
+INSERT INTO public.customer VALUES (1220, 'Espinoza, Griffin and Vaughn');
+INSERT INTO public.customer VALUES (1221, 'Mills, Huynh and Rowland');
+INSERT INTO public.customer VALUES (1222, 'Christensen-Gardner');
+INSERT INTO public.customer VALUES (1223, 'Livingston Inc');
+INSERT INTO public.customer VALUES (1224, 'Alvarado, Miles and Hayden');
+INSERT INTO public.customer VALUES (1225, 'Wolf Ltd');
+INSERT INTO public.customer VALUES (1226, 'Perry, Ellis and Craig');
+INSERT INTO public.customer VALUES (1227, 'Stone, Howard and Warner');
+INSERT INTO public.customer VALUES (1228, 'Hines-Robbins');
+INSERT INTO public.customer VALUES (1229, 'Haas LLC');
+INSERT INTO public.customer VALUES (1230, 'Simmons Inc');
+INSERT INTO public.customer VALUES (1231, 'Wilcox Ltd');
+INSERT INTO public.customer VALUES (1232, 'West LLC');
+INSERT INTO public.customer VALUES (1233, 'Perez LLC');
+INSERT INTO public.customer VALUES (1234, 'Harris, Bartlett and Kelly');
+INSERT INTO public.customer VALUES (1235, 'Phillips Group');
+INSERT INTO public.customer VALUES (1236, 'Henderson, Flores and Payne');
+INSERT INTO public.customer VALUES (1237, 'Flynn, Davis and Bell');
+INSERT INTO public.customer VALUES (1238, 'Jones and Sons');
+INSERT INTO public.customer VALUES (1239, 'Bird, Porter and Murphy');
+INSERT INTO public.customer VALUES (1240, 'Lewis, Nguyen and Russell');
+INSERT INTO public.customer VALUES (1241, 'Peterson Ltd');
+INSERT INTO public.customer VALUES (1242, 'Bates, Dennis and Allen');
+INSERT INTO public.customer VALUES (1243, 'Long, Manning and Lewis');
+INSERT INTO public.customer VALUES (1244, 'Hansen Inc');
+INSERT INTO public.customer VALUES (1245, 'Miller LLC');
+INSERT INTO public.customer VALUES (1246, 'Lopez Inc');
+INSERT INTO public.customer VALUES (1247, 'Cochran, James and Bailey');
+INSERT INTO public.customer VALUES (1248, 'Chambers-Martin');
+INSERT INTO public.customer VALUES (1249, 'Mitchell-Wilson');
+INSERT INTO public.customer VALUES (1250, 'Baxter, Hamilton and Phillips');
+INSERT INTO public.customer VALUES (1251, 'Smith Ltd');
+INSERT INTO public.customer VALUES (1252, 'Taylor-Compton');
+INSERT INTO public.customer VALUES (1253, 'Murray-Parrish');
+INSERT INTO public.customer VALUES (1254, 'Washington-Garcia');
+INSERT INTO public.customer VALUES (1255, 'Foster PLC');
+INSERT INTO public.customer VALUES (1256, 'Charles-Mosley');
+INSERT INTO public.customer VALUES (1257, 'Gaines-Holt');
+INSERT INTO public.customer VALUES (1258, 'Porter-Stevens');
+INSERT INTO public.customer VALUES (1259, 'Carson Ltd');
+INSERT INTO public.customer VALUES (1260, 'Guerrero-Ramos');
+INSERT INTO public.customer VALUES (1261, 'Weeks Ltd');
+INSERT INTO public.customer VALUES (1262, 'Coleman-Delacruz');
+INSERT INTO public.customer VALUES (1263, 'Miller PLC');
+INSERT INTO public.customer VALUES (1264, 'Smith-Medina');
+INSERT INTO public.customer VALUES (1265, 'Crosby and Sons');
+INSERT INTO public.customer VALUES (1266, 'Sparks-Floyd');
+INSERT INTO public.customer VALUES (1267, 'Baker-Smith');
+INSERT INTO public.customer VALUES (1268, 'Edwards and Sons');
+INSERT INTO public.customer VALUES (1269, 'Harper Group');
+INSERT INTO public.customer VALUES (1270, 'Baldwin, Moore and King');
+INSERT INTO public.customer VALUES (1271, 'Sanchez LLC');
+INSERT INTO public.customer VALUES (1272, 'Snyder Inc');
+INSERT INTO public.customer VALUES (1273, 'Cook, Smith and Allen');
+INSERT INTO public.customer VALUES (1274, 'Smith LLC');
+INSERT INTO public.customer VALUES (1275, 'Eaton-Ruiz');
+INSERT INTO public.customer VALUES (1276, 'Pollard, Howard and Hansen');
+INSERT INTO public.customer VALUES (1277, 'Shaw Group');
+INSERT INTO public.customer VALUES (1278, 'Blair-Liu');
+INSERT INTO public.customer VALUES (1279, 'Rodriguez and Sons');
+INSERT INTO public.customer VALUES (1280, 'Goodman-Barron');
+INSERT INTO public.customer VALUES (1281, 'Hall-Cabrera');
+INSERT INTO public.customer VALUES (1282, 'Douglas, Parker and Bush');
+INSERT INTO public.customer VALUES (1283, 'Bowen, Jackson and Jackson');
+INSERT INTO public.customer VALUES (1284, 'Herrera Inc');
+INSERT INTO public.customer VALUES (1285, 'Villa, Garcia and Becker');
+INSERT INTO public.customer VALUES (1286, 'Kelly-Huffman');
+INSERT INTO public.customer VALUES (1287, 'Peters-Hudson');
+INSERT INTO public.customer VALUES (1288, 'Hayes, King and Dawson');
+INSERT INTO public.customer VALUES (1289, 'Graves Inc');
+INSERT INTO public.customer VALUES (1290, 'Berger, Wheeler and Ramirez');
+INSERT INTO public.customer VALUES (1291, 'Thompson and Sons');
+INSERT INTO public.customer VALUES (1292, 'Merritt, Franklin and Gibbs');
+INSERT INTO public.customer VALUES (1293, 'Solis Ltd');
+INSERT INTO public.customer VALUES (1294, 'Nelson Inc');
+INSERT INTO public.customer VALUES (1295, 'Terry, Bell and Vargas');
+INSERT INTO public.customer VALUES (1296, 'Williams-Gutierrez');
+INSERT INTO public.customer VALUES (1297, 'Carter, Johnston and Henderson');
+INSERT INTO public.customer VALUES (1298, 'Wilson, Miller and Rowe');
+INSERT INTO public.customer VALUES (1299, 'Sandoval-Gutierrez');
+INSERT INTO public.customer VALUES (1300, 'Russo Inc');
+INSERT INTO public.customer VALUES (1301, 'Huerta, Duncan and Simpson');
+INSERT INTO public.customer VALUES (1302, 'Russell PLC');
+INSERT INTO public.customer VALUES (1303, 'Tran, Baxter and Morgan');
+INSERT INTO public.customer VALUES (1304, 'Young, Patel and Gonzalez');
+INSERT INTO public.customer VALUES (1305, 'Harris-Bradley');
+INSERT INTO public.customer VALUES (1306, 'Curtis LLC');
+INSERT INTO public.customer VALUES (1307, 'Mann-Jones');
+INSERT INTO public.customer VALUES (1308, 'Wiggins, Torres and Wilson');
+INSERT INTO public.customer VALUES (1309, 'Lyons-Miller');
+INSERT INTO public.customer VALUES (1310, 'Burns-Jordan');
+INSERT INTO public.customer VALUES (1311, 'Schmidt Group');
+INSERT INTO public.customer VALUES (1312, 'Ellis Group');
+INSERT INTO public.customer VALUES (1313, 'Reed, Serrano and Freeman');
+INSERT INTO public.customer VALUES (1314, 'Houston, Perez and Richard');
+INSERT INTO public.customer VALUES (1315, 'Williams PLC');
+INSERT INTO public.customer VALUES (1316, 'Lewis-Walker');
+INSERT INTO public.customer VALUES (1317, 'Smith, Sanders and Garcia');
+INSERT INTO public.customer VALUES (1318, 'Conley-Miller');
+INSERT INTO public.customer VALUES (1319, 'Donaldson-Hendricks');
+INSERT INTO public.customer VALUES (1320, 'Bolton and Sons');
+INSERT INTO public.customer VALUES (1321, 'Jones, Lopez and Robertson');
+INSERT INTO public.customer VALUES (1322, 'Smith, Bryant and Lam');
+INSERT INTO public.customer VALUES (1323, 'Lewis-Palmer');
+INSERT INTO public.customer VALUES (1324, 'Brown, Pearson and Henderson');
+INSERT INTO public.customer VALUES (1325, 'Mack, Gardner and Bradley');
+INSERT INTO public.customer VALUES (1326, 'Johnson-Lambert');
+INSERT INTO public.customer VALUES (1327, 'Hall, Oconnor and Park');
+INSERT INTO public.customer VALUES (1328, 'Miller, Zuniga and Smith');
+INSERT INTO public.customer VALUES (1329, 'Allen LLC');
+INSERT INTO public.customer VALUES (1330, 'Fischer-Miller');
+INSERT INTO public.customer VALUES (1331, 'Beard-Garcia');
+INSERT INTO public.customer VALUES (1332, 'Ashley, Cross and Reyes');
+INSERT INTO public.customer VALUES (1333, 'Ball-Hunt');
+INSERT INTO public.customer VALUES (1334, 'Rhodes-Ortiz');
+INSERT INTO public.customer VALUES (1335, 'Reyes, Lee and Gonzalez');
+INSERT INTO public.customer VALUES (1336, 'Lee PLC');
+INSERT INTO public.customer VALUES (1337, 'Ryan Group');
+INSERT INTO public.customer VALUES (1338, 'Jones-Sandoval');
+INSERT INTO public.customer VALUES (1339, 'Parker LLC');
+INSERT INTO public.customer VALUES (1340, 'Holt Inc');
+INSERT INTO public.customer VALUES (1341, 'Miller-Wiggins');
+INSERT INTO public.customer VALUES (1342, 'Miller-Stephens');
+INSERT INTO public.customer VALUES (1343, 'Cooper Ltd');
+INSERT INTO public.customer VALUES (1344, 'Moore-Wilson');
+INSERT INTO public.customer VALUES (1345, 'Castillo-Perry');
+INSERT INTO public.customer VALUES (1346, 'Glass-Nguyen');
+INSERT INTO public.customer VALUES (1347, 'Carr and Sons');
+INSERT INTO public.customer VALUES (1348, 'Nicholson LLC');
+INSERT INTO public.customer VALUES (1349, 'Brown-Swanson');
+INSERT INTO public.customer VALUES (1350, 'Mcclain, Tucker and Morris');
+INSERT INTO public.customer VALUES (1351, 'Sullivan LLC');
+INSERT INTO public.customer VALUES (1352, 'Lee-Olson');
+INSERT INTO public.customer VALUES (1353, 'Young and Sons');
+INSERT INTO public.customer VALUES (1354, 'Ellison, Simpson and Klein');
+INSERT INTO public.customer VALUES (1355, 'Reyes, Jennings and Mcgee');
+INSERT INTO public.customer VALUES (1356, 'Ramirez-Evans');
+INSERT INTO public.customer VALUES (1357, 'Rubio, Singleton and Smith');
+INSERT INTO public.customer VALUES (1358, 'Davis, Shaw and Mullins');
+INSERT INTO public.customer VALUES (1359, 'Garcia Inc');
+INSERT INTO public.customer VALUES (1360, 'Barber Group');
+INSERT INTO public.customer VALUES (1361, 'Oliver LLC');
+INSERT INTO public.customer VALUES (1362, 'Dean, Smith and Flores');
+INSERT INTO public.customer VALUES (1363, 'Hoffman-Bailey');
+INSERT INTO public.customer VALUES (1364, 'Smith-Dunn');
+INSERT INTO public.customer VALUES (1365, 'Michael PLC');
+INSERT INTO public.customer VALUES (1366, 'Howard-Williams');
+INSERT INTO public.customer VALUES (1367, 'Jones-Jackson');
+INSERT INTO public.customer VALUES (1368, 'Phillips Ltd');
+INSERT INTO public.customer VALUES (1369, 'Schmidt, Barrett and Briggs');
+INSERT INTO public.customer VALUES (1370, 'Webb-White');
+INSERT INTO public.customer VALUES (1371, 'Green-Davis');
+INSERT INTO public.customer VALUES (1372, 'Curry Ltd');
+INSERT INTO public.customer VALUES (1373, 'Perez and Sons');
+INSERT INTO public.customer VALUES (1374, 'Brown, Daugherty and Jones');
+INSERT INTO public.customer VALUES (1375, 'Smith, Mitchell and Garrett');
+INSERT INTO public.customer VALUES (1376, 'Bishop Ltd');
+INSERT INTO public.customer VALUES (1377, 'Kirby Ltd');
+INSERT INTO public.customer VALUES (1378, 'Meadows-Hunt');
+INSERT INTO public.customer VALUES (1379, 'Zimmerman Ltd');
+INSERT INTO public.customer VALUES (1380, 'Wells and Sons');
+INSERT INTO public.customer VALUES (1381, 'Pennington Ltd');
+INSERT INTO public.customer VALUES (1382, 'Jackson-Garcia');
+INSERT INTO public.customer VALUES (1383, 'Raymond-Jones');
+INSERT INTO public.customer VALUES (1384, 'Molina and Sons');
+INSERT INTO public.customer VALUES (1385, 'Cole-Lewis');
+INSERT INTO public.customer VALUES (1386, 'James, Obrien and Pearson');
+INSERT INTO public.customer VALUES (1387, 'Davis Ltd');
+INSERT INTO public.customer VALUES (1388, 'Stanley Group');
+INSERT INTO public.customer VALUES (1389, 'Phillips, Taylor and Lara');
+INSERT INTO public.customer VALUES (1390, 'Carlson, Williams and Richards');
+INSERT INTO public.customer VALUES (1391, 'Becker-Smith');
+INSERT INTO public.customer VALUES (1392, 'Thomas-Stafford');
+INSERT INTO public.customer VALUES (1393, 'Adams, Clark and Pitts');
+INSERT INTO public.customer VALUES (1394, 'Walter-James');
+INSERT INTO public.customer VALUES (1395, 'Robinson Group');
+INSERT INTO public.customer VALUES (1396, 'Huynh, Woodward and Smith');
+INSERT INTO public.customer VALUES (1397, 'Williams and Sons');
+INSERT INTO public.customer VALUES (1398, 'Cook, Dawson and Bradford');
+INSERT INTO public.customer VALUES (1399, 'Stuart, Long and Montes');
+INSERT INTO public.customer VALUES (1400, 'Mack and Sons');
+INSERT INTO public.customer VALUES (1401, 'Davis Inc');
+INSERT INTO public.customer VALUES (1402, 'Cook LLC');
+INSERT INTO public.customer VALUES (1403, 'Ramos-Jackson');
+INSERT INTO public.customer VALUES (1404, 'Garrett Ltd');
+INSERT INTO public.customer VALUES (1405, 'Lopez-Taylor');
+INSERT INTO public.customer VALUES (1406, 'Williams and Sons');
+INSERT INTO public.customer VALUES (1407, 'Guzman-Hernandez');
+INSERT INTO public.customer VALUES (1408, 'Meza Inc');
+INSERT INTO public.customer VALUES (1409, 'Lane-Martinez');
+INSERT INTO public.customer VALUES (1410, 'Dean, Dawson and Martinez');
+INSERT INTO public.customer VALUES (1411, 'Murphy PLC');
+INSERT INTO public.customer VALUES (1412, 'Arellano-Francis');
+INSERT INTO public.customer VALUES (1413, 'Martinez Inc');
+INSERT INTO public.customer VALUES (1414, 'English Group');
+INSERT INTO public.customer VALUES (1415, 'Oliver-Humphrey');
+INSERT INTO public.customer VALUES (1416, 'Sanchez and Sons');
+INSERT INTO public.customer VALUES (1417, 'Shepherd Ltd');
+INSERT INTO public.customer VALUES (1418, 'Weaver-Mcdonald');
+INSERT INTO public.customer VALUES (1419, 'Kelly-Smith');
+INSERT INTO public.customer VALUES (1420, 'Farrell Inc');
+INSERT INTO public.customer VALUES (1421, 'Mendoza, Sexton and Curry');
+INSERT INTO public.customer VALUES (1422, 'Jones, Stewart and Jacobs');
+INSERT INTO public.customer VALUES (1423, 'Mendoza-Phillips');
+INSERT INTO public.customer VALUES (1424, 'Hall-Morris');
+INSERT INTO public.customer VALUES (1425, 'Evans, Martinez and Brown');
+INSERT INTO public.customer VALUES (1426, 'Hunt PLC');
+INSERT INTO public.customer VALUES (1427, 'Smith-Peterson');
+INSERT INTO public.customer VALUES (1428, 'Thomas-Ware');
+INSERT INTO public.customer VALUES (1429, 'Hall Group');
+INSERT INTO public.customer VALUES (1430, 'Martinez Ltd');
+INSERT INTO public.customer VALUES (1431, 'Garrett, Reyes and Lopez');
+INSERT INTO public.customer VALUES (1432, 'Malone-Bridges');
+INSERT INTO public.customer VALUES (1433, 'Grimes-Hall');
+INSERT INTO public.customer VALUES (1434, 'Savage-Walters');
+INSERT INTO public.customer VALUES (1435, 'Phillips Inc');
+INSERT INTO public.customer VALUES (1436, 'Perez, Moses and Coleman');
+INSERT INTO public.customer VALUES (1437, 'Smith, Gonzalez and Perez');
+INSERT INTO public.customer VALUES (1438, 'Miller, Barrett and George');
+INSERT INTO public.customer VALUES (1439, 'Allen LLC');
+INSERT INTO public.customer VALUES (1440, 'Welch LLC');
+INSERT INTO public.customer VALUES (1441, 'Rasmussen Group');
+INSERT INTO public.customer VALUES (1442, 'Hull-Wilson');
+INSERT INTO public.customer VALUES (1443, 'Stewart-Jimenez');
+INSERT INTO public.customer VALUES (1444, 'Cardenas-Jackson');
+INSERT INTO public.customer VALUES (1445, 'Marquez-Long');
+INSERT INTO public.customer VALUES (1446, 'Collins-Ryan');
+INSERT INTO public.customer VALUES (1447, 'Chung-Watkins');
+INSERT INTO public.customer VALUES (1448, 'Martin LLC');
+INSERT INTO public.customer VALUES (1449, 'King, Marks and Rose');
+INSERT INTO public.customer VALUES (1450, 'Castro-Silva');
+INSERT INTO public.customer VALUES (1451, 'Howe, Carter and Johnson');
+INSERT INTO public.customer VALUES (1452, 'Gutierrez, Quinn and Evans');
+INSERT INTO public.customer VALUES (1453, 'Stephens-Finley');
+INSERT INTO public.customer VALUES (1454, 'Ayers-Matthews');
+INSERT INTO public.customer VALUES (1455, 'Ryan-Foster');
+INSERT INTO public.customer VALUES (1456, 'Byrd, Perry and Miller');
+INSERT INTO public.customer VALUES (1457, 'Harvey-Phillips');
+INSERT INTO public.customer VALUES (1458, 'Mckenzie-Bailey');
+INSERT INTO public.customer VALUES (1459, 'Williams-Whitaker');
+INSERT INTO public.customer VALUES (1460, 'Thornton and Sons');
+INSERT INTO public.customer VALUES (1461, 'Miller, Miller and Kennedy');
+INSERT INTO public.customer VALUES (1462, 'Young-Chavez');
+INSERT INTO public.customer VALUES (1463, 'Castillo, Carr and Reyes');
+INSERT INTO public.customer VALUES (1464, 'Dean Inc');
+INSERT INTO public.customer VALUES (1465, 'Davis-Pham');
+INSERT INTO public.customer VALUES (1466, 'Miller-Garza');
+INSERT INTO public.customer VALUES (1467, 'Smith-Cooper');
+INSERT INTO public.customer VALUES (1468, 'Harris LLC');
+INSERT INTO public.customer VALUES (1469, 'Johnson-Patton');
+INSERT INTO public.customer VALUES (1470, 'George Group');
+INSERT INTO public.customer VALUES (1471, 'Harris-Allison');
+INSERT INTO public.customer VALUES (1472, 'Evans, Watkins and Leonard');
+INSERT INTO public.customer VALUES (1473, 'Chapman Inc');
+INSERT INTO public.customer VALUES (1474, 'Johnson, Thompson and Joyce');
+INSERT INTO public.customer VALUES (1475, 'Jones Inc');
+INSERT INTO public.customer VALUES (1476, 'Blackwell, Smith and Coleman');
+INSERT INTO public.customer VALUES (1477, 'Moore LLC');
+INSERT INTO public.customer VALUES (1478, 'Spence, Campbell and Golden');
+INSERT INTO public.customer VALUES (1479, 'Summers-Ortiz');
+INSERT INTO public.customer VALUES (1480, 'Herrera Ltd');
+INSERT INTO public.customer VALUES (1481, 'Alvarez LLC');
+INSERT INTO public.customer VALUES (1482, 'Ellis-Taylor');
+INSERT INTO public.customer VALUES (1483, 'Davis-Mckenzie');
+INSERT INTO public.customer VALUES (1484, 'Reyes Group');
+INSERT INTO public.customer VALUES (1485, 'Cook and Sons');
+INSERT INTO public.customer VALUES (1486, 'Miller-Taylor');
+INSERT INTO public.customer VALUES (1487, 'Keller, Marsh and Carr');
+INSERT INTO public.customer VALUES (1488, 'Mills-Ball');
+INSERT INTO public.customer VALUES (1489, 'Ortega, Johnson and Miller');
+INSERT INTO public.customer VALUES (1490, 'Owen-Acevedo');
+INSERT INTO public.customer VALUES (1491, 'Fletcher-Barnett');
+INSERT INTO public.customer VALUES (1492, 'Bowman, Peters and Day');
+INSERT INTO public.customer VALUES (1493, 'Drake-Olsen');
+INSERT INTO public.customer VALUES (1494, 'Luna-Gardner');
+INSERT INTO public.customer VALUES (1495, 'Walters-Avila');
+INSERT INTO public.customer VALUES (1496, 'James, Christensen and Williams');
+INSERT INTO public.customer VALUES (1497, 'Harris Inc');
+INSERT INTO public.customer VALUES (1498, 'Thomas and Sons');
+INSERT INTO public.customer VALUES (1499, 'Torres, Crawford and Cook');
+INSERT INTO public.customer VALUES (1500, 'Marshall-Johnson');
+INSERT INTO public.customer VALUES (1501, 'Leonard and Sons');
+INSERT INTO public.customer VALUES (1502, 'Adams-Watson');
+INSERT INTO public.customer VALUES (1503, 'Carpenter-Smith');
+INSERT INTO public.customer VALUES (1504, 'Howell, Smith and Hale');
+INSERT INTO public.customer VALUES (1505, 'Baker-Harris');
+INSERT INTO public.customer VALUES (1506, 'Zamora, Daniel and Brown');
+INSERT INTO public.customer VALUES (1507, 'Knight, Lynch and Schwartz');
+INSERT INTO public.customer VALUES (1508, 'Thompson-Meyer');
+INSERT INTO public.customer VALUES (1509, 'Maldonado-Hill');
+INSERT INTO public.customer VALUES (1510, 'Gill, Liu and Huff');
+INSERT INTO public.customer VALUES (1511, 'Anderson, Howard and Vasquez');
+INSERT INTO public.customer VALUES (1512, 'Bonilla-Elliott');
+INSERT INTO public.customer VALUES (1513, 'Sanchez LLC');
+INSERT INTO public.customer VALUES (1514, 'Roach-Williams');
+INSERT INTO public.customer VALUES (1515, 'Harris-Oneill');
+INSERT INTO public.customer VALUES (1516, 'York-Christian');
+INSERT INTO public.customer VALUES (1517, 'Johnson Group');
+INSERT INTO public.customer VALUES (1518, 'Ellison-Benton');
+INSERT INTO public.customer VALUES (1519, 'Smith PLC');
+INSERT INTO public.customer VALUES (1520, 'Brown, Hall and Beltran');
+INSERT INTO public.customer VALUES (1521, 'Ross Group');
+INSERT INTO public.customer VALUES (1522, 'Jordan, Smith and Moyer');
+INSERT INTO public.customer VALUES (1523, 'Watts, Atkins and Matthews');
+INSERT INTO public.customer VALUES (1524, 'Sutton, Nelson and Schwartz');
+
+
+--
+-- TOC entry 3514 (class 0 OID 16407)
+-- Dependencies: 218
+-- Data for Name: grade; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.grade VALUES (1, 'Аналитик', 43);
+INSERT INTO public.grade VALUES (2, 'Архитектор', 51);
+INSERT INTO public.grade VALUES (3, 'Бизнес-аналитик', 34);
+INSERT INTO public.grade VALUES (4, 'Бухгалтер', 42);
+INSERT INTO public.grade VALUES (5, 'Главный инженер проекта', 65);
+INSERT INTO public.grade VALUES (6, 'Инженер ПНР', 54);
+INSERT INTO public.grade VALUES (8, 'Инженер по качеству', 63);
+INSERT INTO public.grade VALUES (7, 'Инженер ПТО', 57);
+INSERT INTO public.grade VALUES (9, 'Инженер-конструктор', 44);
+INSERT INTO public.grade VALUES (10, 'Менеджер по закупкам', 34);
+INSERT INTO public.grade VALUES (11, 'Программист', 46);
+INSERT INTO public.grade VALUES (12, 'Прораб', 64);
+INSERT INTO public.grade VALUES (13, 'Руководитель проектов', 87);
+INSERT INTO public.grade VALUES (14, 'Сетевой инженер', 43);
+INSERT INTO public.grade VALUES (16, 'Системный администратор', 65);
+INSERT INTO public.grade VALUES (15, 'Системный аналитик', 41);
+INSERT INTO public.grade VALUES (19, 'Финансовый контролер', 64);
+INSERT INTO public.grade VALUES (18, 'Финансовый менеджер', 32);
+INSERT INTO public.grade VALUES (17, 'Экономист', 35);
+INSERT INTO public.grade VALUES (20, 'Юрист', 34);
+
+
+--
+-- TOC entry 3516 (class 0 OID 16416)
+-- Dependencies: 220
+-- Data for Name: hr_; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.hr_ VALUES (1, 'Иванов Иван Иванович', 'HR-менеджер', '8-800-555-35-35', 'ivanovii@example.com');
+INSERT INTO public.hr_ VALUES (2, 'Петров Петр Петрович', 'HR-специалист', '8-800-555-35-36', 'petrovpp@example.com');
+INSERT INTO public.hr_ VALUES (3, 'Сидоров Сидор Сидорович', 'HR-директор', '8-800-555-35-37', 'sidorovss@example.com');
+INSERT INTO public.hr_ VALUES (4, 'Николаев Николай Николаевич', 'HR-координатор', '8-800-555-35-38', 'nikolaevnn@example.com');
+INSERT INTO public.hr_ VALUES (5, 'Смирнова Анна Андреевна', 'HR-аналитик', '8-800-555-35-39', 'smirnova@example.com');
+INSERT INTO public.hr_ VALUES (6, 'Кузнецова Елена Сергеевна', 'HR-консультант', '8-800-555-35-40', 'kuznetsovaes@example.com');
+INSERT INTO public.hr_ VALUES (7, 'Попова Ольга Владимировна', 'HR-ассистент', '8-800-555-35-41', 'popovaov@example.com');
+INSERT INTO public.hr_ VALUES (8, 'Васильева Мария Ивановна', 'HR-менеджер по персоналу', '8-800-555-35-42', 'vasilievami@example.com');
+INSERT INTO public.hr_ VALUES (9, 'Соколова Татьяна Александровна', 'HR-business partner', '8-800-555-35-43', 'sokolovata@example.com');
+INSERT INTO public.hr_ VALUES (10, 'Морозова Екатерина Васильевна', 'HR-специалист по обучению и развитию', '8-800-555-35-44', 'morozovaev@example.com');
+INSERT INTO public.hr_ VALUES (11, 'Волкова Анастасия Петровна', 'HR-специалист по подбору персонала', '8-800-555-35-45', 'volkovaap@example.com');
+INSERT INTO public.hr_ VALUES (12, 'Лебедева Светлана Алексеевна', 'HR-специалист по оценке персонала', '8-800-555-35-46', 'lebedevasa@example.com');
+INSERT INTO public.hr_ VALUES (13, 'Федорова Дарья Игоревна', 'HR-специалист по мотивации и стимулированию', '8-800-555-35-47', 'fedorovadi@example.com');
+INSERT INTO public.hr_ VALUES (14, 'Ермакова Виктория Сергеевна', 'HR-специалист по корпоративной культуре', '8-800-555-35-48', 'ermakovavs@example.com');
+INSERT INTO public.hr_ VALUES (15, 'Смирнов Максим Андреевич', 'HR-специалист по социальным программам', '8-800-555-35-49', 'smirnovma@example.com');
+INSERT INTO public.hr_ VALUES (16, 'Козлов Алексей Владимирович', 'HR-специалист по трудовым отношениям', '8-800-555-35-50', 'kozlovav@example.com');
+INSERT INTO public.hr_ VALUES (17, 'Новиков Денис Николаевич', 'HR-business partner', '8-800-555-35-51', 'novikovdn@example.com');
+INSERT INTO public.hr_ VALUES (18, 'Соколов Илья Сергеевич', 'HR-generalist', '8-800-555-35-52', 'sokolovis@example.com');
+INSERT INTO public.hr_ VALUES (19, 'Орлов Антон Александрович', 'HR-специалист по корпоративным коммуникациям', '8-800-555-35-53', 'orlovaa@example.com');
+INSERT INTO public.hr_ VALUES (20, 'Зайцев Владислав Викторович', 'HR-специалист по управлению талантами', '8-800-555-35-54', 'zaycevvv@example.com');
+INSERT INTO public.hr_ VALUES (21, 'Соловьев Георгий Геннадьевич', 'HR-специалист по управлению знаниями', '8-800-555-35-55', 'solovievgg@example.com');
+INSERT INTO public.hr_ VALUES (22, 'Виноградов Дмитрий Дмитриевич', 'HR-специалист по управлению инновациями', '8-800-555-35-56', 'vinogradovdd@example.com');
+INSERT INTO public.hr_ VALUES (23, 'Богданов Евгений Евгеньевич', 'HR-специалист по управлению рисками', '8-800-555-35-57', 'bogdanovee@example.com');
+INSERT INTO public.hr_ VALUES (24, 'Воробьев Артем Анатольевич', 'HR-специалист по управлению изменениями', '8-800-555-35-58', 'vorobievaa@example.com');
+INSERT INTO public.hr_ VALUES (25, 'Фомин Сергей Сергеевич', 'HR-project manager', '8-800-555-35-59', 'fominss@example.com');
+INSERT INTO public.hr_ VALUES (26, 'Давыдов Игорь Игоревич', 'HR-specialist in employee engagement', '8-800-555-35-60', 'davydovii@example.com');
+INSERT INTO public.hr_ VALUES (27, 'Ковалев Александр Александрович', 'HR-специалист по управлению энергоэффективностью', '8-800-555-35-61', 'kovalevaa@example.com');
+INSERT INTO public.hr_ VALUES (28, 'Ильин Владимир Владимирович', 'HR-специалист по управлению экологической безопасностью', '8-800-555-35-62', 'ilinvv@example.com');
+INSERT INTO public.hr_ VALUES (29, 'Гусев Станислав Станиславович', 'HR-специалист по управлению социальной ответственностью', '8-800-555-35-63', 'gusevss@example.com');
+INSERT INTO public.hr_ VALUES (30, 'Титов Даниил Даниилович', 'HR-специалист по управлению корпоративной культурой', '8-800-555-35-64', 'titovdd@example.com');
+INSERT INTO public.hr_ VALUES (31, 'Кузьмин Вячеслав Вячеславович', 'HR-специалист по управлению корпоративным имиджем', '8-800-555-35-65', 'kuzminvv@example.com');
+INSERT INTO public.hr_ VALUES (32, 'Кудрявцев Михаил Михайлович', 'HR-специалист по управлению корпоративным брендом', '8-800-555-35-66', 'kudryavtsevmm@example.com');
+INSERT INTO public.hr_ VALUES (33, 'Баранов Андрей Андреевич', 'HR-специалист по управлению корпоративными коммуникациями', '8-800-555-35-67', 'baranovaa@example.com');
+INSERT INTO public.hr_ VALUES (34, 'Савельев Роман Романович', 'HR-специалист по управлению корпоративными финансами', '8-800-555-35-68', 'savelievrr@example.com');
+INSERT INTO public.hr_ VALUES (35, 'Тимофеев Александр Александрович', 'HR-специалист по управлению корпоративными инвестициями', '8-800-555-35-69', 'timofeevaa@example.com');
+INSERT INTO public.hr_ VALUES (36, 'Филиппов Владимир Владимирович', 'HR-специалист по управлению корпоративными партнерствами', '8-800-555-35-70', 'filippovvv@example.com');
+INSERT INTO public.hr_ VALUES (37, 'Осипова Анастасия Алексеевна', 'HR-специалист по управлению корпоративным обучением', '8-800-555-35-71', 'osipova@example.com');
+INSERT INTO public.hr_ VALUES (38, 'Семенова Екатерина Викторовна', 'HR-специалист по управлению корпоративным здоровьем', '8-800-555-35-72', 'semenova@example.com');
+INSERT INTO public.hr_ VALUES (39, 'Михайлова Ольга Сергеевна', 'HR-специалист по управлению корпоративным благотворительностью', '8-800-555-35-73', 'mikhailova@example.com');
+INSERT INTO public.hr_ VALUES (40, 'Андреева Мария Андреевна', 'HR-специалист по управлению корпоративным спонсорством', '8-800-555-35-74', 'andreeva@example.com');
+
+
+--
+-- TOC entry 3518 (class 0 OID 16425)
+-- Dependencies: 222
+-- Data for Name: location; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.location VALUES (1, 'Москва');
+INSERT INTO public.location VALUES (2, 'Санкт-Петербург');
+INSERT INTO public.location VALUES (3, 'Новосибирск');
+INSERT INTO public.location VALUES (4, 'Тюмень');
+INSERT INTO public.location VALUES (5, 'Екатеринбург');
+INSERT INTO public.location VALUES (6, 'Казань');
+INSERT INTO public.location VALUES (7, 'Нижний Новгород');
+INSERT INTO public.location VALUES (8, 'Челябинск');
+INSERT INTO public.location VALUES (9, 'Самара');
+INSERT INTO public.location VALUES (10, 'Омск');
+INSERT INTO public.location VALUES (11, 'Ростов-на-Дону');
+INSERT INTO public.location VALUES (12, 'Уфа');
+INSERT INTO public.location VALUES (13, 'Красноярск');
+INSERT INTO public.location VALUES (14, 'Воронеж');
+INSERT INTO public.location VALUES (15, 'Пермь');
+INSERT INTO public.location VALUES (16, 'Волгоград');
+INSERT INTO public.location VALUES (17, 'Краснодар');
+INSERT INTO public.location VALUES (18, 'Саратов');
+INSERT INTO public.location VALUES (19, 'Тольятти');
+INSERT INTO public.location VALUES (20, 'Ижевск');
+
+
+--
+-- TOC entry 3520 (class 0 OID 16432)
+-- Dependencies: 224
+-- Data for Name: mvz; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.mvz VALUES (1, 'Отдел продаж');
+INSERT INTO public.mvz VALUES (2, 'Отдел маркетинга');
+INSERT INTO public.mvz VALUES (3, 'Отдел финансов');
+INSERT INTO public.mvz VALUES (4, 'Отдел кадров');
+INSERT INTO public.mvz VALUES (5, 'Отдел закупок');
+INSERT INTO public.mvz VALUES (6, 'Отдел логистики');
+INSERT INTO public.mvz VALUES (7, 'Отдел информационных технологий');
+INSERT INTO public.mvz VALUES (8, 'Отдел юридический');
+INSERT INTO public.mvz VALUES (9, 'Отдел административный');
+INSERT INTO public.mvz VALUES (10, 'Отдел по работе с клиентами');
+INSERT INTO public.mvz VALUES (11, 'Цех по производству продукции');
+INSERT INTO public.mvz VALUES (12, 'Цех по упаковке продукции');
+INSERT INTO public.mvz VALUES (13, 'Цех по хранению продукции');
+INSERT INTO public.mvz VALUES (14, 'Цех по транспортировке продукции');
+INSERT INTO public.mvz VALUES (15, 'Цех по обслуживанию оборудования');
+INSERT INTO public.mvz VALUES (16, 'Цех по ремонту оборудования');
+INSERT INTO public.mvz VALUES (17, 'Цех по наладке оборудования');
+INSERT INTO public.mvz VALUES (18, 'Цех по контролю качества продукции');
+INSERT INTO public.mvz VALUES (19, 'Цех по исследованию и разработке новых продуктов и проектов');
+INSERT INTO public.mvz VALUES (20, 'Цех по экологической безопасности');
+
+
+--
+-- TOC entry 3542 (class 0 OID 16581)
+-- Dependencies: 246
+-- Data for Name: offer; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.offer VALUES (1, 218, 25, '', true, '', '2023-06-12', '2023-09-18', '2023-07-30');
+INSERT INTO public.offer VALUES (2, 219, 12, '', true, '', '2023-03-05', '2023-11-21', '2023-08-17');
+INSERT INTO public.offer VALUES (3, 220, 3, '', true, '', '2023-02-14', '2023-10-09', '2023-05-01');
+INSERT INTO public.offer VALUES (4, 221, 9, '', true, '', '2023-04-27', '2023-08-01', '2023-07-12');
+INSERT INTO public.offer VALUES (5, 222, 28, '', true, '', '2023-11-19', '2023-02-23', '2023-06-06');
+INSERT INTO public.offer VALUES (6, 223, 15, '', true, '', '2023-09-30', '2023-07-07', '2023-01-25');
+INSERT INTO public.offer VALUES (7, 224, 7, '', true, '', '2023-08-09', '2023-06-21', '2023-03-14');
+INSERT INTO public.offer VALUES (8, 225, 19, '', true, '', '2023-05-18', '2023-07-26', '2023-10-03');
+INSERT INTO public.offer VALUES (9, 226, 27, '', true, '', '2023-07-15', '2023-03-29', '2023-09-10');
+INSERT INTO public.offer VALUES (10, 227, 14, '', true, '', '2023-01-07', '2023-10-26', '2023-05-22');
+INSERT INTO public.offer VALUES (11, 228, 6, '', true, '', '2023-06-23', '2023-08-28', '2023-03-19');
+INSERT INTO public.offer VALUES (12, 229, 21, '', true, '', '2023-09-12', '2023-07-24', '2023-02-06');
+INSERT INTO public.offer VALUES (13, 230, 2, '', true, '', '2023-04-01', '2023-08-15', '2023-11-07');
+INSERT INTO public.offer VALUES (14, 231, 10, '', true, '', '2023-03-23', '2023-09-05', '2023-07-16');
+INSERT INTO public.offer VALUES (15, 232, 29, '', true, '', '2023-06-05', '2023-08-22', '2023-02-15');
+INSERT INTO public.offer VALUES (16, 233, 5, '', true, '', '2023-07-28', '2023-09-14', '2023-04-06');
+INSERT INTO public.offer VALUES (17, 234, 23, '', true, '', '2023-08-26', '2023-06-30', '2023-03-21');
+INSERT INTO public.offer VALUES (18, 235, 18, '', true, '', '2023-05-09', '2023-07-19', '2023-09-25');
+INSERT INTO public.offer VALUES (19, 236, 8, '', true, '', '2023-02-26', '2023-09-11', '2023-07-02');
+INSERT INTO public.offer VALUES (20, 237, 13, '', true, '', '2023-04-19', '2023-08-05', '2023-06-16');
+INSERT INTO public.offer VALUES (21, 238, 1, '', true, '', '2023-03-01', '2023-07-31', '2023-09-09');
+INSERT INTO public.offer VALUES (22, 239, 26, '', true, '', '2023-06-18', '2023-08-14', '2023-04-03');
+INSERT INTO public.offer VALUES (23, 240, 4, '', true, '', '2023-09-08', '2023-07-22', '2023-03-05');
+INSERT INTO public.offer VALUES (24, 241, 17, '', true, '', '2023-08-31', '2023-06-09', '2023-04-30');
+INSERT INTO public.offer VALUES (25, 242, 11, '', true, '', '2023-07-10', '2023-09-01', '2023-03-26');
+INSERT INTO public.offer VALUES (26, 243, 30, '', true, '', '2023-05-23', '2023-07-13', '2023-09-19');
+INSERT INTO public.offer VALUES (27, 244, 24, '', true, '', '2023-02-17', '2023-08-12', '2023-06-03');
+INSERT INTO public.offer VALUES (28, 245, 16, '', true, '', '2023-09-04', '2023-07-20', '2023-03-13');
+INSERT INTO public.offer VALUES (29, 246, 22, '', true, '', '2023-06-28', '2023-08-10', '2023-04-24');
+INSERT INTO public.offer VALUES (30, 247, 20, '', true, '', '2023-08-07', '2023-06-19', '2023-03-02');
+
+
+--
+-- TOC entry 3522 (class 0 OID 16439)
+-- Dependencies: 226
+-- Data for Name: past_work; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.past_work VALUES (1, 'ПАО “СИБУР”', true);
+INSERT INTO public.past_work VALUES (2, 'ЗАО “Синий иней”', false);
+INSERT INTO public.past_work VALUES (3, 'ООО “Зеленый луг”', true);
+INSERT INTO public.past_work VALUES (4, 'ОАО “Красный маяк”', false);
+INSERT INTO public.past_work VALUES (5, 'ООО “Белый снег”', true);
+INSERT INTO public.past_work VALUES (6, 'ЗАО “Черный дракон”', false);
+INSERT INTO public.past_work VALUES (7, 'ООО “Желтый лимон”', true);
+INSERT INTO public.past_work VALUES (8, 'ОАО “Фиолетовый закат”', false);
+INSERT INTO public.past_work VALUES (9, 'ООО “Серебряный дождь”', true);
+INSERT INTO public.past_work VALUES (10, 'ЗАО “Золотой утес”', false);
+INSERT INTO public.past_work VALUES (11, 'ООО “Бирюзовый берег”', true);
+INSERT INTO public.past_work VALUES (12, 'ОАО “Коричневый медведь”', false);
+INSERT INTO public.past_work VALUES (13, 'ООО “Розовый фламинго”', true);
+INSERT INTO public.past_work VALUES (14, 'ЗАО “Сине-зеленый океан”', false);
+INSERT INTO public.past_work VALUES (15, 'ООО “Красно-белый флаг”', true);
+INSERT INTO public.past_work VALUES (16, 'ОАО “Желто-синий горизонт”', false);
+INSERT INTO public.past_work VALUES (17, 'ООО “Фиолетово-розовый рассвет”', true);
+INSERT INTO public.past_work VALUES (18, 'ЗАО “Серо-буро-малиновый туман”', false);
+INSERT INTO public.past_work VALUES (19, 'ООО “Красно-зеленый сад”', true);
+INSERT INTO public.past_work VALUES (20, 'ООО "KKK"', false);
+
+
+--
+-- TOC entry 3524 (class 0 OID 16446)
+-- Dependencies: 228
+-- Data for Name: project; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.project VALUES (1, 'Строительство газоперерабатывающего завода', 'Основной задачей при проектировании газоперерабатывающего и газохимического комплекса является обеспечение экологической безопасности на всех этапах проектирования. При создании завода необходимо обслуживать самые последние и эффективные технологические решения, которые минимизируют воздействие будущего предприятия на окружающую среду и в полной мере гарантируют соблюдение всех экологических норм и требований');
+INSERT INTO public.project VALUES (2, 'Строительство магистрали', 'Необходимо провести подготовительные работы, включающие в себя выбор места для строительства, разработку проектной документации, получение всех необходимых разрешений и согласований. Затем начинается непосредственно строительство магистрали, которое включает в себя земляные работы, укладку труб, сварку, установку оборудования и другие работы');
+INSERT INTO public.project VALUES (3, 'Развитие технологий биотоплива и систем улавливания выбросов', 'Развитие технологий биотоплива направлено на поиск новых источников сырья и улучшение процессов производства');
+INSERT INTO public.project VALUES (4, 'Разработка новых технологий для добычи и переработки нефти и газа', 'Направлена на улучшение эффективности и снижение затрат');
+INSERT INTO public.project VALUES (5, 'Строительство нефтеперерабатывающего завода', 'Строительство нефтеперерабатывающего завода включает несколько основных этапов. Эти этапы включают организационные работы, проектирование, заказ техники и оборудования, строительство объектов нефтяной переработки, доставку и монтаж технологического оборудования, а также пусконаладочные работы и шефмонтаж');
+INSERT INTO public.project VALUES (6, 'Оптимизация логистических процессов', 'Должна быть логика и ее должны придерживаться');
+INSERT INTO public.project VALUES (7, 'Разработка и внедрение программы по управлению инновациями', 'Обход санкций');
+INSERT INTO public.project VALUES (8, 'Разработка и внедрение программы по управлению рисками', 'Кто не рискует, тот не пьет шампанского');
+INSERT INTO public.project VALUES (9, 'Разработка и внедрение программы по управлению проектами', 'Программа для отслеживания реализуемых проектов');
+INSERT INTO public.project VALUES (10, 'Разработка и внедрение программы по управлению корпоративными партнерствами', 'Программа для анализа рынка');
+INSERT INTO public.project VALUES (11, 'Разработка и внедрение программы по управлению корпоративными инвестициями', 'Программа по поиску наиболее выгодных инвестиционных фондов');
+INSERT INTO public.project VALUES (12, 'Разработка и внедрение программы по управлению энергоэффективностью', 'Сон это важно');
+INSERT INTO public.project VALUES (13, 'Разработка и внедрение программы по управлению изменениями', 'Изменениями в конституции');
+INSERT INTO public.project VALUES (14, 'Разработка и внедрение программы по управлению корпоративными закупками', 'Алгоритм по подбору наиболее выгодных товаров для закупки');
+INSERT INTO public.project VALUES (15, 'Разработка и внедрение программы по управлению корпоративными продажами', 'Продай мне эту ручку');
+
+
+--
+-- TOC entry 3526 (class 0 OID 16455)
+-- Dependencies: 230
+-- Data for Name: recruit_agency; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.recruit_agency VALUES (1, 'ООО “Талант-Сервис”');
+INSERT INTO public.recruit_agency VALUES (2, 'ЗАО “Кадровый Центр”');
+INSERT INTO public.recruit_agency VALUES (3, 'ООО “Персонал-Эксперт”');
+INSERT INTO public.recruit_agency VALUES (4, 'ОАО “Работа-Плюс”');
+INSERT INTO public.recruit_agency VALUES (5, 'ООО “Карьера-Групп”');
+INSERT INTO public.recruit_agency VALUES (6, 'ЗАО “Профи-Стандарт”');
+INSERT INTO public.recruit_agency VALUES (7, 'ООО “Штат-Солюшнс”');
+INSERT INTO public.recruit_agency VALUES (8, 'ОАО “Кадры-Фьючер”');
+INSERT INTO public.recruit_agency VALUES (9, 'ООО “Ресурс-Менеджмент”');
+INSERT INTO public.recruit_agency VALUES (10, 'ЗАО “Перспектива-Консалтинг”');
+INSERT INTO public.recruit_agency VALUES (11, 'ООО “Эксперт-Персонал”');
+INSERT INTO public.recruit_agency VALUES (12, 'ОАО “Кадровый Альянс”');
+INSERT INTO public.recruit_agency VALUES (13, 'ООО “Трудовые Ресурсы”');
+INSERT INTO public.recruit_agency VALUES (14, 'ЗАО “Профессионалы-Консалтинг”');
+INSERT INTO public.recruit_agency VALUES (15, 'ООО “Работа и Карьера”');
+INSERT INTO public.recruit_agency VALUES (16, 'ОАО “Персонал-Сервис”');
+INSERT INTO public.recruit_agency VALUES (17, 'ОOO “Кадровое Агентство”');
+INSERT INTO public.recruit_agency VALUES (18, 'ЗАO “Трудовой Потенциал”');
+INSERT INTO public.recruit_agency VALUES (19, 'OOO “Штат-Консалтинг”');
+INSERT INTO public.recruit_agency VALUES (20, 'ЗAO “Карьера и Развитие”');
+
+
+--
+-- TOC entry 3546 (class 0 OID 16610)
+-- Dependencies: 250
+-- Data for Name: rejection; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.rejection VALUES (1, 218, 1, 'HR', 'не прошел СБ');
+INSERT INTO public.rejection VALUES (2, 219, 2, 'HR', 'не прошел СБ');
+INSERT INTO public.rejection VALUES (3, 220, 3, 'HR', 'не прошел СБ');
+INSERT INTO public.rejection VALUES (4, 221, 4, 'HR', 'не прошел СБ');
+INSERT INTO public.rejection VALUES (5, 222, 5, 'HR', 'не прошел СБ');
+INSERT INTO public.rejection VALUES (6, 223, 6, 'HR', 'не прошел СБ');
+INSERT INTO public.rejection VALUES (7, 224, 7, 'HR', 'не прошел СБ');
+INSERT INTO public.rejection VALUES (8, 225, 8, 'HR', 'не прошел тесты');
+INSERT INTO public.rejection VALUES (9, 226, 9, 'HR', 'не прошел тесты');
+INSERT INTO public.rejection VALUES (10, 227, 10, 'HR', 'не прошел тесты');
+INSERT INTO public.rejection VALUES (11, 228, 11, 'HR', 'не прошел тесты');
+INSERT INTO public.rejection VALUES (12, 229, 12, 'HR', 'не прошел тесты');
+INSERT INTO public.rejection VALUES (13, 230, 13, 'HR', 'не прошел тесты');
+INSERT INTO public.rejection VALUES (14, 231, 14, 'HR', 'не прошел тесты');
+INSERT INTO public.rejection VALUES (15, 232, 15, 'HR', 'не прошел тесты');
+INSERT INTO public.rejection VALUES (16, 233, 16, 'Кандидат', 'не подошли условия');
+INSERT INTO public.rejection VALUES (17, 234, 17, 'Кандидат', 'не подошли условия');
+INSERT INTO public.rejection VALUES (18, 235, 18, 'Кандидат', 'не подошли условия');
+INSERT INTO public.rejection VALUES (19, 236, 19, 'Кандидат', 'не подошли условия');
+INSERT INTO public.rejection VALUES (20, 237, 20, 'Кандидат', 'не подошли условия');
+
+
+--
+-- TOC entry 3528 (class 0 OID 16462)
+-- Dependencies: 232
+-- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.role VALUES (1, 'Аналитик-стажер', 'Индустрия 4.0 и цифровизация СМР');
+INSERT INTO public.role VALUES (2, 'Специалист-стажер', 'Архитектура ИТ, Системы инжинирингового ПО');
+INSERT INTO public.role VALUES (3, 'Ведущий инженер-проектировщик', 'кого то ведет');
+INSERT INTO public.role VALUES (4, 'Инженер-проектировщик', 'архитектор');
+INSERT INTO public.role VALUES (5, 'Главный архитектор', 'промышленное проектирование');
+INSERT INTO public.role VALUES (6, 'Аналитик 1С', 'автоматизация БУ/НУ');
+INSERT INTO public.role VALUES (7, 'Ведущий специалист', 'Оперативный учет');
+INSERT INTO public.role VALUES (8, 'Эксперт', 'Складская логистика, Оперативный учет и контроль');
+INSERT INTO public.role VALUES (9, 'Бухгалтер', 'Учет/Списание ТМЦ');
+INSERT INTO public.role VALUES (10, 'Разработчик', '1С');
+INSERT INTO public.role VALUES (11, 'Эксперт Python', 'мастерски избегать \";\" ');
+INSERT INTO public.role VALUES (12, 'Fullstack разработчик ', 'C#');
+INSERT INTO public.role VALUES (13, 'Руководитель ИТ проектов', 'HR Tech');
+INSERT INTO public.role VALUES (14, 'Эксперт', 'Контрактная стратегия, коммерческие переговоры');
+INSERT INTO public.role VALUES (15, 'Системный администратор', 'следить за системой');
+INSERT INTO public.role VALUES (16, 'Архитектор ИТ-инфраструктуры', 'разве архитекторы не дома строят');
+INSERT INTO public.role VALUES (17, 'Архитектор 1С', 'ФЭУ');
+INSERT INTO public.role VALUES (18, 'Эксперт по архитекторе', 'HR проекты');
+INSERT INTO public.role VALUES (19, 'Главный эксперт', 'управление контрактами на выполнение ПИР и СМР');
+INSERT INTO public.role VALUES (20, 'Менеджер', 'контрактно-правовое сопровождение поставок оборудования и материалов');
+
+
+--
+-- TOC entry 3540 (class 0 OID 16569)
+-- Dependencies: 244
+-- Data for Name: security_check; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.security_check VALUES (37, 22, 'форма', '2015-01-20', '2031-07-20', 'не прошел');
+INSERT INTO public.security_check VALUES (38, 23, 'форма', '2020-03-20', '2015-09-20', 'не прошел');
+INSERT INTO public.security_check VALUES (39, 24, 'форма', '2005-05-20', '2030-10-20', 'не прошел');
+INSERT INTO public.security_check VALUES (40, 25, 'форма', '2010-02-20', '2025-08-20', 'не прошел');
+INSERT INTO public.security_check VALUES (41, 26, 'форма', '2028-04-20', '2020-11-20', 'не прошел');
+INSERT INTO public.security_check VALUES (42, 27, 'форма', '2012-06-20', '2005-12-20', 'не прошел');
+INSERT INTO public.security_check VALUES (43, 28, 'форма', '2026-03-20', '2029-08-20', 'не прошел');
+INSERT INTO public.security_check VALUES (44, 29, 'форма', '2001-02-20', '2001-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (45, 30, 'форма', '2015-03-20', '2015-08-20', 'прошел');
+INSERT INTO public.security_check VALUES (46, 31, 'форма', '2010-04-20', '2010-09-20', 'прошел');
+INSERT INTO public.security_check VALUES (47, 32, 'форма', '2025-05-20', '2025-10-20', 'прошел');
+INSERT INTO public.security_check VALUES (48, 33, 'форма', '2020-06-20', '2020-11-20', 'прошел');
+INSERT INTO public.security_check VALUES (49, 34, 'форма', '2005-01-20', '2005-07-20', 'не прошел');
+INSERT INTO public.security_check VALUES (50, 1, 'форма', '2001-02-20', '2001-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (51, 2, 'форма', '2002-02-20', '2002-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (52, 3, 'форма', '2003-02-20', '2003-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (53, 4, 'форма', '2004-02-20', '2004-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (54, 5, 'форма', '2005-02-20', '2005-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (55, 6, 'форма', '2006-02-20', '2006-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (56, 7, 'форма', '2007-02-20', '2007-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (57, 8, 'форма', '2008-02-20', '2008-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (58, 9, 'форма', '2009-02-20', '2009-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (59, 10, 'форма', '2010-02-20', '2010-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (60, 11, 'форма', '2011-02-20', '2011-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (61, 12, 'форма', '2012-02-20', '2012-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (62, 13, 'форма', '2013-02-20', '2013-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (63, 14, 'форма', '2014-02-20', '2014-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (64, 15, 'форма', '2015-02-20', '2015-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (65, 16, 'форма', '2016-02-20', '2016-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (66, 17, 'форма', '2017-02-20', '2017-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (67, 18, 'форма', '2018-02-20', '2018-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (68, 19, 'форма', '2019-02-20', '2019-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (69, 20, 'форма', '2020-02-20', '2020-07-20', 'прошел');
+INSERT INTO public.security_check VALUES (70, 21, 'форма', '2021-02-20', '2021-07-20', 'прошел');
+
+
+--
+-- TOC entry 3530 (class 0 OID 16469)
+-- Dependencies: 234
+-- Data for Name: source; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.source VALUES (1, 'Сайт компании');
+INSERT INTO public.source VALUES (2, 'Социальные сети');
+INSERT INTO public.source VALUES (3, 'hh.ru');
+INSERT INTO public.source VALUES (4, 'Рекомендации коллег');
+INSERT INTO public.source VALUES (5, 'Рекомендации семьи');
+INSERT INTO public.source VALUES (6, 'Рекомендации друзей');
+
+
+--
+-- TOC entry 3538 (class 0 OID 16556)
+-- Dependencies: 242
+-- Data for Name: talentq_check; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.talentq_check VALUES (73, 1, 78, 30, 45, '2015-02-20', '2025-09-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (74, 2, 65, 40, 70, '2010-03-20', '2012-11-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (75, 3, 85, 50, 90, '2020-04-20', '2005-08-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (76, 4, 92, 60, 80, '2030-05-20', '2018-07-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (77, 5, 30, 70, 95, '2005-01-20', '2030-12-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (78, 6, 40, 80, 60, '2010-06-20', '2015-10-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (79, 7, 50, 90, 75, '2020-02-20', '2020-09-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (80, 8, 45, 60, 75, '2015-03-20', '2030-09-20', 'не прошел');
+INSERT INTO public.talentq_check VALUES (81, 9, 30, 40, 55, '2025-01-20', '2015-08-20', 'не прошел');
+INSERT INTO public.talentq_check VALUES (82, 10, 65, 70, 40, '2010-06-20', '2020-12-20', 'не прошел');
+INSERT INTO public.talentq_check VALUES (83, 11, 50, 25, 30, '2005-02-20', '2010-07-20', 'не прошел');
+INSERT INTO public.talentq_check VALUES (84, 12, 80, 55, 70, '2020-04-20', '2005-11-20', 'не прошел');
+INSERT INTO public.talentq_check VALUES (85, 13, 35, 45, 65, '2012-01-20', '2025-08-20', 'не прошел');
+INSERT INTO public.talentq_check VALUES (86, 14, 75, 30, 50, '2028-05-20', '2015-10-20', 'не прошел');
+INSERT INTO public.talentq_check VALUES (87, 15, 60, 75, 35, '2008-03-20', '2001-09-20', 'не прошел');
+INSERT INTO public.talentq_check VALUES (88, 16, 45, 78, 92, '2001-01-20', '2001-07-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (89, 17, 67, 85, 76, '2002-02-20', '2002-08-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (90, 18, 89, 95, 88, '2003-03-20', '2003-09-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (91, 19, 56, 99, 84, '2004-04-20', '2004-10-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (92, 20, 79, 87, 91, '2005-05-20', '2005-11-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (93, 21, 98, 94, 83, '2006-06-20', '2006-12-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (94, 22, 44, 86, 97, '2007-07-20', '2007-01-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (95, 23, 66, 93, 75, '2008-08-20', '2008-02-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (96, 24, 88, 98, 87, '2009-09-20', '2009-03-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (97, 25, 55, 96, 82, '2010-10-20', '2010-04-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (98, 26, 78, 92, 90, '2011-11-20', '2011-05-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (99, 27, 97, 91, 81, '2012-12-20', '2012-06-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (100, 28, 43, 90, 96, '2013-01-20', '2013-07-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (101, 29, 65, 89, 74, '2014-02-20', '2014-08-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (102, 30, 87, 88, 86, '2015-03-20', '2015-09-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (103, 31, 54, 87, 95, '2016-04-20', '2016-10-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (104, 32, 77, 86, 80, '2017-05-20', '2017-11-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (105, 33, 96, 85, 89, '2018-06-20', '2018-12-20', 'прошел');
+INSERT INTO public.talentq_check VALUES (106, 34, 42, 84, 94, '2019-07-20', '2019-01-20', 'прошел');
+
+
+--
+-- TOC entry 3532 (class 0 OID 16476)
+-- Dependencies: 236
+-- Data for Name: vac_candid; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.vac_candid VALUES (3, 219, 1, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (4, 220, 2, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (5, 221, 3, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (6, 222, 4, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (7, 223, 5, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (8, 224, 6, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (9, 225, 7, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (10, 226, 8, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (11, 227, 9, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (12, 228, 10, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (13, 229, 11, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (14, 230, 12, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (15, 231, 13, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (16, 232, 14, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (17, 233, 15, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (19, 235, 16, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (20, 236, 17, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (21, 237, 18, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (22, 238, 19, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (23, 239, 20, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (24, 240, 21, 1, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (25, 241, 22, 0, 1, 0, NULL);
+INSERT INTO public.vac_candid VALUES (26, 242, 23, 0, 1, 0, NULL);
+
+
+--
+-- TOC entry 3536 (class 0 OID 16512)
+-- Dependencies: 240
+-- Data for Name: vacancy; Type: TABLE DATA; Schema: public; Owner: main
+--
+
+INSERT INTO public.vacancy VALUES (218, 7, 14, 'Дирекция по управлению строительством', 'Организация строительства', '', 'P0', 'Разработчик', 12, ' ', 11, 9, 1, '2006-01-20', '2012-07-20', 150000, true, '2015-03-20', '2020-12-20', 'ФИО', 23, 'актуально');
+INSERT INTO public.vacancy VALUES (219, 19, 3, 'Дирекция по управлению строительством', 'Организация строительства', '', 'P1', 'позиция на которую могут взять сотрудника', 5, ' ', 2, 14, 2, '2018-02-20', '2005-09-20', 120000, false, NULL, NULL, 'ФИО', 7, 'не актуально');
+INSERT INTO public.vacancy VALUES (220, 1, 1, 'Дирекция по управлению строительством', 'Организация строительства', 'Null', 'P0', 'Аналитик', 1, ' ', 1, 1, 1, '2001-01-20', '2001-07-20', 80000, true, '2001-03-20', '2001-07-20', 'Иванов Иван Иванович', 1, 'актуально');
+INSERT INTO public.vacancy VALUES (221, 2, 2, 'Департамент управления персоналом', 'Обучение и развитие', 'ЖД инфраструктура', 'P2', 'Специалист', 2, ' ', 11, 2, 2, '2002-02-20', '2002-08-20', 100000, false, NULL, NULL, 'Петров Петр Петрович', 2, 'актуально');
+INSERT INTO public.vacancy VALUES (222, 3, 3, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструктурные объекты', 'P1', 'Инженер-строитель', 3, ' ', 6, 3, 3, '2003-03-20', '2003-09-20', 120000, true, '2003-04-20', '2003-08-20', 'Сидоров Сидор Сидорович', 3, 'актуально');
+INSERT INTO public.vacancy VALUES (223, 4, 4, 'Департамент управления персоналом', 'Обучение и развитие', 'Null', 'Null', 'Инженер', 4, ' ', 7, 4, 4, '2004-04-20', '2004-10-20', 140000, false, NULL, NULL, 'Николаев Николай Николаевич', 4, 'актуально');
+INSERT INTO public.vacancy VALUES (224, 5, 5, 'Дирекция по управлению строительством', 'Организация строительства', 'ЖД инфраструктура', 'P0', 'Архитектор', 5, ' ', 2, 5, 5, '2005-05-20', '2005-11-20', 160000, true, '2005-06-20', '2005-11-20', 'Сергеев Сергей Сергеевич', 5, 'актуально');
+INSERT INTO public.vacancy VALUES (225, 6, 6, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструктурные объекты', 'P1', 'Аналитик', 6, ' ', 1, 6, 6, '2006-06-20', '2006-12-20', 180000, false, NULL, NULL, 'Александров Александр Александрович', 6, 'актуально');
+INSERT INTO public.vacancy VALUES (226, 7, 7, 'Дирекция по управлению строительством', 'Организация строительства', 'Null', 'P2', 'Специалист', 7, ' ', 4, 7, 7, '2007-07-20', '2007-01-20', 200000, true, '2007-08-20', '2007-12-20', 'Алексеев Алексей Алексеевич', 7, 'актуально');
+INSERT INTO public.vacancy VALUES (227, 8, 8, 'Департамент управления персоналом', 'Обучение и развитие', 'ЖД инфраструктура', 'P0', 'Эксперт', 8, ' ', 10, 8, 8, '2008-08-20', '2008-02-20', 80000, false, NULL, NULL, 'Андреев Андрей Андреевич', 8, 'актуально');
+INSERT INTO public.vacancy VALUES (228, 9, 9, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструктурные объекты', 'P1', 'Бухгалтер', 9, ' ', 4, 9, 9, '2009-09-20', '2009-03-20', 100000, true, '2009-10-20', '2009-12-20', 'Антонов Антон Антонович', 9, 'актуально');
+INSERT INTO public.vacancy VALUES (229, 10, 10, 'Департамент управления персоналом', 'Обучение и развитие', 'Null', 'Null', 'Разработчик', 10, ' ', 11, 10, 10, '2010-10-20', '2010-04-20', 120000, false, NULL, NULL, 'Артемьев Артем Артемьевич', 10, 'актуально');
+INSERT INTO public.vacancy VALUES (230, 11, 11, 'Дирекция по управлению строительством', 'Организация строительства', 'ЖД инфраструктура', 'P2', 'Программист', 11, ' ', 11, 11, 11, '2011-11-20', '2011-05-20', 140000, true, '2011-12-20', '2011-06-20', 'Борисов Борис Борисович', 11, 'актуально');
+INSERT INTO public.vacancy VALUES (231, 12, 12, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструктурные объекты', 'P0', 'Разработчик', 12, ' ', 11, 12, 12, '2012-12-20', '2012-06-20', 160000, false, NULL, NULL, 'Васильев Василий Васильевич', 12, 'актуально');
+INSERT INTO public.vacancy VALUES (232, 13, 13, 'Дирекция по управлению строительством', 'Организация строительства', 'Null', 'P1', 'Руководитель', 13, ' ', 13, 13, 13, '2013-01-20', '2013-07-20', 180000, true, '2013-02-20', '2013-08-20', 'Викторов Виктор Викторович', 13, 'актуально');
+INSERT INTO public.vacancy VALUES (233, 14, 14, 'Департамент управления персоналом', 'Обучение и развитие', 'ЖД инфраструктура', 'P2', 'Эксперт', 14, ' ', 17, 14, 14, '2014-02-20', '2014-08-20', 200000, false, NULL, NULL, 'Владимиров Владимир Владимирович', 14, 'актуально');
+INSERT INTO public.vacancy VALUES (234, 15, 15, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструктурные объекты', 'P0', 'Системный администратор', 15, ' ', 15, 15, 15, '2015-03-20', '2015-09-20', 80000, true, '2015-04-20', '2015-10-20', 'Георгиев Георгий Георгиевич', 15, 'актуально');
+INSERT INTO public.vacancy VALUES (235, 7, 14, 'Дирекция по управлению строительством', 'Организация строительства', 'ЖД инфраструктура', 'P0', 'Бухгалтер', 9, ' ', 4, 5, 18, '2001-03-20', '2015-09-20', 150000, true, '2010-04-20', '2020-12-20', 'Иванов Иван', 25, 'актуально');
+INSERT INTO public.vacancy VALUES (236, 12, 3, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструктурные объекты', 'P2', 'Архитектор', 5, ' ', 13, 14, 7, '2005-02-20', '2010-08-20', 120000, false, NULL, NULL, 'Петров Петр', 10, 'не актуально');
+INSERT INTO public.vacancy VALUES (237, 9, 7, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P2', 'Инженер', 4, ' ', 9, 3, 20, '2010-03-20', '2020-09-20', 100000, false, NULL, NULL, 'Козлова Елена', 8, 'не актуально');
+INSERT INTO public.vacancy VALUES (238, 14, 9, 'Дирекция по управлению строительством', 'Организация строительства', 'ЖД инфраструктура', 'P0', 'Эксперт', 8, ' ', 18, 12, 15, '2015-02-20', '2025-08-20', 130000, true, '2005-05-20', '2015-12-20', 'Николаев Дмитрий', 18, 'актуально');
+INSERT INTO public.vacancy VALUES (239, 3, 12, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P2', 'Программист', 11, ' ', 11, 15, 9, '2025-01-20', '2005-08-20', 160000, false, NULL, NULL, 'Смирнова Ольга', 35, 'не актуально');
+INSERT INTO public.vacancy VALUES (240, 11, 5, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструктурные объекты', 'P1', 'Специалист', 7, ' ', 4, 8, 6, '2005-03-20', '2015-09-20', 190000, true, '2015-04-20', '2025-12-20', 'Ковалев Игорь', 22, 'актуально');
+INSERT INTO public.vacancy VALUES (241, 8, 15, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P2', 'Инженер', 3, ' ', 6, 5, 12, '2010-02-20', '2020-08-20', 110000, false, NULL, NULL, 'Васильева Анна', 12, 'не актуально');
+INSERT INTO public.vacancy VALUES (242, 16, 6, 'Дирекция по управлению строительством', 'Организация строительства', 'ЖД инфраструктура', 'P0', 'Разработчик', 10, ' ', 11, 10, 8, '2020-02-20', '2030-08-20', 140000, true, '2020-04-20', '2030-12-20', 'Морозова Екатерина', 28, 'актуально');
+INSERT INTO public.vacancy VALUES (243, 4, 11, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P2', 'Менеджер', 20, ' ', 10, 4, 10, '2001-02-20', '2010-08-20', 170000, false, NULL, NULL, 'Лебедев Иван', 15, 'не актуально');
+INSERT INTO public.vacancy VALUES (244, 13, 4, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструктурные объекты', 'P1', 'Разработчик', 12, ' ', 11, 13, 5, '2015-01-20', '2025-07-20', 200000, true, '2025-05-20', '2005-12-20', 'Соколова Мария', 32, 'актуально');
+INSERT INTO public.vacancy VALUES (245, 10, 8, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P2', 'Архитектор', 5, ' ', 2, 14, 7, '2005-02-20', '2010-08-20', 120000, false, NULL, NULL, 'Петров Петр', 10, 'не актуально');
+INSERT INTO public.vacancy VALUES (246, 15, 3, 'Дирекция по управлению строительством', 'Организация строительства', 'ЖД инфраструктура', 'P0', 'Эксперт', 8, ' ', 12, 3, 9, '2010-04-20', '2020-10-20', 130000, true, '2001-06-20', '2015-12-20', 'Сидоров Алексей', 15, 'актуально');
+INSERT INTO public.vacancy VALUES (247, 6, 10, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P2', 'Программист', 11, ' ', 11, 12, 15, '2001-07-20', '2015-01-20', 140000, false, NULL, NULL, 'Васильев Василий', 12, 'не актуально');
+INSERT INTO public.vacancy VALUES (248, 1, 7, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструктурные объекты', 'P1', 'Системный администратор', 15, ' ', 15, 5, 11, '2005-01-20', '2010-07-20', 80000, true, '2005-03-20', '2010-10-20', 'Иванов Иван', 1, 'актуально');
+INSERT INTO public.vacancy VALUES (249, 2, 8, 'Департамент управления персоналом', 'Обучение и развитие', 'ЖД инфраструктура', 'P0', 'Разработчик', 12, ' ', 11, 2, 14, '2002-02-20', '2010-08-20', 100000, false, NULL, NULL, 'Петров Петр', 2, 'не актуально');
+INSERT INTO public.vacancy VALUES (250, 11, 6, 'Дирекция по управлению строительством', 'Организация строительства', 'Null', 'P1', 'Аналитик', 6, ' ', 1, 6, 6, '2006-06-20', '2025-12-20', 180000, true, '2006-08-20', '2025-12-20', 'Александров Александр', 6, 'актуально');
+INSERT INTO public.vacancy VALUES (251, 3, 11, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P2', 'Инженер', 3, ' ', 6, 5, 12, '2001-09-20', '2001-03-20', 100000, false, NULL, NULL, 'Васильева Анна', 3, 'актуально');
+INSERT INTO public.vacancy VALUES (252, 14, 7, 'Дирекция по управлению строительством', 'Организация строительства', 'Null', 'P0', 'Инженер-строитель', 3, ' ', 6, 3, 3, '2007-07-20', '2007-01-20', 120000, true, '2007-08-20', '2007-12-20', 'Сидоров Сидор', 14, 'актуально');
+INSERT INTO public.vacancy VALUES (253, 5, 8, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструктурные объекты', 'P1', 'Архитектор', 5, ' ', 2, 5, 5, '2008-08-20', '2014-02-20', 160000, false, NULL, NULL, 'Сергеев Сергей', 5, 'не актуально');
+INSERT INTO public.vacancy VALUES (254, 16, 3, 'Дирекция по управлению строительством', 'Организация строительства', 'ЖД инфраструктура', 'P2', 'Специалист', 2, ' ', 11, 16, 16, '2016-04-20', '2016-10-20', 100000, true, '2016-06-20', '2016-12-20', 'Григорьев Григорий', 16, 'актуально');
+INSERT INTO public.vacancy VALUES (255, 8, 12, 'Департамент управления персоналом', 'Обучение и развитие', 'Null', 'Null', 'Эксперт', 8, ' ', 10, 8, 8, '2008-12-20', '2008-06-20', 80000, false, NULL, NULL, 'Андреев Андрей', 8, 'актуально');
+INSERT INTO public.vacancy VALUES (256, 1, 13, 'Дирекция по управлению строительством', 'Организация строительства', 'ЖД инфраструктура', 'P0', 'Аналитик', 1, ' ', 1, 1, 1, '2013-01-20', '2013-07-20', 80000, true, '2013-02-20', '2013-08-20', 'Иванов Иван', 1, 'актуально');
+INSERT INTO public.vacancy VALUES (257, 2, 14, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P1', 'Специалист', 7, ' ', 4, 7, 7, '2014-02-20', '2014-08-20', 120000, false, NULL, NULL, 'Алексеев Алексей', 2, 'актуально');
+INSERT INTO public.vacancy VALUES (258, 3, 15, 'Дирекция по управлению строительством', 'Организация строительства', 'Null', 'P0', 'Инженер-строитель', 3, ' ', 6, 3, 3, '2015-03-20', '2015-09-20', 140000, true, '2015-04-20', '2015-10-20', 'Сергеев Сергей', 3, 'актуально');
+INSERT INTO public.vacancy VALUES (259, 5, 4, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструкурные объекты', 'P2', 'Разработчик', 12, ' ', 11, 5, 7, '2007-04-20', '2017-10-20', 180000, true, '2017-06-20', '2017-12-20', 'Васильев Василий', 5, 'актуально');
+INSERT INTO public.vacancy VALUES (260, 6, 5, 'Департамент управления персоналом', 'Обучение и развитие', 'ЖД инфраструктура', 'P0', 'Программист', 11, ' ', 2, 16, 12, '2008-05-20', '2015-11-20', 200000, false, NULL, NULL, 'Смирнов Сергей', 6, 'не актуально');
+INSERT INTO public.vacancy VALUES (261, 7, 6, 'Дирекция по управлению строительством', 'Организация строительства', 'Null', 'P1', 'Аналитик', 6, ' ', 1, 6, 6, '2009-06-20', '2016-12-20', 100000, true, '2009-08-20', '2016-12-20', 'Александров Александр', 7, 'актуально');
+INSERT INTO public.vacancy VALUES (262, 8, 1, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструктурные объекты', 'P2', 'Руководитель', 13, ' ', 13, 9, 11, '2010-01-20', '2020-07-20', 180000, false, NULL, NULL, 'Антонова Анна', 8, 'актуально');
+INSERT INTO public.vacancy VALUES (263, 9, 2, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструкурные объекты', 'P0', 'Эксперт', 8, ' ', 18, 12, 15, '2005-02-20', '2010-08-20', 120000, true, '2005-05-20', '2015-12-20', 'Николаев Николай', 9, 'не актуально');
+INSERT INTO public.vacancy VALUES (264, 10, 3, 'Департамент управления персоналом', 'Обучение и развитие', 'Null', 'Null', 'Программист', 11, ' ', 11, 10, 10, '2011-03-20', '2021-09-20', 160000, false, NULL, NULL, 'Сергеева Сергея', 10, 'актуально');
+INSERT INTO public.vacancy VALUES (265, 11, 4, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструктурные объекты', 'P1', 'Архитектор', 5, ' ', 2, 5, 5, '2012-04-20', '2022-10-20', 180000, true, '2012-06-20', '2012-12-20', 'Сергеев Сергей', 11, 'актуально');
+INSERT INTO public.vacancy VALUES (266, 12, 5, 'Департамент управления персоналом', 'Обучение и развитие', 'ЖД инфраструктура', 'P2', 'Разработчик', 12, ' ', 11, 12, 15, '2013-05-20', '2023-11-20', 200000, false, NULL, NULL, 'Смирнов Сергей', 12, 'актуально');
+INSERT INTO public.vacancy VALUES (267, 13, 6, 'Дирекция по управлению строительством', 'Организация строительства', 'Null', 'P0', 'Аналитик', 6, ' ', 1, 6, 6, '2014-06-20', '2024-12-20', 100000, true, '2014-08-20', '2024-12-20', 'Александров Александр', 13, 'актуально');
+INSERT INTO public.vacancy VALUES (268, 14, 7, 'Департамент управления персоналом', 'Обучение и развитие', 'Инфраструкурные объекты', 'P1', 'Специалист', 7, ' ', 4, 7, 7, '2015-07-20', '2025-01-20', 120000, false, NULL, NULL, 'Алексеев Алексей', 14, 'не актуально');
+INSERT INTO public.vacancy VALUES (269, 15, 8, 'Дирекция по управлению строительством', 'Организация строительства', 'Инфраструктурные объекты', 'P2', 'Инженер-строитель', 3, ' ', 6, 3, 3, '2016-08-20', '2026-02-20', 140000, true, '2016-10-20', '2026-12-20', 'Сергеев Сергей', 15, 'актуально');
+
+
+--
+-- TOC entry 3570 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: candidate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.candidate_id_seq', 1, false);
+
+
+--
+-- TOC entry 3571 (class 0 OID 0)
+-- Dependencies: 247
+-- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.comment_id_seq', 1, false);
+
+
+--
+-- TOC entry 3572 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.customer_id_seq', 1524, true);
+
+
+--
+-- TOC entry 3573 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: grade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.grade_id_seq', 1, false);
+
+
+--
+-- TOC entry 3574 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: hr__id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.hr__id_seq', 1, false);
+
+
+--
+-- TOC entry 3575 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: location_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.location_id_seq', 1, false);
+
+
+--
+-- TOC entry 3576 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: mvz_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.mvz_id_seq', 1, false);
+
+
+--
+-- TOC entry 3577 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: offer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.offer_id_seq', 1, false);
+
+
+--
+-- TOC entry 3578 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: past_work_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.past_work_id_seq', 20, true);
+
+
+--
+-- TOC entry 3579 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.project_id_seq', 15, true);
+
+
+--
+-- TOC entry 3580 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: recruit_agency_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.recruit_agency_id_seq', 1, false);
+
+
+--
+-- TOC entry 3581 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: rejection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.rejection_id_seq', 1, false);
+
+
+--
+-- TOC entry 3582 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.role_id_seq', 20, true);
+
+
+--
+-- TOC entry 3583 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: security_check_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.security_check_id_seq', 70, true);
+
+
+--
+-- TOC entry 3584 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: source_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.source_id_seq', 6, true);
+
+
+--
+-- TOC entry 3585 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: talentq_check_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.talentq_check_id_seq', 106, true);
+
+
+--
+-- TOC entry 3586 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: vac_candid_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.vac_candid_id_seq', 62, true);
+
+
+--
+-- TOC entry 3587 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: vacancy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: main
+--
+
+SELECT pg_catalog.setval('public.vacancy_id_seq', 269, true);
+
+
+--
+-- TOC entry 3335 (class 2606 OID 16490)
+-- Name: candidate candidate_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.candidate
+    ADD CONSTRAINT candidate_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3345 (class 2606 OID 16603)
+-- Name: comment comment_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.comment
+    ADD CONSTRAINT comment_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3311 (class 2606 OID 16636)
+-- Name: customer customer_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.customer
+    ADD CONSTRAINT customer_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3313 (class 2606 OID 16412)
+-- Name: grade grade_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.grade
+    ADD CONSTRAINT grade_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3315 (class 2606 OID 16414)
+-- Name: grade grade_position_value_key; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.grade
+    ADD CONSTRAINT grade_position_value_key UNIQUE ("position", value);
+
+
+--
+-- TOC entry 3317 (class 2606 OID 16423)
+-- Name: hr_ hr__pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.hr_
+    ADD CONSTRAINT hr__pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3319 (class 2606 OID 16430)
+-- Name: location location_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.location
+    ADD CONSTRAINT location_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3321 (class 2606 OID 16437)
+-- Name: mvz mvz_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.mvz
+    ADD CONSTRAINT mvz_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3343 (class 2606 OID 16586)
+-- Name: offer offer_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.offer
+    ADD CONSTRAINT offer_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3323 (class 2606 OID 16444)
+-- Name: past_work past_work_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.past_work
+    ADD CONSTRAINT past_work_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3325 (class 2606 OID 16453)
+-- Name: project project_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.project
+    ADD CONSTRAINT project_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3327 (class 2606 OID 16460)
+-- Name: recruit_agency recruit_agency_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.recruit_agency
+    ADD CONSTRAINT recruit_agency_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3347 (class 2606 OID 16615)
+-- Name: rejection rejection_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.rejection
+    ADD CONSTRAINT rejection_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3329 (class 2606 OID 16467)
+-- Name: role role_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT role_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3341 (class 2606 OID 16574)
+-- Name: security_check security_check_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.security_check
+    ADD CONSTRAINT security_check_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3331 (class 2606 OID 16474)
+-- Name: source source_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.source
+    ADD CONSTRAINT source_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3339 (class 2606 OID 16561)
+-- Name: talentq_check talentq_check_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.talentq_check
+    ADD CONSTRAINT talentq_check_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3333 (class 2606 OID 16481)
+-- Name: vac_candid vac_candid_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vac_candid
+    ADD CONSTRAINT vac_candid_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3337 (class 2606 OID 16519)
+-- Name: vacancy vacancy_pkey; Type: CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy
+    ADD CONSTRAINT vacancy_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3361 (class 2606 OID 16562)
+-- Name: talentq_check candidate_fk; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.talentq_check
+    ADD CONSTRAINT candidate_fk FOREIGN KEY (candidate_id) REFERENCES public.candidate(id);
+
+
+--
+-- TOC entry 3362 (class 2606 OID 16575)
+-- Name: security_check candidate_fk; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.security_check
+    ADD CONSTRAINT candidate_fk FOREIGN KEY (candidate_id) REFERENCES public.candidate(id);
+
+
+--
+-- TOC entry 3354 (class 2606 OID 16637)
+-- Name: vacancy fk_customer; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy
+    ADD CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES public.customer(id);
+
+
+--
+-- TOC entry 3355 (class 2606 OID 16525)
+-- Name: vacancy fk_grade; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy
+    ADD CONSTRAINT fk_grade FOREIGN KEY (grade_id) REFERENCES public.grade(id);
+
+
+--
+-- TOC entry 3350 (class 2606 OID 16491)
+-- Name: candidate fk_hr; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.candidate
+    ADD CONSTRAINT fk_hr FOREIGN KEY (hr_id) REFERENCES public.hr_(id);
+
+
+--
+-- TOC entry 3356 (class 2606 OID 16530)
+-- Name: vacancy fk_hr; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy
+    ADD CONSTRAINT fk_hr FOREIGN KEY (hr_id) REFERENCES public.hr_(id);
+
+
+--
+-- TOC entry 3357 (class 2606 OID 16535)
+-- Name: vacancy fk_location; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy
+    ADD CONSTRAINT fk_location FOREIGN KEY (location_id) REFERENCES public.location(id);
+
+
+--
+-- TOC entry 3358 (class 2606 OID 16540)
+-- Name: vacancy fk_mvz; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy
+    ADD CONSTRAINT fk_mvz FOREIGN KEY (mvz_id) REFERENCES public.mvz(id);
+
+
+--
+-- TOC entry 3351 (class 2606 OID 16496)
+-- Name: candidate fk_past_work; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.candidate
+    ADD CONSTRAINT fk_past_work FOREIGN KEY (past_work_id) REFERENCES public.past_work(id);
+
+
+--
+-- TOC entry 3359 (class 2606 OID 16545)
+-- Name: vacancy fk_project; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy
+    ADD CONSTRAINT fk_project FOREIGN KEY (project_id) REFERENCES public.project(id);
+
+
+--
+-- TOC entry 3352 (class 2606 OID 16501)
+-- Name: candidate fk_recruit; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.candidate
+    ADD CONSTRAINT fk_recruit FOREIGN KEY (recruit_agency_id) REFERENCES public.recruit_agency(id);
+
+
+--
+-- TOC entry 3360 (class 2606 OID 16550)
+-- Name: vacancy fk_role; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vacancy
+    ADD CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES public.role(id);
+
+
+--
+-- TOC entry 3353 (class 2606 OID 16506)
+-- Name: candidate fk_source; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.candidate
+    ADD CONSTRAINT fk_source FOREIGN KEY (source_id) REFERENCES public.source(id);
+
+
+--
+-- TOC entry 3365 (class 2606 OID 16604)
+-- Name: comment fk_vacancy; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.comment
+    ADD CONSTRAINT fk_vacancy FOREIGN KEY (vac_id) REFERENCES public.vacancy(id);
+
+
+--
+-- TOC entry 3363 (class 2606 OID 16592)
+-- Name: offer offer_candidate_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.offer
+    ADD CONSTRAINT offer_candidate_id_fkey FOREIGN KEY (candidate_id) REFERENCES public.candidate(id);
+
+
+--
+-- TOC entry 3364 (class 2606 OID 16587)
+-- Name: offer offer_vacancy_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.offer
+    ADD CONSTRAINT offer_vacancy_id_fkey FOREIGN KEY (vacancy_id) REFERENCES public.vacancy(id);
+
+
+--
+-- TOC entry 3366 (class 2606 OID 16621)
+-- Name: rejection rejection_candidate_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.rejection
+    ADD CONSTRAINT rejection_candidate_id_fkey FOREIGN KEY (candidate_id) REFERENCES public.candidate(id);
+
+
+--
+-- TOC entry 3367 (class 2606 OID 16616)
+-- Name: rejection rejection_vacancy_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.rejection
+    ADD CONSTRAINT rejection_vacancy_id_fkey FOREIGN KEY (vacancy_id) REFERENCES public.vacancy(id);
+
+
+--
+-- TOC entry 3348 (class 2606 OID 16662)
+-- Name: vac_candid vac_candid_candidate_fk; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vac_candid
+    ADD CONSTRAINT vac_candid_candidate_fk FOREIGN KEY (candidate_id) REFERENCES public.candidate(id);
+
+
+--
+-- TOC entry 3349 (class 2606 OID 16657)
+-- Name: vac_candid vac_candid_vacancy_fk; Type: FK CONSTRAINT; Schema: public; Owner: main
+--
+
+ALTER TABLE ONLY public.vac_candid
+    ADD CONSTRAINT vac_candid_vacancy_fk FOREIGN KEY (vacancy_id) REFERENCES public.vacancy(id);
+
+
+--
+-- TOC entry 2124 (class 826 OID 16391)
+-- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: -; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres GRANT ALL ON SEQUENCES TO main;
+
+
+--
+-- TOC entry 2126 (class 826 OID 16393)
+-- Name: DEFAULT PRIVILEGES FOR TYPES; Type: DEFAULT ACL; Schema: -; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres GRANT ALL ON TYPES TO main;
+
+
+--
+-- TOC entry 2125 (class 826 OID 16392)
+-- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: -; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres GRANT ALL ON FUNCTIONS TO main;
+
+
+--
+-- TOC entry 2123 (class 826 OID 16390)
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: -; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres GRANT ALL ON TABLES TO main;
+
+
+-- Completed on 2024-06-22 00:36:20 MSK
+
+--
+-- PostgreSQL database dump complete
+--
+
