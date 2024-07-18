@@ -78,7 +78,7 @@ Database for HR department
 ### Thus, the data structure represented in the diagram corresponds to the third normal form (3NF).
 
 # The Python script to populate the table:
-Link
+[Link](https://github.com/Rextek7/Python-Script)
 
 ### The most complex Select query was also selected (see below). The indexes were configured and the results of the settings were recorded in the report with the query execution time before and after adding the indexes.
 Query execution time before / after creating the indexes:
